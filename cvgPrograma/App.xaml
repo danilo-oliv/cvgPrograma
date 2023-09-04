@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:cvgPrograma"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <BitmapImage x:Key="agenda" UriSource="\Assets\Icons\agendaSVG.png"></BitmapImage>
+            <BitmapImage x:Key="cash" UriSource="/Assets/Icons/cashSVG.png"></BitmapImage>
+            <BitmapImage x:Key="box" UriSource="\Assets\Icons\caixaSVG.png"></BitmapImage>
+            <BitmapImage x:Key="info" UriSource="\Assets\Icons\graficoSVG.png"></BitmapImage>
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

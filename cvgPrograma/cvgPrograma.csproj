@@ -8,9 +8,33 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Compile Remove="assetsCVG\**" />
+    <EmbeddedResource Remove="assetsCVG\**" />
+    <None Remove="assetsCVG\**" />
+    <Page Remove="assetsCVG\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="agenda.svg" />
+    <None Remove="agendaSVG.png" />
+    <None Remove="Assets\Icons\agendaSVG.png" />
+    <None Remove="Assets\Icons\caixaSVG.png" />
+    <None Remove="Assets\Icons\cashSVG.png" />
+    <None Remove="Assets\Icons\graficoSVG.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Viewmodels\" />
     <Folder Include="Views\Pages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="agenda.svg" />
+    <Resource Include="agendaSVG.png" />
+    <Resource Include="Assets\Icons\agendaSVG.png" />
+    <Resource Include="Assets\Icons\caixaSVG.png" />
+    <Resource Include="Assets\Icons\cashSVG.png" />
+    <Resource Include="Assets\Icons\graficoSVG.png" />
   </ItemGroup>
 
 </Project>
