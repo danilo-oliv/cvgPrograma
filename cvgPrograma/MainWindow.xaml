@@ -4,98 +4,37 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:cvgPrograma"
+        xmlns:views="clr-namespace:cvgPrograma.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        Background="#CDC1B3"
-        >
-    <Window.Resources>
-        <!--Propriedades dos botões do menu-->
-        <Style TargetType="MenuItem">
-            <Setter Property="Margin" Value="20 0 20 0"></Setter>
-            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-            <Setter Property="Padding" Value="9,7,6,0"></Setter>
-        </Style>
-        <!--Propriedades dos ícones (imagens) do menu-->
-        <Style x:Key="icon" TargetType="Image">
-            <Setter Property="Width" Value="40"></Setter>
-            <Setter Property="Height" Value="40"></Setter>
-            <Setter Property="Margin" Value="-34 -20 -23 -33"></Setter>
-        </Style>
-    </Window.Resources>
-
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
-        <!--Esse grid separa o menu do resto do programa-->
-        <Grid.RowDefinitions>
-            <RowDefinition Height="85"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
+        <TabControl Grid.Row="0"
+                    Width="400"
+                    materialDesign:ColorZoneAssist.Background="{DynamicResource MaterialDesignCardBackground}"
+                    materialDesign:ColorZoneAssist.Foreground="{DynamicResource PrimaryHueMidBrush}"
+                    materialDesign:ColorZoneAssist.Mode="Custom"
+                    Style="{StaticResource MaterialDesignFilledTabControl}">
+            <TabItem Header="Agenda">
+                <views:AgendaView></views:AgendaView>
+            </TabItem>
+            <TabItem Header="Estoque">
+                <views:EstoqueView></views:EstoqueView>
+            </TabItem>
+            <TabItem Header="Vendas">
+                <views:VendasView></views:VendasView>
+            </TabItem>
+            <TabItem Header="Info">
+                <views:InfoView></views:InfoView>
+            </TabItem>
+        </TabControl>
 
-        <Menu Grid.Row="0"
-                    Margin="0"
-                    Padding="0"
-                    HorizontalAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    VerticalAlignment="Center"
-                    Background="#A65149"
-                    Height="50"
-                    Foreground="Black"
-                    FontSize="24"
-              Width="680">
-            <MenuItem Header="AGENDA">
-                <!--As imagens são declaradas no App.xaml, precisa mudar a prop pra Resource também-->
-                <MenuItem.Icon>
-                    <Image Source="{StaticResource agenda}"
-                            Style="{StaticResource icon}"
-                           />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Header="ESTOQUE">
-                <MenuItem.Icon>
-                    <Image Source="{StaticResource box}" 
-                           Style="{StaticResource icon}"  />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Header="VENDAS">
-                <MenuItem.Icon>
-                    <Image Source="{StaticResource cash}" 
-                           Style="{StaticResource icon}"/>
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Header="INFO">
-                <MenuItem.Icon>
-                    <Image Source="{StaticResource info}" 
-                           Style="{StaticResource icon}"/>
-                </MenuItem.Icon>
-            </MenuItem>
-        </Menu>
-        <!--Aqui começa o programa em si, um grid que separa o calendário dos serviços-->
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="350"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-
-            <Calendar Grid.Column="0"
-                      MaxWidth="350"
-                      Width="600"
-                      Height="600"></Calendar>
-
-            <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="23" FontWeight="SemiBold" Width="170" Margin="10 5">SERVIÇOS</TextBlock>
-                    <Button Content="Novo Serviço" Width="150"></Button>
-                </StackPanel>
-                <DataGrid Name="dgSimple"
-                      Background="Transparent"
-                      Margin="20"
-                      Height="auto">
-                </DataGrid>
-                <DataGrid Name="dgService"
-                      Background="Transparent"
-                      Margin="20"
-                      Height="auto">
-                </DataGrid>
-            </StackPanel>
-        </Grid>
     </Grid>
 </Window>

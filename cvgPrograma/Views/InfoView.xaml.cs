@@ -1,5 +1,4 @@
-﻿using cvgPrograma.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,21 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace cvgPrograma
+namespace cvgPrograma.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interação lógica para InfoView.xam
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class InfoView : UserControl
     {
-        public MainWindow()
+        public InfoView()
         {
             InitializeComponent();
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

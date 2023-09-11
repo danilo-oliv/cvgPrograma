@@ -9,14 +9,16 @@
 
   <ItemGroup>
     <Compile Remove="assetsCVG\**" />
+    <Compile Remove="Views\Pages\**" />
     <EmbeddedResource Remove="assetsCVG\**" />
+    <EmbeddedResource Remove="Views\Pages\**" />
     <None Remove="assetsCVG\**" />
+    <None Remove="Views\Pages\**" />
     <Page Remove="assetsCVG\**" />
+    <Page Remove="Views\Pages\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="agenda.svg" />
-    <None Remove="agendaSVG.png" />
     <None Remove="Assets\Icons\agendaSVG.png" />
     <None Remove="Assets\Icons\caixaSVG.png" />
     <None Remove="Assets\Icons\cashSVG.png" />
@@ -24,13 +26,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Viewmodels\" />
-    <Folder Include="Views\Pages\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="agenda.svg" />
-    <Resource Include="agendaSVG.png" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\Icons\agendaSVG.png" />
     <Resource Include="Assets\Icons\caixaSVG.png" />
     <Resource Include="Assets\Icons\cashSVG.png" />
