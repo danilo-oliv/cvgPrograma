@@ -24,5 +24,15 @@ namespace cvgPrograma.Views
         {
             InitializeComponent();
         }
+
+        private void OnCloseModalClick(object sender, RoutedEventArgs e)
+        {
+            modalTeste.IsOpen = false;
+        }
+
+        private void OnShowModalClick(object sender, RoutedEventArgs e)
+        {
+            modalTeste.IsOpen = true;
+        }
     }
 }
