@@ -17,26 +17,36 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowState="Maximized">
     <Grid>
-        <TabControl Grid.Row="0"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TabControl x:Name="menuTab"
+                    Grid.Row="0"
                     Width="1400"
                     MaxWidth="1800"
                     materialDesign:ColorZoneAssist.Background="{DynamicResource MaterialDesignCardBackground}"
                     materialDesign:ColorZoneAssist.Foreground="{DynamicResource PrimaryHueMidBrush}"
                     materialDesign:ColorZoneAssist.Mode="Custom"
-                    Style="{StaticResource MaterialDesignFilledTabControl}">
-            <TabItem Header="Agenda">
-                <views:AgendaView></views:AgendaView>
+                    Style="{StaticResource MaterialDesignFilledTabControl}" >
+            <TabItem Header="Agenda"
+                     x:Name="agendaTab"
+                     >
+                
             </TabItem>
-            <TabItem Header="Estoque">
+            <TabItem Header="Estoque"
+                     x:Name="esoqueTab" MouseDoubleClick="testeDoubleClick">
                 <views:EstoqueView></views:EstoqueView>
             </TabItem>
-            <TabItem Header="Vendas">
+            <TabItem Header="Vendas"
+                     x:Name="vendasTab" MouseDoubleClick="testeDoubleClick2">
                 <views:VendasView></views:VendasView>
             </TabItem>
-            <TabItem Header="Info">
+            <TabItem Header="Info"
+                     x:Name="infoTab">
                 <views:InfoView></views:InfoView>
             </TabItem>
         </TabControl>
-
+        <views:AgendaView Grid.Row="1" Loaded="AgendaView_Loaded" x:Name="agendaView" Visibility="Hidden"></views:AgendaView>
     </Grid>
 </Window>

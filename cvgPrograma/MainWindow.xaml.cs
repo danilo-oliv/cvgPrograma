@@ -30,5 +30,52 @@ namespace cvgPrograma
         {
 
         }
+
+        private void AgendaView_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+  //      private void MenuTabClick(object sender, SelectionChangedEventArgs e)
+     //   {
+
+      //  }
+
+        //private void MenuTabClick(object sender, RoutedEventArgs e)
+        //{
+        //    if (menuTab.SelectedItem != null)
+        //    {
+
+        //        string selectedTabName = ((TabItem)menuTab.SelectedItem).Name;
+
+        //        switch (selectedTabName)
+        //        {
+        //            case "agendaTab":
+        //                Console.WriteLine("Agenda");
+        //                break;
+        //            case "esoqueTab":
+        //                Console.WriteLine("Estoque");
+        //                break;
+        //            case "vendasTab":
+        //                Console.WriteLine("Vendas");
+        //                break;
+        //            case "infoTab":
+        //                Console.WriteLine("Info");
+        //                break;
+        //        }
+        //    }
+        //}
+
+        private void testeDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            menuTab.SelectedItem = 1;
+            agendaView.Visibility = Visibility.Visible;
+        }
+
+        private void testeDoubleClick2(object sender, MouseButtonEventArgs e)
+        {
+            menuTab.SelectedItem = 2;
+            agendaView.Visibility = Visibility.Hidden;
+        }
     }
 }
