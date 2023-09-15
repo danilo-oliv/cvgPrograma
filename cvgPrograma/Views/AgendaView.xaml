@@ -23,17 +23,87 @@
             <custom:Modal.Background>
                 <SolidColorBrush Opacity="0.3" Color="Black" ></SolidColorBrush>
             </custom:Modal.Background>
-            <Grid Width="300"
-                  Height="300"
+            <Grid Width="515"
+                  Height="335"
                   Background="White">
-                <StackPanel HorizontalAlignment="Center" 
-                        VerticalAlignment="Center"
+                <StackPanel HorizontalAlignment="Right" 
+                        VerticalAlignment="Top"
                         >
                     <Button x:Name="btnCloseModal"
-                        Margin="0 10 0 0"
-                        Padding="10 5"
+                        Margin="0 10 10 0"
+                        Padding="2 0 2 0"
+                            
                         Click="OnCloseModalClick"
-                        Content="Close Modal"></Button>
+                        >
+                        <materialDesign:PackIcon Height="25" Width="25" Kind="CloseBoxOutline" />
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Adicionar Serviço"
+                       HorizontalAlignment="Center"
+                       Margin="15"
+                      />
+                    <TextBlock Text="Descrição:"
+                            Margin="10"
+                           />
+                    <TextBox Width="400" 
+                     HorizontalAlignment="Left"
+                     Margin="10 0 10 10" Height="50"
+                             FontWeight="SemiBold"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Preço:"
+                           Margin="10"/>
+                        <TextBox Width="150" 
+                     HorizontalAlignment="Left"
+                     Margin="10 0 10 0" Height="25"/>
+                        <TextBlock Text="Data de entrega:"
+                           Margin="10"/>
+                        <DatePicker Width="130"
+                            materialDesign:HintAssist.Hint="Escolha uma data"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                    </StackPanel>
+                    <TextBlock Text="Método de pagamento"
+                       HorizontalAlignment="Left"
+                       Margin="10"/>
+                    <ComboBox materialDesign:HintAssist.Hint="Selecione"
+                      Width="200"
+                      HorizontalAlignment="Left"
+                      Margin="10 0 10 0"
+                      Padding="5">
+                        <ComboBoxItem Content="Cartão de crédito" />
+                        <ComboBoxItem Content="Cartão de débito" />
+                        <ComboBoxItem Content="Dinheiro" />
+                        <ComboBoxItem Content="Pix" />
+                    </ComboBox>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Cliente:"
+                           Margin="10"/>
+                        <TextBox Width="150" 
+                     HorizontalAlignment="Left"
+                     Margin="10 0 10 0" Height="25"/>
+                        <TextBlock Text="Contato:"
+                           Margin="10"/>
+                        <TextBox Width="155" 
+                     HorizontalAlignment="Left"
+                     Margin="10 0 10 0" Height="25"/>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                        <Button Width="90"
+                    Content="Salvar"
+                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Style="{StaticResource MaterialDesignOutlinedLightButton}"
+                    ToolTip="MaterialDesignOutlinedButton"
+                        Margin="10"/>
+                        <Button Width="90"
+                    Content="Cancelar"
+                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Style="{StaticResource MaterialDesignOutlinedLightButton}"
+                    ToolTip="MaterialDesignOutlinedButton"
+                        Margin="10"/>
+                    </StackPanel>
                 </StackPanel>
             </Grid>
 
@@ -45,5 +115,6 @@
                         Click="OnShowModalClick"
                         Content="Show Modal"></Button>
         </StackPanel>
+
     </Grid>
 </UserControl>
