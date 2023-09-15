@@ -12,14 +12,13 @@
              TextElement.FontSize="13"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
-             Background="{DynamicResource MaterialDesignPaper}"
+             Background="Aquamarine"
+             Foreground="White"
              FontFamily="{DynamicResource MaterialDesignFont}"
              >
     <Grid>
         <TextBlock HorizontalAlignment="Center"
                    VerticalAlignment="Center">
             estoque teste</TextBlock>
-        <TextBlock>**********************************************************************************************************************************************************</TextBlock>
-
     </Grid>
 </UserControl>
