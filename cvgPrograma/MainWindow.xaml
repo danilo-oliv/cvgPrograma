@@ -14,27 +14,41 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}">
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowState="Maximized">
     <Grid>
-        <TabControl Grid.Row="0"
-                    Width="400"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TabControl x:Name="menuTab"
+                    Grid.Row="0"
+                    Width="800"
+                    MaxWidth="1800"
                     materialDesign:ColorZoneAssist.Background="{DynamicResource MaterialDesignCardBackground}"
                     materialDesign:ColorZoneAssist.Foreground="{DynamicResource PrimaryHueMidBrush}"
                     materialDesign:ColorZoneAssist.Mode="Custom"
-                    Style="{StaticResource MaterialDesignFilledTabControl}">
-            <TabItem Header="Agenda">
-                <views:AgendaView></views:AgendaView>
+                    Style="{StaticResource MaterialDesignFilledTabControl}" >
+            <TabItem Header="Agenda"
+                     x:Name="agendaTab" PreviewMouseLeftButtonDown="agendaTabClick"
+                     >
+                
             </TabItem>
-            <TabItem Header="Estoque">
-                <views:EstoqueView></views:EstoqueView>
+            <TabItem Header="Estoque"
+                     x:Name="estoqueTab"
+                     PreviewMouseLeftButtonDown="estoqueTabClick">
+                
             </TabItem>
-            <TabItem Header="Vendas">
-                <views:VendasView></views:VendasView>
+            <TabItem Header="Vendas"
+                     x:Name="vendasTab" PreviewMouseLeftButtonDown="vendasTabClick">
             </TabItem>
-            <TabItem Header="Info">
-                <views:InfoView></views:InfoView>
+            <TabItem Header="Info"
+                     x:Name="infoTab" PreviewMouseLeftButtonDown="infoTabClick">
             </TabItem>
         </TabControl>
-
+        <views:AgendaView Grid.Row="1" x:Name="agendaView" Visibility="Visible"></views:AgendaView>
+        <views:EstoqueView Grid.Row="1" x:Name="estoqueView" Visibility="Hidden"></views:EstoqueView>
+        <views:VendasView Grid.Row="1" x:Name="vendasView" Visibility="Hidden"></views:VendasView>
+        <views:InfoView Grid.Row="1" x:Name="infoView" Visibility="Hidden"></views:InfoView>
     </Grid>
 </Window>

@@ -19,5 +19,7 @@
         <TextBlock HorizontalAlignment="Center"
                    VerticalAlignment="Center">
             estoque teste</TextBlock>
+        <TextBlock>**********************************************************************************************************************************************************</TextBlock>
+
     </Grid>
 </UserControl>
