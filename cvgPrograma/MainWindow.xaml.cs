@@ -24,58 +24,50 @@ namespace cvgPrograma
         public MainWindow()
         {
             InitializeComponent();
+            //menuTab.SelectedItem = 0;
+
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        //Botao agenda
+        private void agendaTabClick(object sender, MouseButtonEventArgs e)
         {
-
+            menuTab.SelectedItem = 0;
+            agendaView.Visibility = Visibility.Visible;
+            estoqueView.Visibility = Visibility.Hidden;
+            vendasView.Visibility = Visibility.Hidden;
+            infoView.Visibility = Visibility.Hidden;
         }
 
-        private void AgendaView_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-  //      private void MenuTabClick(object sender, SelectionChangedEventArgs e)
-     //   {
-
-      //  }
-
-        //private void MenuTabClick(object sender, RoutedEventArgs e)
-        //{
-        //    if (menuTab.SelectedItem != null)
-        //    {
-
-        //        string selectedTabName = ((TabItem)menuTab.SelectedItem).Name;
-
-        //        switch (selectedTabName)
-        //        {
-        //            case "agendaTab":
-        //                Console.WriteLine("Agenda");
-        //                break;
-        //            case "esoqueTab":
-        //                Console.WriteLine("Estoque");
-        //                break;
-        //            case "vendasTab":
-        //                Console.WriteLine("Vendas");
-        //                break;
-        //            case "infoTab":
-        //                Console.WriteLine("Info");
-        //                break;
-        //        }
-        //    }
-        //}
-
-        private void testeDoubleClick(object sender, MouseButtonEventArgs e)
+        //Botao estoque
+        private void estoqueTabClick(object sender, MouseButtonEventArgs e)
         {
             menuTab.SelectedItem = 1;
-            agendaView.Visibility = Visibility.Visible;
+            agendaView.Visibility = Visibility.Hidden;
+            estoqueView.Visibility = Visibility.Visible;
+            vendasView.Visibility = Visibility.Hidden;
+            infoView.Visibility = Visibility.Hidden;
         }
 
-        private void testeDoubleClick2(object sender, MouseButtonEventArgs e)
+        //Botao vendas
+        private void vendasTabClick(object sender, MouseButtonEventArgs e)
         {
             menuTab.SelectedItem = 2;
             agendaView.Visibility = Visibility.Hidden;
+            estoqueView.Visibility = Visibility.Hidden;
+            vendasView.Visibility = Visibility.Visible;
+            infoView.Visibility = Visibility.Hidden;
         }
+
+        //Botao info
+        private void infoTabClick(object sender, MouseButtonEventArgs e)
+        {
+            menuTab.SelectedItem = 3;
+            agendaView.Visibility = Visibility.Hidden;
+            estoqueView.Visibility = Visibility.Hidden;
+            vendasView.Visibility = Visibility.Hidden;
+            infoView.Visibility = Visibility.Visible;
+        }
+
+
     }
 }
