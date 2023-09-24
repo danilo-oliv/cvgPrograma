@@ -25,7 +25,7 @@
                 <SolidColorBrush Opacity="0.3" Color="Black" ></SolidColorBrush>
             </custom:Modal.Background>
             <Grid Width="515"
-                  Height="335"
+                  Height="355"
                   Background="White">
                 <StackPanel HorizontalAlignment="Right" 
                         VerticalAlignment="Top"
@@ -44,50 +44,72 @@
                        HorizontalAlignment="Center"
                        Margin="15"
                       />
-                    <TextBlock Text="Descrição:"
-                            Margin="10"
-                           />
-                    <TextBox Width="400" 
-                     HorizontalAlignment="Left"
-                     Margin="10 0 10 10" Height="50"
-                             FontWeight="SemiBold"/>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Preço:"
-                           Margin="10"/>
-                        <TextBox Width="150" 
-                     HorizontalAlignment="Left"
-                     Margin="10 0 10 0" Height="25"/>
-                        <TextBlock Text="Data de entrega:"
-                           Margin="10"/>
-                        <DatePicker Width="130"
-                            materialDesign:HintAssist.Hint="Escolha uma data"
+
+                    <TextBox
+                        Height="70"
+                        Width="400"
+                        VerticalAlignment="Top"
+                        materialDesign:HintAssist.Hint="Descrição"
+                        materialDesign:HintAssist.HintOpacity="0.9"
+                        AcceptsReturn="True"                       
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        TextWrapping="Wrap"
+                        VerticalScrollBarVisibility="Auto" />
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+                        <TextBox
+                                HorizontalAlignment="Center"
+                                Margin="0 10 10 10"
+                                Width="183"
+                                VerticalAlignment="Top"
+                                materialDesign:HintAssist.Hint="Preço:"
+                                materialDesign:HintAssist.HintOpacity="0.9"
+                                AcceptsReturn="True"                       
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                TextWrapping="Wrap"
+                                VerticalScrollBarVisibility="Auto" />   
+                        <DatePicker 
+                            HorizontalAlignment="Center"
+                            Width="206"
+                            materialDesign:HintAssist.Hint="Data de entrada:"
                             materialDesign:TextFieldAssist.HasClearButton="True"
-                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                            Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
                     </StackPanel>
-                    <TextBlock Text="Método de pagamento"
-                       HorizontalAlignment="Left"
-                       Margin="10"/>
-                    <ComboBox materialDesign:HintAssist.Hint="Selecione"
-                      Width="200"
-                      HorizontalAlignment="Left"
-                      Margin="10 0 10 0"
-                      Padding="5">
+
+                    <ComboBox
+                      HorizontalAlignment="Center"
+                      materialDesign:HintAssist.Hint="Método de Pagamento"
+                      Width="400"
+                      Margin="10"
+                      Padding="5"        
+                      Style="{StaticResource MaterialDesignOutlinedComboBox}">
                         <ComboBoxItem Content="Cartão de crédito" />
                         <ComboBoxItem Content="Cartão de débito" />
                         <ComboBoxItem Content="Dinheiro" />
                         <ComboBoxItem Content="Pix" />
                     </ComboBox>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Cliente:"
-                           Margin="10"/>
-                        <TextBox Width="150" 
-                     HorizontalAlignment="Left"
-                     Margin="10 0 10 0" Height="25"/>
-                        <TextBlock Text="Contato:"
-                           Margin="10"/>
-                        <TextBox Width="155" 
-                     HorizontalAlignment="Left"
-                     Margin="10 0 10 0" Height="25"/>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+                        <TextBox
+                                Margin="0 10 10 10"
+                                Width="195"
+                                VerticalAlignment="Top"
+                                materialDesign:HintAssist.Hint="Cliente:"
+                                materialDesign:HintAssist.HintOpacity="0.9"
+                                AcceptsReturn="True"                       
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                TextWrapping="Wrap"
+                                VerticalScrollBarVisibility="Auto" />
+                        <TextBox
+                                Margin="0 10 0 10"
+                                Width="195"
+                                VerticalAlignment="Top"
+                                materialDesign:HintAssist.Hint="Contato:"
+                                materialDesign:HintAssist.HintOpacity="0.9"
+                                AcceptsReturn="True"                       
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                TextWrapping="Wrap"
+                                VerticalScrollBarVisibility="Auto" />
 
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"
