@@ -15,11 +15,11 @@
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
-             >
+                >
     <Grid>
         <custom:Modal x:Name="modalTeste" 
                       Panel.ZIndex="10"
-                      >
+                      IsTabStop="False">
             <custom:Modal.Background>
                 <SolidColorBrush Opacity="0.3" Color="Black" ></SolidColorBrush>
             </custom:Modal.Background>
@@ -171,7 +171,8 @@
                         Margin="0 10 0 20"
                         Padding="10 5"
                         Click="OnShowModalClick"
-                        Content="Novo Produto"></Button>
+                        Content="Novo Produto"
+                        IsTabStop="False"></Button>
         </StackPanel>
 
     </Grid>

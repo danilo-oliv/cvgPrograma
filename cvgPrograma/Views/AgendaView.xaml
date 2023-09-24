@@ -20,7 +20,7 @@
         <!--MODAL ADICIONAR SERVIÇO-->
         <custom:Modal x:Name="modalTeste" 
                       Panel.ZIndex="10"
-                      >
+                      IsTabStop="False">
             <custom:Modal.Background>
                 <SolidColorBrush Opacity="0.3" Color="Black" ></SolidColorBrush>
             </custom:Modal.Background>
@@ -136,7 +136,8 @@
                         Margin="0 10 0 20"
                         Padding="10 5"
                         Click="OnShowModalClick"
-                        Content="Novo Serviço"></Button>
+                        Content="Novo Serviço"
+                        IsTabStop="False"></Button>
         </StackPanel>
 
     </Grid>
