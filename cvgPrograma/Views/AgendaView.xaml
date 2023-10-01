@@ -17,23 +17,116 @@
              FontFamily="{DynamicResource MaterialDesignFont}"
              >
     <Grid>
+        <!--MODAL ADICIONAR SERVIÇO-->
         <custom:Modal x:Name="modalTeste" 
                       Panel.ZIndex="10"
-                      >
+                      IsTabStop="False">
             <custom:Modal.Background>
                 <SolidColorBrush Opacity="0.3" Color="Black" ></SolidColorBrush>
             </custom:Modal.Background>
-            <Grid Width="300"
-                  Height="300"
+            <Grid Width="515"
+                  Height="355"
                   Background="White">
-                <StackPanel HorizontalAlignment="Center" 
-                        VerticalAlignment="Center"
+                <StackPanel HorizontalAlignment="Right" 
+                        VerticalAlignment="Top"
                         >
                     <Button x:Name="btnCloseModal"
-                        Margin="0 10 0 0"
-                        Padding="10 5"
+                        Margin="0 10 10 0"
+                        Padding="2 0 2 0"
+                            
                         Click="OnCloseModalClick"
-                        Content="Close Modal"></Button>
+                        >
+                        <materialDesign:PackIcon Height="25" Width="25" Kind="CloseBoxOutline" />
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Adicionar Serviço"
+                       HorizontalAlignment="Center"
+                       Margin="15"
+                      />
+
+                    <TextBox
+                        Height="70"
+                        Width="400"
+                        VerticalAlignment="Top"
+                        materialDesign:HintAssist.Hint="Descrição"
+                        materialDesign:HintAssist.HintOpacity="0.9"
+                        AcceptsReturn="True"                       
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        TextWrapping="Wrap"
+                        VerticalScrollBarVisibility="Auto" />
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+                        <TextBox
+                                HorizontalAlignment="Center"
+                                Margin="0 10 10 10"
+                                Width="183"
+                                VerticalAlignment="Top"
+                                materialDesign:HintAssist.Hint="Preço:"
+                                materialDesign:HintAssist.HintOpacity="0.9"
+                                AcceptsReturn="True"                       
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                TextWrapping="Wrap"
+                                VerticalScrollBarVisibility="Auto" />   
+                        <DatePicker 
+                            HorizontalAlignment="Center"
+                            Width="206"
+                            materialDesign:HintAssist.Hint="Data de entrada:"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
+                    </StackPanel>
+
+                    <ComboBox
+                      HorizontalAlignment="Center"
+                      materialDesign:HintAssist.Hint="Método de Pagamento"
+                      Width="400"
+                      Margin="10"
+                      Padding="5"        
+                      Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                        <ComboBoxItem Content="Cartão de crédito" />
+                        <ComboBoxItem Content="Cartão de débito" />
+                        <ComboBoxItem Content="Dinheiro" />
+                        <ComboBoxItem Content="Pix" />
+                    </ComboBox>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+                        <TextBox
+                                Margin="0 10 10 10"
+                                Width="195"
+                                VerticalAlignment="Top"
+                                materialDesign:HintAssist.Hint="Cliente:"
+                                materialDesign:HintAssist.HintOpacity="0.9"
+                                AcceptsReturn="True"                       
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                TextWrapping="Wrap"
+                                VerticalScrollBarVisibility="Auto" />
+                        <TextBox
+                                Margin="0 10 0 10"
+                                Width="195"
+                                VerticalAlignment="Top"
+                                materialDesign:HintAssist.Hint="Contato:"
+                                materialDesign:HintAssist.HintOpacity="0.9"
+                                AcceptsReturn="True"                       
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                TextWrapping="Wrap"
+                                VerticalScrollBarVisibility="Auto" />
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                        <Button Width="90"
+                    Content="Salvar"
+                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Style="{StaticResource MaterialDesignOutlinedLightButton}"
+                    ToolTip="MaterialDesignOutlinedButton"
+                        Margin="10"/>
+                        <Button Width="90"
+                    Content="Cancelar"
+                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Style="{StaticResource MaterialDesignOutlinedLightButton}"
+                    ToolTip="MaterialDesignOutlinedButton"
+                        Margin="10"/>
+                    </StackPanel>
                 </StackPanel>
             </Grid>
 
@@ -43,7 +136,9 @@
                         Margin="0 10 0 20"
                         Padding="10 5"
                         Click="OnShowModalClick"
-                        Content="Show Modal"></Button>
+                        Content="Novo Serviço"
+                        IsTabStop="False"></Button>
         </StackPanel>
+
     </Grid>
 </UserControl>

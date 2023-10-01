@@ -32,6 +32,7 @@ namespace cvgPrograma
         private void agendaTabClick(object sender, MouseButtonEventArgs e)
         {
             menuTab.SelectedItem = 0;
+            loginView.Visibility = Visibility.Hidden;
             agendaView.Visibility = Visibility.Visible;
             estoqueView.Visibility = Visibility.Hidden;
             vendasView.Visibility = Visibility.Hidden;
@@ -42,6 +43,7 @@ namespace cvgPrograma
         private void estoqueTabClick(object sender, MouseButtonEventArgs e)
         {
             menuTab.SelectedItem = 1;
+            loginView.Visibility = Visibility.Hidden;
             agendaView.Visibility = Visibility.Hidden;
             estoqueView.Visibility = Visibility.Visible;
             vendasView.Visibility = Visibility.Hidden;
@@ -52,6 +54,7 @@ namespace cvgPrograma
         private void vendasTabClick(object sender, MouseButtonEventArgs e)
         {
             menuTab.SelectedItem = 2;
+            loginView.Visibility = Visibility.Hidden;
             agendaView.Visibility = Visibility.Hidden;
             estoqueView.Visibility = Visibility.Hidden;
             vendasView.Visibility = Visibility.Visible;
@@ -62,12 +65,21 @@ namespace cvgPrograma
         private void infoTabClick(object sender, MouseButtonEventArgs e)
         {
             menuTab.SelectedItem = 3;
+            loginView.Visibility = Visibility.Hidden;
             agendaView.Visibility = Visibility.Hidden;
             estoqueView.Visibility = Visibility.Hidden;
             vendasView.Visibility = Visibility.Hidden;
             infoView.Visibility = Visibility.Visible;
         }
 
-
+        private void loginTabClick(object sender, MouseButtonEventArgs e)
+        {
+            menuTab.SelectedItem = 4;
+            loginView.Visibility = Visibility.Visible;
+            agendaView.Visibility = Visibility.Hidden;
+            estoqueView.Visibility = Visibility.Hidden;
+            vendasView.Visibility = Visibility.Hidden;
+            infoView.Visibility = Visibility.Hidden;
+        }
     }
 }
