@@ -18,6 +18,23 @@
              FontFamily="{DynamicResource MaterialDesignFont}"
                 >
     <Grid>
+        <TextBlock HorizontalAlignment="Center"
+                   VerticalAlignment="Center">
+            estoque teste</TextBlock>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
         <custom:Modal x:Name="modalTeste" 
                       Panel.ZIndex="10"
