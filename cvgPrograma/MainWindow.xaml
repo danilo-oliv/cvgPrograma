@@ -19,7 +19,7 @@
         >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="51"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <TabControl x:Name="menuTab"

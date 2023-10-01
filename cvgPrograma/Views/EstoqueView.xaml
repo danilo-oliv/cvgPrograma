@@ -13,10 +13,29 @@
              TextElement.FontSize="13"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
-             Background="{DynamicResource MaterialDesignPaper}"
+             Background="White"
+             Foreground="White"
              FontFamily="{DynamicResource MaterialDesignFont}"
                 >
     <Grid>
+        <TextBlock HorizontalAlignment="Center"
+                   VerticalAlignment="Center">
+            estoque teste</TextBlock>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
         <custom:Modal x:Name="modalTeste" 
                       Panel.ZIndex="10"
                       IsTabStop="False">
@@ -175,5 +194,42 @@
                         IsTabStop="False"></Button>
         </StackPanel>
 
+        <TextBlock HorizontalAlignment="Center"
+                   VerticalAlignment="Center">
+            estoque teste</TextBlock>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+
+            <StackPanel Grid.Column="0" Grid.Row="0">
+
+                <StackPanel>
+                    
+                    <TextBox
+    MaxWidth="400"
+    VerticalAlignment="Center"
+    materialDesign:HintAssist.Hint="Digite o nome do produto:"
+    AcceptsReturn="True"
+    Style="{StaticResource MaterialDesignFilledTextBox}"
+    TextWrapping="Wrap" Foreground="Black" />
+                </StackPanel>
+
+
+            </StackPanel>
+        </Grid>
+        
     </Grid>
 </UserControl>
+

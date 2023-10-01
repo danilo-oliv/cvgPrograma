@@ -15,7 +15,28 @@
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}">
-    <Grid>
-        <TextBlock>Teste</TextBlock>    
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,50,0,0">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="478">
+            <Image Width="120" Source="C:\Users\walas\Pictures\logo.PNG" Margin="0,0,0,30"/>
+                <TextBox
+                Height="50"
+                materialDesign:HintAssist.Hint="Usuário:"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                TextWrapping="Wrap"
+                VerticalScrollBarVisibility="Auto" Width="200" FontSize="13" TextChanged="TextBox_TextChanged" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <PasswordBox
+             Margin="20,18,20,40"
+                materialDesign:HintAssist.Hint="Senha:"
+  Style="{StaticResource MaterialDesignOutlinedPasswordBox}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" />
+            <Button
+  Width="90"
+  Content="_ENTRAR"
+  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+  Style="{StaticResource MaterialDesignRaisedDarkButton}"
+  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Height="32" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor="Hand" />
+
+        </StackPanel>
+
+
     </Grid>
 </UserControl>

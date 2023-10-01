@@ -50,6 +50,11 @@ namespace cvgPrograma.Views
         private void BtnLimparImagem(object sender, RoutedEventArgs e)
         {
             imgDynamic.Source = null;
+
+        }
+
+
+
         }
     }
 }
