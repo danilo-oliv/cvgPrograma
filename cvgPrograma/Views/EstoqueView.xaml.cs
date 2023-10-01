@@ -26,15 +26,6 @@ namespace cvgPrograma.Views
             InitializeComponent();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
-        {
-
-        }
         private void OnShowModalClick(object sender, RoutedEventArgs e)
         {
             modalTeste.IsOpen = true;
@@ -59,6 +50,10 @@ namespace cvgPrograma.Views
         private void BtnLimparImagem(object sender, RoutedEventArgs e)
         {
             imgDynamic.Source = null;
+
+        }
+
+
 
         }
     }

@@ -194,6 +194,24 @@
                         IsTabStop="False"></Button>
         </StackPanel>
 
+        <TextBlock HorizontalAlignment="Center"
+                   VerticalAlignment="Center">
+            estoque teste</TextBlock>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
 
             <StackPanel Grid.Column="0" Grid.Row="0">
 
