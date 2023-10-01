@@ -15,7 +15,8 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        WindowState="Maximized">
+        WindowState="Maximized"
+        >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="51"></RowDefinition>
@@ -29,26 +30,37 @@
                     materialDesign:ColorZoneAssist.Foreground="{DynamicResource PrimaryHueMidBrush}"
                     materialDesign:ColorZoneAssist.Mode="Custom"
                     Style="{StaticResource MaterialDesignFilledTabControl}" >
+            
             <TabItem Header="Agenda"
                      x:Name="agendaTab" PreviewMouseLeftButtonDown="agendaTabClick"
-                     >
+                     IsTabStop="False">
                 
             </TabItem>
             <TabItem Header="Estoque"
                      x:Name="estoqueTab"
-                     PreviewMouseLeftButtonDown="estoqueTabClick">
+                     PreviewMouseLeftButtonDown="estoqueTabClick"
+                     IsTabStop="False">
                 
             </TabItem>
             <TabItem Header="Vendas"
-                     x:Name="vendasTab" PreviewMouseLeftButtonDown="vendasTabClick">
+                     x:Name="vendasTab" PreviewMouseLeftButtonDown="vendasTabClick"
+                     IsTabStop="False">
             </TabItem>
             <TabItem Header="Info"
-                     x:Name="infoTab" PreviewMouseLeftButtonDown="infoTabClick">
+                     x:Name="infoTab" PreviewMouseLeftButtonDown="infoTabClick"
+                     IsTabStop="False">
+            </TabItem>
+            <TabItem Header="Login"
+                     x:Name="loginTab" PreviewMouseLeftButtonDown="loginTabClick"
+                     IsTabStop="False">
             </TabItem>
         </TabControl>
-        <views:AgendaView Grid.Row="1" x:Name="agendaView" Visibility="Visible"></views:AgendaView>
-        <views:EstoqueView Grid.Row="1" x:Name="estoqueView" Visibility="Hidden"></views:EstoqueView>
-        <views:VendasView Grid.Row="1" x:Name="vendasView" Visibility="Hidden"></views:VendasView>
-        <views:InfoView Grid.Row="1" x:Name="infoView" Visibility="Hidden"></views:InfoView>
+        <views:AgendaView Grid.Row="1" x:Name="agendaView" Visibility="Visible" IsTabStop="False"></views:AgendaView>
+        <views:EstoqueView Grid.Row="1" x:Name="estoqueView" Visibility="Hidden" IsTabStop="False"></views:EstoqueView>
+        <views:VendasView Grid.Row="1" x:Name="vendasView" Visibility="Hidden" IsTabStop="False"></views:VendasView>
+        <views:InfoView Grid.Row="1" x:Name="infoView" Visibility="Hidden" IsTabStop="False"></views:InfoView>
+        <views:LoginView Grid.Row="1" x:Name="loginView" Visibility="Hidden" IsTabStop="False"></views:LoginView>
+
+
     </Grid>
 </Window>

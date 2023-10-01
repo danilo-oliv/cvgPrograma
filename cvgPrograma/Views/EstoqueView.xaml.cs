@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,13 +26,34 @@ namespace cvgPrograma.Views
             InitializeComponent();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+
+        private void OnShowModalClick(object sender, RoutedEventArgs e)
         {
+            modalTeste.IsOpen = true;
+        }
+
+        private void OnCloseModalClick(object sender, RoutedEventArgs e)
+        {
+            modalTeste.IsOpen = false;
 
         }
 
-        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        private void BtnLoadFromFile_Click(object sender, RoutedEventArgs e)
         {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                Uri fileUri = new Uri(openFileDialog.FileName);
+                imgDynamic.Source = new BitmapImage(fileUri);
+            }
+        }
+
+        private void BtnLimparImagem(object sender, RoutedEventArgs e)
+        {
+            imgDynamic.Source = null;
+        }
+
+
 
         }
     }
