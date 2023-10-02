@@ -17,7 +17,7 @@
              Foreground="White"
              FontFamily="{DynamicResource MaterialDesignFont}"
                 >
-    <Grid>
+    <Grid>        
         <custom:Modal x:Name="modalTeste" 
                       Panel.ZIndex="10"
                       IsTabStop="False">
@@ -222,7 +222,6 @@
                         <Button Content="Editar" Background="BlueViolet" Height="28" Padding="4" Width="78" Foreground="#FFF" Margin="8" FontSize="12" FontWeight="Bold"/>
                     </StackPanel>
                 </Grid>
-
 
             </StackPanel>
         </Grid>
