@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using cvgPrograma.ViewModels;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace cvgPrograma.Views
         public EstoqueView()
         {
             InitializeComponent();
+            DataContext = new EstoqueViewModel();
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -60,6 +62,7 @@ namespace cvgPrograma.Views
         {
             imgDynamic.Source = null;
         }
+
 
         
     }
