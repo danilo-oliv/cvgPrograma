@@ -23,6 +23,7 @@
     <None Remove="Assets\Icons\caixaSVG.png" />
     <None Remove="Assets\Icons\cashSVG.png" />
     <None Remove="Assets\Icons\graficoSVG.png" />
+    <None Remove="Assets\Icons\iconestoque.png" />
   </ItemGroup>
 
   <ItemGroup>

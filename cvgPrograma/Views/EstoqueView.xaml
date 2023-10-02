@@ -17,25 +17,7 @@
              Foreground="White"
              FontFamily="{DynamicResource MaterialDesignFont}"
                 >
-    <Grid>
-        <TextBlock HorizontalAlignment="Center"
-                   VerticalAlignment="Center">
-            estoque teste</TextBlock>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="80"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
+    <Grid>        
         <custom:Modal x:Name="modalTeste" 
                       Panel.ZIndex="10"
                       IsTabStop="False">
@@ -185,7 +167,7 @@
         </custom:Modal>
         
         
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top">
             <Button x:Name="btnShowModal"
                         Margin="0 10 0 20"
                         Padding="10 5"
@@ -194,42 +176,58 @@
                         IsTabStop="False"></Button>
         </StackPanel>
 
-        <TextBlock HorizontalAlignment="Center"
-                   VerticalAlignment="Center">
-            estoque teste</TextBlock>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="80"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
 
-            <StackPanel Grid.Column="0" Grid.Row="0">
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
 
-                <StackPanel>
-                    
+                <StackPanel Margin="10">
                     <TextBox
     MaxWidth="400"
-    VerticalAlignment="Center"
-    materialDesign:HintAssist.Hint="Digite o nome do produto:"
+    VerticalAlignment="Top"
+    materialDesign:HintAssist.Hint="Buscar produto:"
     AcceptsReturn="True"
+    IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}"
     Style="{StaticResource MaterialDesignFilledTextBox}"
-    TextWrapping="Wrap" Foreground="Black" />
+    TextWrapping="Wrap" />
                 </StackPanel>
 
+            </StackPanel>
+           
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" Margin="20">
+
+                <Grid Background="LightSkyBlue" Width="140" Height="220" Margin="10">
+                    <Grid.Effect>
+                        <DropShadowEffect Color="#AAAA" Direction="320" ShadowDepth="8" BlurRadius="10"/>
+                    </Grid.Effect>
+
+
+                    <materialDesign:PackIcon Kind="GamepadVariantOutline" HorizontalAlignment="Center" Height="100" Width="110" Margin="20" />
+                    
+
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="Auto" Margin="0,130,0,0">
+                        <TextBlock Text="Produto" FontSize="16" HorizontalAlignment="Center" Foreground="black" FontWeight="Bold" Margin="0"/>
+                        <TextBlock Text="Em estoque: 47" FontSize="12" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="3"/>
+                        <TextBlock Text="R$ 109,00" FontSize="10" HorizontalAlignment="Center" Foreground="black" FontWeight="Bold" Margin=".5"/>
+                        <Button Content="Editar" Background="BlueViolet" Height="28" Padding="4" Width="78" Foreground="#FFF" Margin="8" FontSize="12" FontWeight="Bold"/>
+                    </StackPanel>
+                </Grid>
 
             </StackPanel>
         </Grid>
-        
+
     </Grid>
+    
+    
 </UserControl>
 
