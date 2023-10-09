@@ -25,7 +25,9 @@
             Padding="10 5"
             Content="Nova Venda" Margin="652,33,48,77"></Button>
 
-        <DataGrid Grid.Row="1" x:Name="dataGridVendas" AutoGenerateColumns="True" Margin="250, 10" />
+        <DataGrid ItemsSource="{Binding dataTableVenda}"
+                  Grid.Row="1" 
+                  x:Name="dataGridVendas" AutoGenerateColumns="True" Margin="250, 10" />
 
     </Grid>
 </UserControl>
