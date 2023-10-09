@@ -225,7 +225,7 @@
 
             </StackPanel>
             <DataGrid Grid.Column="1" Grid.Row="1"
-                ItemsSource="{Binding dataTable}" AutoGenerateColumns="True"></DataGrid>
+                ItemsSource="{Binding dataTable, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="True"></DataGrid>
         </Grid>
 
     </Grid>

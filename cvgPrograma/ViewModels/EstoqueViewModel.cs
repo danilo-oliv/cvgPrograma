@@ -1,4 +1,6 @@
-﻿using cvgPrograma.Models;
+﻿using cvgPrograma.Interfaces;
+using cvgPrograma.Models;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,10 +8,11 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace cvgPrograma.ViewModels
 {
-    public class EstoqueViewModel : INotifyPropertyChanged
+    public class EstoqueViewModel : ObservableObject
     {        
         private DataTable _dataTable;
 
@@ -27,16 +30,6 @@ namespace cvgPrograma.ViewModels
         {
             Produto produto = new Produto();
             dataTable = produto.ConsultarProduto();
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        
-
-
+        }           
     }
 }
