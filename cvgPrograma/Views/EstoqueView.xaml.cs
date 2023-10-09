@@ -36,17 +36,6 @@ namespace cvgPrograma.Views
         {
         }
 
-        private void OnShowModalClick(object sender, RoutedEventArgs e)
-        {
-            modalTeste.IsOpen = true;
-        }
-
-        private void OnCloseModalClick(object sender, RoutedEventArgs e)
-        {
-            modalTeste.IsOpen = false;
-
-        }
-
         private void BtnLoadFromFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();

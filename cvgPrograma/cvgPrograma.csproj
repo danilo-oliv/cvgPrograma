@@ -32,10 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Modals\Modals.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="Assets\Icons\agendaSVG.png" />
     <Resource Include="Assets\Icons\caixaSVG.png" />
     <Resource Include="Assets\Icons\cashSVG.png" />
