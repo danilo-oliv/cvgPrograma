@@ -1,8 +1,8 @@
-﻿using cvgPrograma.ViewModels;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,7 +25,6 @@ namespace cvgPrograma.Views
         public EstoqueView()
         {
             InitializeComponent();
-            DataContext = new EstoqueViewModel();
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -64,6 +63,24 @@ namespace cvgPrograma.Views
         }
 
 
+    
+       
+
+        private void btnAdicionarImagem_Click(object sender, RoutedEventArgs e)
+        {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Arquivos de Imagem|*.jpg;*.jpeg;*.png;*.gif;*.bmp|Todos os Arquivos|*.*";
+
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    BitmapImage bitmapImage = new BitmapImage(new Uri(openFileDialog.FileName));
+                    imagemExibicao.Source = bitmapImage;
+                }
+        }
         
-    }
+    
+
+
+
+}
 }

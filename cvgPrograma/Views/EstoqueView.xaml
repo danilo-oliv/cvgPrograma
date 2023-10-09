@@ -178,54 +178,93 @@
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="30"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
 
-            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
 
-                <StackPanel Margin="10">
+                <StackPanel Margin="0" Orientation="Horizontal">
                     <TextBox
-    MaxWidth="400"
-    VerticalAlignment="Top"
-    materialDesign:HintAssist.Hint="Buscar produto:"
-    AcceptsReturn="True"
-    IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}"
-    Style="{StaticResource MaterialDesignFilledTextBox}"
-    TextWrapping="Wrap" />
+                    Foreground="Black"
+                    MaxWidth="400"
+                    VerticalAlignment="Top"
+                    materialDesign:HintAssist.Hint="Buscar produto:"
+                    AcceptsReturn="True"
+                    IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}"
+                    Style="{StaticResource MaterialDesignFilledTextBox}"
+                    TextWrapping="Wrap" />
+                    <Button Content="{materialDesign:PackIcon Kind=Magnify}" Background="BlueViolet" Height="25" Padding="4" Width="25" Foreground="#FFF" Margin="5" FontSize="20" FontWeight="Bold"/>
+                    
                 </StackPanel>
 
             </StackPanel>
+            
+            
            
-            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" Margin="20">
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Margin="30">
 
-                <Grid Background="LightSkyBlue" Width="140" Height="220" Margin="10">
+                <Grid Background="LightSkyBlue" Width="180" Height="250" Margin="10">
                     <Grid.Effect>
                         <DropShadowEffect Color="#AAAA" Direction="320" ShadowDepth="8" BlurRadius="10"/>
                     </Grid.Effect>
 
 
-                    <materialDesign:PackIcon Kind="GamepadVariantOutline" HorizontalAlignment="Center" Height="100" Width="110" Margin="20" />
+                    <StackPanel Margin="15">
+                        <Grid>
+                            <Button x:Name="btnAdicionarImagem" Content="add photo" Width="120" Height="110" Click="btnAdicionarImagem_Click" />
+                            <Image x:Name="imagemExibicao" Width="120" Height="110" />
+                        </Grid>
+                    </StackPanel>
                     
-
+                    
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="Auto" Margin="0,130,0,0">
-                        <TextBlock Text="Produto" FontSize="16" HorizontalAlignment="Center" Foreground="black" FontWeight="Bold" Margin="0"/>
-                        <TextBlock Text="Em estoque: 47" FontSize="12" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="3"/>
-                        <TextBlock Text="R$ 109,00" FontSize="10" HorizontalAlignment="Center" Foreground="black" FontWeight="Bold" Margin=".5"/>
-                        <Button Content="Editar" Background="BlueViolet" Height="28" Padding="4" Width="78" Foreground="#FFF" Margin="8" FontSize="12" FontWeight="Bold"/>
+                        <TextBlock Text="Produto" FontSize="18" HorizontalAlignment="Center" Foreground="black" FontWeight="Bold" Margin="0"/>
+                        <TextBlock Text="Em estoque: 47" FontSize="14" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="3"/>
+                        <TextBlock Text="R$ 109,00" FontSize="14" HorizontalAlignment="Center" Foreground="black" FontWeight="Bold" Margin=".5"/>
                     </StackPanel>
                 </Grid>
 
             </StackPanel>
-            <DataGrid Grid.Column="1" Grid.Row="1"
-                ItemsSource="{Binding dataTable, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="True"></DataGrid>
+
+
+
+
+
+
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2" Margin="30">
+
+                <Grid Background="LightSkyBlue" Width="180" Height="250" Margin="10">
+                    <Grid.Effect>
+                        <DropShadowEffect Color="#AAAA" Direction="320" ShadowDepth="8" BlurRadius="10"/>
+                    </Grid.Effect>
+
+
+                    <StackPanel Margin="15">
+                        <materialDesign:PackIcon Kind="GamepadVariantOutline" Height="130" Width="120" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </StackPanel>
+
+
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="Auto" Margin="0,130,0,0">
+                        <TextBlock Text="Produto" FontSize="18" HorizontalAlignment="Center" Foreground="black" FontWeight="Bold" Margin="0"/>
+                        <TextBlock Text="Em estoque: 47" FontSize="14" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="3"/>
+                        <TextBlock Text="R$ 109,00" FontSize="14" HorizontalAlignment="Center" Foreground="black" FontWeight="Bold" Margin=".5"/>
+                        <Button Content="Editar" Background="BlueViolet" Height="28" Padding="4" Width="78" Foreground="#FFF" Margin="10" FontSize="12" FontWeight="Bold"/>
+                    </StackPanel>
+                </Grid>
+
+            </StackPanel>
+
+
         </Grid>
 
     </Grid>
