@@ -136,8 +136,7 @@ namespace cvgPrograma.ViewModels
                                 comandoInserirEstoque.ExecuteNonQuery();
                             }
 
-                            MessageBox.Show("Inserção concluída com sucesso.");
-                            MessageBox.Show("Inserção concluída com sucesso.");
+                            MessageBox.Show("Inserção concluída com sucesso.");                            
                         }
                         else
                         {
