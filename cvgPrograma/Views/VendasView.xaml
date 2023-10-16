@@ -15,8 +15,19 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
-        <TextBlock HorizontalAlignment="Center"
-                   VerticalAlignment="Center">
-            vendas teste</TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="71*"/>
+            <RowDefinition Height="154*"/>
+        </Grid.RowDefinitions>
+
+        <Button x:Name="btnVendas"
+            Width="100"
+            Padding="10 5"
+            Content="Nova Venda" Margin="652,33,48,77"></Button>
+
+        <DataGrid ItemsSource="{Binding dataTableVenda}"
+                  Grid.Row="1" 
+                  x:Name="dataGridVendas" AutoGenerateColumns="True" Margin="250, 10" />
+
     </Grid>
 </UserControl>

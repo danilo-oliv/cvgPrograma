@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -33,17 +34,6 @@ namespace cvgPrograma.Views
 
         private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
         {
-
-        }
-        private void OnShowModalClick(object sender, RoutedEventArgs e)
-        {
-            modalTeste.IsOpen = true;
-        }
-
-        private void OnCloseModalClick(object sender, RoutedEventArgs e)
-        {
-            modalTeste.IsOpen = false;
-
         }
 
         private void BtnLoadFromFile_Click(object sender, RoutedEventArgs e)
@@ -59,7 +49,27 @@ namespace cvgPrograma.Views
         private void BtnLimparImagem(object sender, RoutedEventArgs e)
         {
             imgDynamic.Source = null;
-
         }
-    }
+
+
+    
+       
+
+        private void btnAdicionarImagem_Click(object sender, RoutedEventArgs e)
+        {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Arquivos de Imagem|*.jpg;*.jpeg;*.png;*.gif;*.bmp|Todos os Arquivos|*.*";
+
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    BitmapImage bitmapImage = new BitmapImage(new Uri(openFileDialog.FileName));
+                    imagemExibicao.Source = bitmapImage;
+                }
+        }
+        
+    
+
+
+
+}
 }

@@ -23,18 +23,12 @@
     <None Remove="Assets\Icons\caixaSVG.png" />
     <None Remove="Assets\Icons\cashSVG.png" />
     <None Remove="Assets\Icons\graficoSVG.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
+    <None Remove="Assets\Icons\iconestoque.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Modals\Modals.csproj" />
+    <PackageReference Include="MySql.Data" Version="8.1.0" />
   </ItemGroup>
 
   <ItemGroup>
