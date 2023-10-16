@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:cvgPrograma.Views"
+             xmlns:viewModel ="clr-namespace:cvgPrograma.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -17,7 +18,10 @@
              Foreground="White"
              FontFamily="{DynamicResource MaterialDesignFont}"
                 >
-    <Grid>
+    <UserControl.Resources>
+        <viewModel:EstoqueViewModel x:Key="vmEstoque"/>
+    </UserControl.Resources>
+    <Grid DataContext="{StaticResource vmEstoque}">
         <!--Novo Produto-->
         <materialDesign:DialogHost>
             <materialDesign:DialogHost.DialogContent>
@@ -63,6 +67,8 @@
                         Orientation="Vertical">
                                 <!--NOME-->
                                 <TextBox
+                                x:Name="boxNomeProduto"
+                                Text="{Binding txbxNomeProduto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Margin="0 10 10 10"
                                 Width="195"
                                 VerticalAlignment="Top"
@@ -72,8 +78,10 @@
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                 TextWrapping="Wrap"
                                 VerticalScrollBarVisibility="Auto" />
+                                <TextBlock Text="{Binding txbxNomeProduto}"/>
                                 <!--PREÇO CUSTO-->
                                 <TextBox
+                                Text="{Binding txtPrecoProduto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Margin="0 10 10 10"
                                 Width="195"
                                 VerticalAlignment="Top"
@@ -95,6 +103,7 @@
                                 TextWrapping="Wrap"
                                 VerticalScrollBarVisibility="Auto" />
                                 <TextBox
+                                Text="{Binding txtQuantidadeProduto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Margin="0 10 10 10"
                                 Width="195"
                                 VerticalAlignment="Top"
@@ -141,6 +150,7 @@
                         VerticalAlignment="Bottom"
                                 Margin="0 20">
                                     <Button Width="90"
+                                            Command="{Binding Adicionar}"
                     Content="Salvar"
                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                     Style="{StaticResource MaterialDesignOutlinedLightButton}"

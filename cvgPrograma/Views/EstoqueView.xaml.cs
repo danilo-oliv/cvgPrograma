@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using cvgPrograma.ViewModels;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace cvgPrograma.Views
     {
         public EstoqueView()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -66,10 +67,11 @@ namespace cvgPrograma.Views
                     imagemExibicao.Source = bitmapImage;
                 }
         }
-        
-    
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
 
-}
+    }
 }

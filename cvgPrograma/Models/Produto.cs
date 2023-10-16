@@ -17,65 +17,67 @@ namespace cvgPrograma.Models
 
         public int ProdutoId { get; }
         public string? NomeProduto { get; set; }
+        public decimal PrecoProduto { get; set; }
 
         public int EstoqueId { get; }
         public int QuantidadeEstoque { get; set; }
 
-        public void InserirProduto() 
-        {
-            MySqlConnection conexao = new MySqlConnection(_connectionString);
+        //public void InserirProduto( string NomeProduto, decimal PrecoProduto ,int QuantidadeEstoque) 
+        //{
+        //    MySqlConnection conexao = new MySqlConnection(_connectionString);
 
-            try
-            {
-                conexao.Open();
+        //    try
+        //    {
+        //        conexao.Open();
 
-                // Query para cadastrar na tabela produto
-                // @Nome e @Preco são chaves para parâmetros 
-                string inserirProdutoSql = "INSERT INTO produto (NomeProd, PrecoProd) VALUES (@Nome, @Preco);";
-                using (MySqlCommand comandoInserirProduto = new MySqlCommand(inserirProdutoSql, conexao))
-                {
-                    // "@Chave", valor de um campo input
-                    comandoInserirProduto.Parameters.AddWithValue("@Nome", 1);
-                    comandoInserirProduto.Parameters.AddWithValue("@Preco", 1); // NOMEAR AS TEXTBOX E TROCAR
-                    comandoInserirProduto.ExecuteNonQuery();
-                }
+        //        // Query para cadastrar na tabela produto
+        //        // @Nome e @Preco são chaves para parâmetros 
+        //        string inserirProdutoSql = "INSERT INTO produto (NomeProd, PrecoProd) VALUES (@Nome, @Preco);";
+        //        using (MySqlCommand comandoInserirProduto = new MySqlCommand(inserirProdutoSql, conexao))
+        //        {
+        //            // "@Chave", valor de um campo input
+        //            comandoInserirProduto.Parameters.AddWithValue("@Nome", NomeProduto);
+        //            comandoInserirProduto.Parameters.AddWithValue("@Preco", PrecoProduto); // NOMEAR AS TEXTBOX E TROCAR
+        //            comandoInserirProduto.ExecuteNonQuery();
+        //        }
 
-                // Pega o maior id de produto (ultimo adicionado) para fazer o match no estoque
-                string consultarMaiorIdSql = "SELECT MAX(ProdId) FROM produto;";
-                using (MySqlCommand comandoConsultarMaiorId = new MySqlCommand(consultarMaiorIdSql, conexao))
-                {
-                    object resultado = comandoConsultarMaiorId.ExecuteScalar();
+        //        // Pega o maior id de produto (ultimo adicionado) para fazer o match no estoque
+        //        string consultarMaiorIdSql = "SELECT MAX(ProdId) FROM produto;";
+        //        using (MySqlCommand comandoConsultarMaiorId = new MySqlCommand(consultarMaiorIdSql, conexao))
+        //        {
+        //            object resultado = comandoConsultarMaiorId.ExecuteScalar();
 
-                    if (resultado != null && resultado != DBNull.Value)
-                    {
-                        int maiorId = Convert.ToInt32(resultado);
+        //            if (resultado != null && resultado != DBNull.Value)
+        //            {
+        //                int maiorId = Convert.ToInt32(resultado);
 
-                        // Com o ID obtido, insere no estoque
-                        string inserirEstoqueSql = "INSERT INTO estoque (QuantidadeProduto, ProdId) VALUES (@Quantidade, @IdProduto);";
-                        using (MySqlCommand comandoInserirEstoque = new MySqlCommand(inserirEstoqueSql, conexao))
-                        {
-                            comandoInserirEstoque.Parameters.AddWithValue("@Quantidade", 1); // TROCAR!
-                            comandoInserirEstoque.Parameters.AddWithValue("@IdProduto", maiorId);
-                            comandoInserirEstoque.ExecuteNonQuery();
-                        }
+        //                // Com o ID obtido, insere no estoque
+        //                string inserirEstoqueSql = "INSERT INTO estoque (QuantidadeProduto, ProdId) VALUES (@Quantidade, @IdProduto);";
+        //                using (MySqlCommand comandoInserirEstoque = new MySqlCommand(inserirEstoqueSql, conexao))
+        //                {
+        //                    comandoInserirEstoque.Parameters.AddWithValue("@Quantidade", QuantidadeEstoque); // TROCAR!
+        //                    comandoInserirEstoque.Parameters.AddWithValue("@IdProduto", maiorId);
+        //                    comandoInserirEstoque.ExecuteNonQuery();
+        //                }
 
-                        MessageBox.Show("Inserção concluída com sucesso.");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Nenhum registro encontrado na tabela 'produto'.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro: " + ex.Message);
-            }
-            finally
-            {
-                conexao.Close();
-            }
-        }
+        //                MessageBox.Show("Inserção concluída com sucesso.");                        
+        //                MessageBox.Show("Inserção concluída com sucesso.");                        
+        //            }
+        //            else
+        //            {
+        //                MessageBox.Show("Nenhum registro encontrado na tabela 'produto'.");
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Erro: " + ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        conexao.Close();
+        //    }
+        //}
 
         public DataTable ConsultarProduto()
         {
