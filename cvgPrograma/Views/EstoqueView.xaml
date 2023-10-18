@@ -196,49 +196,79 @@
                     materialDesign:HintAssist.Hint="Buscar produto:"
                     AcceptsReturn="True"
                     IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}"
-                    Style="{StaticResource MaterialDesignFilledTextBox}"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     TextWrapping="Wrap" />
-                    <Button Content="{materialDesign:PackIcon Kind=Magnify}" Background="BlueViolet" Height="25" Padding="4" Width="25" Foreground="#FFF" Margin="5" FontSize="20" FontWeight="Bold"/>
+                    <Button Content="{materialDesign:PackIcon Kind=Magnify}" Height="30" Padding="4" Width="30" Foreground="#FFF" Margin="5" FontSize="20" FontWeight="Bold" Cursor="Hand"/>
                     
                 </StackPanel>
 
             </StackPanel>
-            
-            
-           
-            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Margin="30">
 
-                <Grid Background="LightSkyBlue" Width="180" Height="250" Margin="10">
+
+
+                    <StackPanel x:Name="cardEditavel" Orientation="Vertical" Grid.Row="1" Grid.Column="1" Margin="30">
+
+                    <Grid Background="{DynamicResource PrimaryHueMidBrush}" Width="230" Height="300" Margin="10">
                     <Grid.Effect>
                         <DropShadowEffect Color="#AAAA" Direction="320" ShadowDepth="8" BlurRadius="10"/>
                     </Grid.Effect>
 
 
                     <StackPanel Margin="15">
-                        <Grid>
-                            <Button x:Name="btnAdicionarImagem" Content="add photo" Width="120" Height="110" Click="btnAdicionarImagem_Click" />
-                            <Image x:Name="imagemExibicao" Width="120" Height="110" />
-                        </Grid>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Cursor="">
+                                    <Button x:Name="btnSalvarCard" Content="{materialDesign:PackIcon Kind=Check}" Width="50" Height="30" Click="btnSalvarCard_Click" />
+                            <Button x:Name="btnOffImagem" Content="{materialDesign:PackIcon Kind=ImageOffOutline}" Width="50" Height="30" Click="btnOffImagem_Click"/>
+                            <Button x:Name="btnAdicionarImagem" Content="{materialDesign:PackIcon Kind=ImagePlusOutline}" Width="50" Height="30" Click="btnAdicionarImagem_Click" />
+                            <Button Content="{materialDesign:PackIcon Kind=DeleteOutline}" Width="50" Height="30" />
+                        </StackPanel>
+                        <StackPanel>
+                            <Image x:Name="imagemExibicao" Width="120" Height="100" Margin="1,5" />
+                        </StackPanel>
                     </StackPanel>
                     
                     
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="Auto" Margin="0,130,0,0">
-                        <TextBlock Text="Produto" FontSize="18" HorizontalAlignment="Center" Foreground="black" FontWeight="Bold" Margin="0"/>
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="Auto" Margin="0,140,0,0">
+                        <TextBox
+                        Margin="0,3"
+                        Foreground="White"
+                        MaxWidth="300"
+                        MaxHeight="50"
+                        VerticalAlignment="Top"
+                        materialDesign:HintAssist.Hint="Nome do Produto"
+                        AcceptsReturn="True"
+                        IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        TextWrapping="Wrap" />
+
+                        <TextBox
+                        Margin="0,3"
+                        Foreground="White"
+                        MaxWidth="300"
+                        MaxHeight="50"
+                        VerticalAlignment="Top"
+                        materialDesign:HintAssist.Hint="Preço de Venda"
+                        AcceptsReturn="True"
+                        IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        TextWrapping="Wrap" />
+
                         <TextBlock Text="Em estoque: 47" FontSize="14" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="3"/>
-                        <TextBlock Text="R$ 109,00" FontSize="14" HorizontalAlignment="Center" Foreground="black" FontWeight="Bold" Margin=".5"/>
+                        
                     </StackPanel>
                 </Grid>
 
             </StackPanel>
+                
+            
 
 
 
 
 
+                
+                <StackPanel x:Name="cardSalvo" Orientation="Vertical" Grid.Row="1" Grid.Column="1" Margin="30">
 
-            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2" Margin="30">
-
-                <Grid Background="LightSkyBlue" Width="180" Height="250" Margin="10">
+                    <Grid Background="{DynamicResource PrimaryHueMidBrush}" Width="230" Height="300" Margin="10">
                     <Grid.Effect>
                         <DropShadowEffect Color="#AAAA" Direction="320" ShadowDepth="8" BlurRadius="10"/>
                     </Grid.Effect>
@@ -250,14 +280,15 @@
 
 
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="Auto" Margin="0,130,0,0">
-                        <TextBlock Text="Produto" FontSize="18" HorizontalAlignment="Center" Foreground="black" FontWeight="Bold" Margin="0"/>
+                        <TextBlock Text="Produto" FontSize="18" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="0"/>
                         <TextBlock Text="Em estoque: 47" FontSize="14" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="3"/>
-                        <TextBlock Text="R$ 109,00" FontSize="14" HorizontalAlignment="Center" Foreground="black" FontWeight="Bold" Margin=".5"/>
-                        <Button Content="Editar" Background="BlueViolet" Height="28" Padding="4" Width="78" Foreground="#FFF" Margin="10" FontSize="12" FontWeight="Bold"/>
+                        <TextBlock Text="R$ 109,00" FontSize="14" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin=".5"/>
+                        <Button x:Name="btnEditarCard" Content="Editar" Height="28" Padding="4" Width="78" Foreground="{DynamicResource PrimaryHueMidBrush}" Background="White" Margin="10" FontSize="12" FontWeight="Bold" Click="btnEditarCard_Click"/>
                     </StackPanel>
                 </Grid>
 
             </StackPanel>
+         
 
 
         </Grid>
