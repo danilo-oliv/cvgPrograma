@@ -3,9 +3,11 @@ using cvgPrograma.Models;
 using cvgPrograma.Views;
 using MaterialDesignThemes.Wpf;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI;
 using Org.BouncyCastle.Bcpg.OpenPgp;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
@@ -27,21 +29,18 @@ namespace cvgPrograma.ViewModels
         }
 
         public RelayCommand AddProdCommand => new RelayCommand(execute => InserirProduto(txbxNomeProduto, txtPrecoProduto, txtQuantidadeProduto), canExecute => { return true; });
+        public RelayCommand AtualizarCollection => new RelayCommand(execute => AtualizarMetodo(), canExecute => { return true; });
 
-
-
-        private DataTable _dataTable;
-
-        public DataTable dataTable
+        private ObservableCollection<Produto> _produto;
+        public ObservableCollection<Produto> Produtos
         {
-            get { return _dataTable; }
+            get { return _produto; }
             set
             {
-                _dataTable = value;
-                OnPropertyChanged(nameof(dataTable));
+                _produto = value;
+                OnPropertyChanged(nameof(Produtos));
             }
         }
-
         #region Valores das TextBox
 
         private string _txbxNomeProduto;
@@ -92,8 +91,17 @@ namespace cvgPrograma.ViewModels
         public EstoqueViewModel()
         {
             Produto produto = new Produto();
-            dataTable = produto.ConsultarProduto();
+            Produtos = produto.ConsultarProduto();
         }
+
+        public void AtualizarMetodo()
+        {
+            Produto produto = new Produto();
+            Produtos = produto.ConsultarProduto();
+        }
+
+
+
 
 
         private string _connectionString = "Server=localhost;Database=cvgtestedois;Uid=root;Pwd=;";
