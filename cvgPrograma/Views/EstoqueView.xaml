@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:cvgPrograma.Views"
+             xmlns:viewModel ="clr-namespace:cvgPrograma.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -17,16 +18,22 @@
              Foreground="White"
              FontFamily="{DynamicResource MaterialDesignFont}"
                 >
-    <Grid>
+    <UserControl.Resources>
+        <viewModel:EstoqueViewModel x:Key="vmEstoque"/>
+    </UserControl.Resources> 
+    <Grid DataContext="{StaticResource vmEstoque}">
+        <Grid.InputBindings>
+            <KeyBinding Key="F5" Command="{Binding AtualizarCollection}"/>
+        </Grid.InputBindings>
         <!--Novo Produto-->
         <materialDesign:DialogHost>
             <materialDesign:DialogHost.DialogContent>
                 <TextBlock>a</TextBlock>
             </materialDesign:DialogHost.DialogContent>
-            <Button
+            <Button 
                 x:Name="mdDialog2"                
     Width="128"
-    Margin="600,32,0,0"
+    Margin="0,32,600,0"
     Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
     Content="Novo Produto">
                 <Button.CommandParameter>
@@ -63,6 +70,8 @@
                         Orientation="Vertical">
                                 <!--NOME-->
                                 <TextBox
+                                x:Name="boxNomeProduto"
+                                Text="{Binding txbxNomeProduto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Margin="0 10 10 10"
                                 Width="195"
                                 VerticalAlignment="Top"
@@ -72,8 +81,10 @@
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                 TextWrapping="Wrap"
                                 VerticalScrollBarVisibility="Auto" />
+                                <TextBlock Text="{Binding txbxNomeProduto}"/>
                                 <!--PREÇO CUSTO-->
                                 <TextBox
+                                Text="{Binding txtPrecoProduto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Margin="0 10 10 10"
                                 Width="195"
                                 VerticalAlignment="Top"
@@ -95,6 +106,7 @@
                                 TextWrapping="Wrap"
                                 VerticalScrollBarVisibility="Auto" />
                                 <TextBox
+                                Text="{Binding txtQuantidadeProduto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Margin="0 10 10 10"
                                 Width="195"
                                 VerticalAlignment="Top"
@@ -141,6 +153,7 @@
                         VerticalAlignment="Bottom"
                                 Margin="0 20">
                                     <Button Width="90"
+                                            Command="{Binding AddProdCommand}"
                     Content="Salvar"
                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                     Style="{StaticResource MaterialDesignOutlinedLightButton}"
@@ -248,17 +261,17 @@
                 </Grid>
 
             </StackPanel>
-                
-            
 
 
 
 
 
-                
-                <StackPanel x:Name="cardSalvo" Orientation="Vertical" Grid.Row="1" Grid.Column="1" Margin="30">
 
-                    <Grid Background="{DynamicResource PrimaryHueMidBrush}" Width="230" Height="300" Margin="10">
+
+
+            <StackPanel x:Name="cardSalvo" Orientation="Vertical" Grid.Row="1" Grid.Column="1" Margin="30">
+
+                <Grid Background="{DynamicResource PrimaryHueMidBrush}" Width="230" Height="300" Margin="10">
                     <Grid.Effect>
                         <DropShadowEffect Color="#AAAA" Direction="320" ShadowDepth="8" BlurRadius="10"/>
                     </Grid.Effect>
@@ -278,8 +291,29 @@
                 </Grid>
 
             </StackPanel>
-         
 
+            <Button Grid.Column="2" Grid.Row="0"
+                    Command="{Binding AtualizarCollection}"
+                    Content="Atualizar"
+                    />
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3">
+                <ItemsControl ItemsSource="{Binding Produtos}" >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="" Foreground="Black"/>
+                                    <TextBlock Text="{Binding NomeProduto}" Foreground="Black"/>
+                                    <TextBlock Text="{Binding PrecoProduto}" Foreground="Black"/>
+                                    <TextBlock Text="{Binding QuantidadeEstoque}" Foreground="Black"/>
+                                    <TextBlock Text="" Foreground="Black"/>
+                                </StackPanel>
+                            </WrapPanel>
+
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
 
         </Grid>
 

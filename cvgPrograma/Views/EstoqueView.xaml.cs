@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using cvgPrograma.ViewModels;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace cvgPrograma.Views
     {
         public EstoqueView()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -82,10 +83,9 @@ namespace cvgPrograma.Views
 
         private void btnSalvarCard_Click(object sender, RoutedEventArgs e)
         {
-         
+
             cardEditavel.Visibility = Visibility.Hidden;
             cardSalvo.Visibility = Visibility.Visible;
-
         }
-    }
+}
 }
