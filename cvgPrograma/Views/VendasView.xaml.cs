@@ -24,7 +24,7 @@ namespace cvgPrograma.Views
         public VendasView()
         {
             InitializeComponent();
-            DataContext = new VendasViewModel();
+
         }
     }
 
