@@ -13,17 +13,6 @@ namespace cvgPrograma.Models
     {
         private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=Amorinha 24;";
 
-
-        public int Id { get; set; }
-        public string Produto { get; set; }
-        public float Preco { get; set; }
-        public string MetodoPagamento { get; set; }
-        public string Cliente { get; set; }
-        public string Contato { get; set; }
-
-        public int Quantidade { get; set; }
-        public DateOnly Data { get; set; }
-
         public DataTable ConsultarVenda()
         {
             MySqlConnection conexao = new MySqlConnection(_connectionString);

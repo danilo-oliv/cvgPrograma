@@ -26,8 +26,29 @@
             Content="Nova Venda" Margin="652,33,48,77"></Button>
 
         <DataGrid ItemsSource="{Binding dataTableVenda}"
-                  Grid.Row="1" 
-                  x:Name="dataGridVendas" AutoGenerateColumns="True" Margin="250, 10" />
+           Grid.Row="1" 
+           x:Name="dataGridVendas" 
+           AutoGenerateColumns="True" 
+           Margin="10"
+           HorizontalGridLinesBrush="BlueViolet" 
+           VerticalGridLinesBrush="BlueViolet"
+           RowBackground="White"
+           AlternatingRowBackground="White"
+           BorderBrush="BlueViolet"
+           BorderThickness="1"
+           Background="White">
+            
+            <!-- Define a cor de fundo do cabeçalho -->
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="BlueViolet" />
+                    <Setter Property="FontSize" Value="14" />
+                    <!-- Define a cor de fundo do cabeçalho -->
+                    <Setter Property="Foreground" Value="White" />
+                    <!-- Define a cor do texto do cabeçalho -->
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
 
+        </DataGrid>
     </Grid>
 </UserControl>
