@@ -11,7 +11,7 @@ namespace cvgPrograma.Models
 {
     public class Venda
     {
-        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=;";
+        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=root;";
 
 
         public int VendaId { get; set; }
@@ -78,10 +78,13 @@ namespace cvgPrograma.Models
                     object resultado = comandoEncontraProduto.ExecuteScalar();
                     if (resultado != null && resultado != DBNull.Value)
                     {
-                        int ProdId = Convert.ToInt32(resultado);
+                        int ProdutoId = Convert.ToInt32(resultado);
 
                         string insereVenda = "INSERT into venda (DataVenda, QuantVenda, TotalVenda, ProdId, CodMetodo) " +
-    "VALUES (@DataVenda, @QuantVenda, @TotalVenda, @ProdId, @CodMetodo)";
+    "VALUES (@DataVenda, @QuantVenda, @TotalVenda, @ProdId, @CodMetodo);";
+
+                        string selecionaVenda = "SELECT MAX(VendaId) FROM venda;";
+
 
                         using (MySqlCommand comandoInsereVenda = new MySqlCommand(insereVenda, conexao))
                         {
@@ -90,13 +93,27 @@ namespace cvgPrograma.Models
                             comandoInsereVenda.Parameters.AddWithValue("@CodMetodo", TipoPagamentoHelper(TipoPagamento));
                             comandoInsereVenda.ExecuteNonQuery();
                         }
-                        using(MySqlCommand comandoInsereProdutoVenda = new MySqlCommand(insereVenda, conexao))
+
+                        using (MySqlCommand comandoSelecionaVenda = new MySqlCommand(selecionaVenda, conexao))
                         {
-                            comandoInsereProdutoVenda.Parameters.AddWithValue("@QuantVenda", QuantVenda);
-
-                            comandoInsereProdutoVenda.Parameters.AddWithValue("@ProdId", ProdId);
-
+                            object resultadoSelecao = comandoSelecionaVenda.ExecuteScalar();
+                            if (resultadoSelecao != null && resultadoSelecao != DBNull.Value)
+                            {
+                                int VendaIdConvertida = Convert.ToInt32(resultadoSelecao);
+                                string insereProdutoVenda = "INSERT into produtovenda (ProdId, VendaId, QuantVenda)" +
+                                                    "VALUES (@ProdId, @VendaId, @QuantVenda);";
+                                using (MySqlCommand comandoInsereProdutoVenda = new MySqlCommand(insereProdutoVenda, conexao))
+                                {
+                                    comandoInsereProdutoVenda.Parameters.AddWithValue("@QuantVenda", QuantVenda);
+                                    comandoInsereProdutoVenda.Parameters.AddWithValue("@VendaId", VendaIdConvertida);
+                                    comandoInsereProdutoVenda.Parameters.AddWithValue("@ProdId", ProdutoId);
+                                    comandoInsereProdutoVenda.ExecuteNonQuery();
+                                }
+                            }
                         }
+
+
+
                     }
                     else
                     {
@@ -111,7 +128,7 @@ namespace cvgPrograma.Models
             }
             finally
             {
-
+                conexao.Close();
             }
         }
 

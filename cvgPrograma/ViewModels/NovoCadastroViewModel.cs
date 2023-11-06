@@ -90,7 +90,7 @@ namespace cvgPrograma.ViewModels
 
         public bool AddProdValida()
         {
-            if (txbxNomeProduto != null && txtPrecoProduto > 0)
+            if (txbxNomeProduto != null && txtPrecoProduto > 0 && txtQuantidadeProduto > 0)
             {
                 return true;
             }
@@ -224,7 +224,7 @@ namespace cvgPrograma.ViewModels
             Venda venda = new Venda();
             try
             {
-                venda
+                venda.InserirVenda(txtComboProduto, txtDataEntrega, txtQuantidadeVenda, totalVenda, txtMetodoPgVenda);
             }
             catch (Exception ex)
             {
@@ -232,7 +232,10 @@ namespace cvgPrograma.ViewModels
             }
             finally
             {
-
+                txtComboProduto = "";
+                txtQuantidadeVenda = 0;
+                totalVenda = 0;
+                txtMetodoPgVenda = "";
             }
         }
 
