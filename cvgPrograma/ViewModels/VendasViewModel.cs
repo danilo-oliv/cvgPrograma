@@ -1,14 +1,18 @@
 ﻿using cvgPrograma.Commands;
 using cvgPrograma.Models;
+using cvgPrograma.Views;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace cvgPrograma.ViewModels
 {
@@ -68,7 +72,15 @@ namespace cvgPrograma.ViewModels
 
 
         public RelayCommand AtualizarVendas => new RelayCommand(execute => AtualizarTabela(), canExecute => { return true; });
+        public RelayCommand JanelaNovo => new RelayCommand(execute => AbrirNovo(), canExecute => { return true;  } );
 
+
+
+        public void AbrirNovo()
+        {
+            NovoView novo = new NovoView();
+            novo.Show();
+        }
 
         public void AtualizarTabela()
         {
@@ -114,6 +126,51 @@ namespace cvgPrograma.ViewModels
             }
         }
 
+        #region SISTEMA DE BUSCA
+
+        public ObservableCollection<Produto> ListaProdutos { get; set; }
+        private string _termoDeBusca;
+        private ObservableCollection<Produto> _itensFiltrados;
+
+        public string TermoDeBusca
+        {
+            get { return _termoDeBusca; }
+            set
+            {
+                _termoDeBusca = value;
+                FiltrarItens();
+                OnPropertyChanged(nameof(_termoDeBusca));
+            }
+        }
+
+        public ObservableCollection<Produto> ItensFiltrados
+        {
+            get { return _itensFiltrados; }
+            set
+            {
+                _itensFiltrados = value;
+                OnPropertyChanged(nameof(ItensFiltrados));
+            }
+        }
+
+        private void FiltrarItens()
+        {
+            Produto produto = new Produto();
+            ListaProdutos = produto.ConsultarProduto();
+
+            if (_termoDeBusca is null || _termoDeBusca == "")
+            {             
+                ItensFiltrados = new ObservableCollection<Produto>(ListaProdutos);
+            }
+            else
+            {
+                ItensFiltrados = new ObservableCollection<Produto>(
+                    ListaProdutos.Where(produto => produto.NomeProduto.IndexOf(_termoDeBusca, StringComparison.OrdinalIgnoreCase) >= 0)
+
+                );
+            }
+        }
+        #endregion
 
 
 

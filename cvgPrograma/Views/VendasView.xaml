@@ -29,64 +29,16 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <materialDesign:DialogHost>
-
-                <Button Grid.Column="0"
-                        Margin="20"
-                x:Name="mdDialog2"                    
-    Width="128"
-    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-    Content="Novo Produto">                   
-                </Button>
-
-                <materialDesign:DialogHost.DialogContent>
-                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Width="500" Height="500">
-                        <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">Fechar</Button>
-                        <TextBox                                
-                                Text="{Binding txtTotalVenda, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Margin="0 10 10 10"
-                                Width="195"
-                                VerticalAlignment="Top"
-                                materialDesign:HintAssist.Hint="Total da venda:"
-                                materialDesign:HintAssist.HintOpacity="0.9"
-                                AcceptsReturn="True"                       
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
-                        <TextBox                               
-                                Text="{Binding txtQuantidadeVendida, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Margin="0 10 10 10"
-                                Width="195"
-                                VerticalAlignment="Top"
-                                materialDesign:HintAssist.Hint="Quantidade Vendida:"
-                                materialDesign:HintAssist.HintOpacity="0.9"
-                                AcceptsReturn="True"                       
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
-                        <TextBox                                
-                                Text="{Binding txbxNomeProduto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Margin="0 10 10 10"
-                                Width="195"
-                                VerticalAlignment="Top"
-                                materialDesign:HintAssist.Hint="Nome:"
-                                materialDesign:HintAssist.HintOpacity="0.9"
-                                AcceptsReturn="True"                       
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
-                    </StackPanel>
 
 
-                </materialDesign:DialogHost.DialogContent>
-
-
-            </materialDesign:DialogHost>
-            
+            <Button Command="{Binding JanelaNovo}">Novo</Button>
+        
             <Button Margin="20" Grid.Column="1" Command="{Binding AtualizarVendas}">
                 <materialDesign:PackIcon Kind="Cached" />
              </Button>
         </Grid>
+
+
 
         <DataGrid ItemsSource="{Binding dataTableVenda}"
                   Grid.Row="1" 
@@ -105,7 +57,65 @@
                 <Border BorderThickness="0" Background="#C6C6C6" Padding="10">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal">
-                                <Button Margin="5 0" Background="#006FFF" BorderThickness="0">Editar</Button>
+                                <materialDesign:DialogHost>
+                                    <Button Margin="5 0" Background="#006FFF" BorderThickness="0"  
+                                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">Editar</Button>
+                                    <materialDesign:DialogHost.DialogContent>
+                                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Width="500" Height="500">
+                                            <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">Fechar</Button>
+                                            <TextBlock Text="{Binding VendaId}"/>
+                                            <ComboBox
+                                StaysOpenOnEdit="True"
+                                x:Name="OutlinedComboBox"
+                                Margin="0 10 10 10"
+                                Width="195"
+                                materialDesign:HintAssist.Hint="Produto"    
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                ItemsSource="{Binding ItensFiltrados, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                IsEditable="True"            
+                                Text="{Binding TermoDeBusca, UpdateSourceTrigger=PropertyChanged}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <ComboBoxItem Content="{Binding NomeProduto}"/>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                            <TextBox                                
+                                Text="{Binding txtTotalVenda, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Margin="0 10 10 10"
+                                Width="195"
+                                VerticalAlignment="Top"
+                                materialDesign:HintAssist.Hint="Total da venda:"
+                                materialDesign:HintAssist.HintOpacity="0.9"
+                                AcceptsReturn="True"                       
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                TextWrapping="Wrap"
+                                VerticalScrollBarVisibility="Auto" />
+                                            <TextBox                               
+                                Text="{Binding txtQuantidadeVendida, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Margin="0 10 10 10"
+                                Width="195"
+                                VerticalAlignment="Top"
+                                materialDesign:HintAssist.Hint="Quantidade Vendida:"
+                                materialDesign:HintAssist.HintOpacity="0.9"
+                                AcceptsReturn="True"                       
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                TextWrapping="Wrap"
+                                VerticalScrollBarVisibility="Auto" />
+                                            <TextBox                                
+                                Text="{Binding txbxNomeProduto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Margin="0 10 10 10"
+                                Width="195"
+                                VerticalAlignment="Top"
+                                materialDesign:HintAssist.Hint="Nome:"
+                                materialDesign:HintAssist.HintOpacity="0.9"
+                                AcceptsReturn="True"                       
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                TextWrapping="Wrap"
+                                VerticalScrollBarVisibility="Auto" />
+                                        </StackPanel>
+                                    </materialDesign:DialogHost.DialogContent>
+                                </materialDesign:DialogHost>
                                 <Button Margin="5 0" Background="#C90020" BorderThickness="0">Deletar</Button>
                             </StackPanel>
 
@@ -114,6 +124,14 @@
             </DataTemplate>
             </DataGrid.RowDetailsTemplate>
         </DataGrid>
+
+
+
+
+
+
+
+
 
 
     </Grid>

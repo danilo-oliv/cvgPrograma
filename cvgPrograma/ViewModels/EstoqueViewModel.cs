@@ -29,7 +29,6 @@ namespace cvgPrograma.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public RelayCommand AddProdCommand => new RelayCommand(execute => InserirProduto(txbxNomeProduto, txtPrecoProduto, txtQuantidadeProduto), canExecute => { return true; });
         public RelayCommand AtualizarCollection => new RelayCommand(execute => AtualizarMetodo(), canExecute => { return true; });
         public RelayCommand UpdateProduto => new RelayCommand(execute => AlterarProduto(), canExecute => { return true; });
 
@@ -105,63 +104,7 @@ namespace cvgPrograma.ViewModels
 
 
         private string _connectionString = "Server=localhost;Database=casadovideogame=root;Pwd=;";
-        public void InserirProduto(string NomeProduto, decimal PrecoProduto, int QuantidadeEstoque)
-        {
-            
-                MySqlConnection conexao = new MySqlConnection(_connectionString);
-
-            try
-            {
-                conexao.Open();
-
-                string inserirProdutoSql = "INSERT INTO produto (NomeProd, PrecoProd) VALUES (@Nome, @Preco);";
-                using (MySqlCommand comandoInserirProduto = new MySqlCommand(inserirProdutoSql, conexao))
-                {
-                    comandoInserirProduto.Parameters.AddWithValue("@Nome", NomeProduto);
-                    comandoInserirProduto.Parameters.AddWithValue("@Preco", PrecoProduto); 
-                    comandoInserirProduto.ExecuteNonQuery();
-                }
-
-                // Pega o maior id de produto (ultimo adicionado) para fazer o match no estoque
-                string consultarMaiorIdSql = "SELECT MAX(ProdId) FROM produto;";
-                using (MySqlCommand comandoConsultarMaiorId = new MySqlCommand(consultarMaiorIdSql, conexao))
-                {
-                    object resultado = comandoConsultarMaiorId.ExecuteScalar();
-
-                    if (resultado != null && resultado != DBNull.Value)
-                    {
-                        int maiorId = Convert.ToInt32(resultado);
-
-                        // Com o ID obtido, insere no estoque
-                        string inserirEstoqueSql = "INSERT INTO estoque (QuantidadeProduto, ProdId) VALUES (@Quantidade, @IdProduto);";
-                        using (MySqlCommand comandoInserirEstoque = new MySqlCommand(inserirEstoqueSql, conexao))
-                        {
-                            comandoInserirEstoque.Parameters.AddWithValue("@Quantidade", QuantidadeEstoque);
-                            comandoInserirEstoque.Parameters.AddWithValue("@IdProduto", maiorId);
-                            comandoInserirEstoque.ExecuteNonQuery();
-                        }
-
-                        MessageBox.Show("Inserção concluída com sucesso.");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Nenhum registro encontrado na tabela 'produto'.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro: " + ex.Message);
-            }
-            finally
-            {
-                conexao.Close();
-
-                txbxNomeProduto = "";
-                txtPrecoProduto = 0;
-                txtQuantidadeProduto = 0;               
-            }
-    }
+        
         public void AlterarProduto()
         {
             MySqlConnection conexao = new MySqlConnection(_connectionString);
