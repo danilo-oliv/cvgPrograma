@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewModel="clr-namespace:cvgPrograma.ViewModels"
              xmlns:local="clr-namespace:cvgPrograma.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
@@ -15,6 +16,11 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              >
+    <UserControl.Resources>
+        <viewModel:AgendaViewModel x:Key="vmServico"/>
+    </UserControl.Resources>
+    <Grid DataContext="{StaticResource vmServico}">
+        
     <Grid>
         <!--Novo Serviço-->
         <materialDesign:DialogHost>
@@ -334,5 +340,45 @@ Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" Margin="1000,400,0,
             </Grid>
         </materialDesign:Card>
 
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.ColumnSpan="3">
+                <ItemsControl ItemsSource="{Binding Servico}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" Margin="20, 5, 20, 5"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="10">
+                                <StackPanel Background="Purple" Width="165" Height="200"
+                                  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+                                    <TextBlock Text="{Binding NomeCliente}" FontSize="18" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding TelefoneCliente}" FontSize="14" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding CodMetodo}" FontSize="14" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding TipoPagamento}" FontSize="14" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding CodServico}" FontSize="14" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding TipoServ}" FontSize="14" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding DescServico}" FontSize="14" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding DataEntradaServico}" FontSize="14" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding DataSaidaServico}" FontSize="14" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding ProntoServico}" FontSize="14" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding TotalServico}" FontSize="14" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding ClienteId}" FontSize="14" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding CodMetodo}" FontSize="14" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding CodServico}" FontSize="14" HorizontalAlignment="Center"/>
+                                    <Button x:Name="btnEditarCard" Content="Editar" Height="28" Padding="4"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+        <Button Command="{Binding AtualizarCollection}"
+                Content="Atualizar"
+                Grid.Row="0"
+                Grid.Column="1"
+                Width="128"
+        />
     </Grid>
 </UserControl>
