@@ -63,13 +63,12 @@ namespace cvgPrograma.Views
 
             if (openFileDialog.ShowDialog() == true)
             {
-                BitmapImage bitmapImage = new BitmapImage(new Uri(openFileDialog.FileName));
-                imagemExibicao.Source = bitmapImage;
+                
             }
         }
         private void btnOffImagem_Click(object sender, RoutedEventArgs e)
         {
-            imagemExibicao.Source = null;
+            
         }
 
 
@@ -77,15 +76,13 @@ namespace cvgPrograma.Views
         private void btnEditarCard_Click(object sender, RoutedEventArgs e)
         {
 
-            cardEditavel.Visibility = Visibility.Visible;
-            cardSalvo.Visibility = Visibility.Hidden;
+            
         }
 
         private void btnSalvarCard_Click(object sender, RoutedEventArgs e)
         {
 
-            cardEditavel.Visibility = Visibility.Hidden;
-            cardSalvo.Visibility = Visibility.Visible;
+            
         }
 }
 }
