@@ -160,7 +160,23 @@ namespace cvgPrograma.ViewModels
 
         public void AddServHelper()
         {
-            // método no model
+            Servico servico = new Servico();
+            try
+            {
+                servico.InserirCard(txtDesc, txtDataEntrega, txtPrecoServico, txtCliente, txtContato, txtMetodoPg);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+            }
+            finally
+            {
+                txtDesc = "";
+                txtPrecoServico = 0;
+                txtCliente = "";
+                txtContato = "";
+                txtMetodoPg = "";
+            }
         }
 
         public bool AddServValida()
