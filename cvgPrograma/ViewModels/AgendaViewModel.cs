@@ -47,12 +47,12 @@ namespace cvgPrograma.ViewModels
         public AgendaViewModel()
         {
             Servico Servico = new Servico();
-            _ = Servico.InserirCard();
+
         }
         public void AtualizarMetodo()
         {
             Servico Servico = new Servico();
-            _ = Servico.InserirCard();
+
         }
 
 
