@@ -283,14 +283,9 @@ namespace cvgPrograma.ViewModels
 
         public void EditarCard()
         {
-            
-            EstoqueView estoqueView = new EstoqueView();
-            prodID = estoqueView.FindName(InsiraID);
-            if (prodID.ToString() == InsiraID)
-            {
+
                 IsVisible = "Visible";
-                IsVisible2 = "Collapsed";
-            }            
+                IsVisible2 = "Collapsed";            
         }
 
         public void SalvarCard()

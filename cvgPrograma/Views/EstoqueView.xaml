@@ -222,8 +222,8 @@
                     Grid.Row="0"
                     Grid.Column="1"
                     Width="128"/>
-            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.ColumnSpan="3" >
-                <ItemsControl ItemsSource="{Binding Produtos}" >
+         <!--   <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.ColumnSpan="3" >
+                <ItemsControl x:Name="listagemCards" ItemsSource="{Binding Produtos}" >
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal" Margin="20 5 20 5" />
@@ -296,14 +296,15 @@
                                             <StackPanel Margin="15">
                                                 <Image x:Name="imagemExibicao2" Width="120" Height="100" Margin="1,5" />
                                             </StackPanel>
-                                            <StackPanel x:Name="{Binding ProdutoId}" VerticalAlignment="Center" HorizontalAlignment="Center" Height="Auto" Margin="0,130,0,0">
+                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="Auto" Margin="0,130,0,0">
                                                 <TextBlock x:Name="textID" Text="{Binding ProdutoId}" FontSize="18" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="0"/>
 
                                                 <TextBlock x:Name="textBlock1" Text="{Binding NomeProduto}" FontSize="18" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="0"/>
                                                 <TextBlock Text="{Binding QuantidadeEstoque}" FontSize="14" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="3"/>
                                                 <TextBlock x:Name="textBlock2" Text="{Binding PrecoProduto}" FontSize="14" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin=".5"/>
                                                 <Button x:Name="btnEditarCard" Content="Editar" Height="28" Padding="4" Width="78" Foreground="{DynamicResource PrimaryHueMidBrush}" Background="White" Margin="10" FontSize="12" FontWeight="Bold" 
-                                                        Command="{Binding DataContext.EditandoCard, RelativeSource={RelativeSource AncestorType=ItemsControl}}" Cursor="Hand"/>
+                                                        Click="virarCard"
+                                                        Cursor="Hand"/>
                                             </StackPanel>
                                         </Grid>
                                     </StackPanel>
@@ -315,7 +316,20 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-            </ScrollViewer>
+            </ScrollViewer> -->
+
+            <ItemsControl x:Name="meuItemControl" Grid.RowSpan="3" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="nomeTextBlock" Text="{Binding Nome}" Foreground="{Binding Cor}" Visibility="{Binding Visibilidade}" Margin="5" />
+                            <Button Content="Azul" Click="AzulButton_Click" Margin="5" />
+                            <Button Content="Vermelho" Click="VermelhoButton_Click" Margin="5" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
         </Grid>
 
     </Grid>
