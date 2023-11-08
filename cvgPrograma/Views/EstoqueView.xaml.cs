@@ -55,37 +55,6 @@ namespace cvgPrograma.Views
 
 
 
-        //botao do card editavel
-        private void btnAdicionarImagem_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Arquivos de Imagem|*.jpg;*.jpeg;*.png;*.gif;*.bmp|Todos os Arquivos|*.*";
-
-            if (openFileDialog.ShowDialog() == true)
-            {
-                BitmapImage bitmapImage = new BitmapImage(new Uri(openFileDialog.FileName));
-                imagemExibicao.Source = bitmapImage;
-            }
-        }
-        private void btnOffImagem_Click(object sender, RoutedEventArgs e)
-        {
-            imagemExibicao.Source = null;
-        }
-
-
-
-        private void btnEditarCard_Click(object sender, RoutedEventArgs e)
-        {
-
-            cardEditavel.Visibility = Visibility.Visible;
-            cardSalvo.Visibility = Visibility.Hidden;
-        }
-
-        private void btnSalvarCard_Click(object sender, RoutedEventArgs e)
-        {
-
-            cardEditavel.Visibility = Visibility.Hidden;
-            cardSalvo.Visibility = Visibility.Visible;
-        }
+        
 }
 }

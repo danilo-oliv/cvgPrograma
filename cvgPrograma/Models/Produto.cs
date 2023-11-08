@@ -8,14 +8,27 @@ using System.Windows;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Collections.ObjectModel;
+using cvgPrograma.ViewModels;
 
 namespace cvgPrograma.Models
 {
     public class Produto
     {
-        private string _connectionString = "Server=localhost;Database=cvgtestedois;Uid=root;Pwd=;";        
+        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=;";        
 
         public long ProdutoId { get; set;  }
+
+        private long _retornaProdutoId;
+
+        public long retornaProdutoId
+        {
+            get { return _retornaProdutoId; }
+            set { _retornaProdutoId = ProdutoId; }
+        }
+
+
+
+
         public string? NomeProduto { get; set; }
         public decimal PrecoProduto { get; set; }
 

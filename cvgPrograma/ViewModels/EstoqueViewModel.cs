@@ -2,6 +2,7 @@
 using cvgPrograma.Models;
 using cvgPrograma.Views;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
 using Org.BouncyCastle.Bcpg.OpenPgp;
@@ -16,6 +17,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace cvgPrograma.ViewModels
 {
@@ -28,8 +30,21 @@ namespace cvgPrograma.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public RelayCommand AddProdCommand => new RelayCommand(execute => InserirProduto(txbxNomeProduto, txtPrecoProduto, txtQuantidadeProduto), canExecute => { return true; });
+        public RelayCommand AddProdCommand => new RelayCommand(execute => AddProdHelper(), canExecute => { return true; });
         public RelayCommand AtualizarCollection => new RelayCommand(execute => AtualizarMetodo(), canExecute => { return true; });
+        public RelayCommand EditandoCard => new RelayCommand(execute => EditarCard(), canExecute => { return true; });
+        public RelayCommand SalvandoCard => new RelayCommand(execute => SalvarCard(), canExecute => { return true; });
+        public RelayCommand ImportandoImagem => new RelayCommand(execute => AdicionarImagem(), canExecute => { return true; });
+        public RelayCommand ExcluindoImagem => new RelayCommand(execute => OffImagem(), canExecute => { return true; });
+
+        public void AddProdHelper()
+        {
+            InserirProduto(txbxNomeProduto, txtPrecoProduto, txtQuantidadeProduto);
+            AtualizarMetodo();
+        }
+
+
+
 
         private ObservableCollection<Produto> _produto;
         public ObservableCollection<Produto> Produtos
@@ -104,7 +119,7 @@ namespace cvgPrograma.ViewModels
 
 
 
-        private string _connectionString = "Server=localhost;Database=cvgtestedois;Uid=root;Pwd=;";
+        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=;";
         public void InserirProduto(string NomeProduto, decimal PrecoProduto, int QuantidadeEstoque)
         {
             
@@ -162,6 +177,132 @@ namespace cvgPrograma.ViewModels
                 }
             
         }
+
+        private BitmapImage _imagemExibicao1;
+        private BitmapImage _imagemExibicao2;
+        private string _produtoNome;
+        private string _preco;
+
+        public BitmapImage ImagemExibicao1
+        {
+            get { return _imagemExibicao1; }
+            set
+            {
+                _imagemExibicao1 = value;
+                OnPropertyChanged(nameof(ImagemExibicao1));
+            }
+        }
+
+        public BitmapImage ImagemExibicao2
+        {
+            get { return _imagemExibicao2; }
+            set
+            {
+                _imagemExibicao2 = value;
+                OnPropertyChanged(nameof(ImagemExibicao2));
+            }
+        }
+
+        public string ProdutoNome
+        {
+            get { return _produtoNome; }
+            set
+            {
+                _produtoNome = value;
+                OnPropertyChanged(nameof(ProdutoNome));
+            }
+        }
+
+        public string Preco
+        {
+            get { return _preco; }
+            set
+            {
+                _preco = value;
+                OnPropertyChanged(nameof(Preco));
+            }
+        }
+
+        public void AdicionarImagem()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Arquivos de Imagem|*.jpg;*.jpeg;*.png;*.gif;*.bmp|Todos os Arquivos|*.*";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                BitmapImage bitmapImage = new BitmapImage(new Uri(openFileDialog.FileName));
+
+                ImagemExibicao1 = bitmapImage;
+                ImagemExibicao2 = bitmapImage;
+            }
+        }
+
+        public void OffImagem()
+        {
+            ImagemExibicao1 = null;
+            ImagemExibicao2 = null;
+        }
+
+
+        private string _IsVisible;
+        public string IsVisible
+        {
+            get { return _IsVisible; }
+            set
+            {
+                _IsVisible = value;
+                OnPropertyChanged(nameof(IsVisible));
+            }
+        }
+        private string _IsVisible2;
+        public string IsVisible2
+        {
+            get { return _IsVisible2; }
+            set
+            {
+                _IsVisible2 = value;
+                OnPropertyChanged(nameof(IsVisible2));
+            }
+        }
+
+        private object _prodID;
+
+        public object prodID
+        {
+            get { return _prodID; }
+            set { _prodID = value; }
+        }
+
+        private string  _InsiraId;
+
+        public string InsiraID
+        {
+            get { return _InsiraId; }
+            set { _InsiraId = value; OnPropertyChanged(nameof(InsiraID)); }
+        }
+
+        public void EditarCard()
+        {
+            
+            EstoqueView estoqueView = new EstoqueView();
+            prodID = estoqueView.FindName(InsiraID);
+            if (prodID.ToString() == InsiraID)
+            {
+                IsVisible = "Visible";
+                IsVisible2 = "Collapsed";
+            }            
+        }
+
+        public void SalvarCard()
+        {
+            IsVisible = "Collapsed";   
+            IsVisible2 = "Visible";  
+        }
+
+
+
+
+
 
     }
 }

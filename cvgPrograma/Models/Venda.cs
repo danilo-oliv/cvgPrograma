@@ -11,7 +11,7 @@ namespace cvgPrograma.Models
 {
     public class Venda
     {
-        private string _connectionString = "Server=localhost;Database=cvgtestedois;Uid=root;Pwd=;";
+        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=;";
 
 
         public int Id { get; set; }
