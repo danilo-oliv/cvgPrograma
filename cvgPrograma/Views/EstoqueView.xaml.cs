@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using cvgPrograma.Models;
 
 namespace cvgPrograma.Views
 {
@@ -25,18 +26,16 @@ namespace cvgPrograma.Views
     /// </summary>
     public partial class EstoqueView : UserControl
     {
+        public EstoqueViewModel ViewModel { get; set; }
 
-        public ObservableCollection<ItemModel> Itens { get; set; }
+
         public EstoqueView()
         {
             InitializeComponent();
-            Itens = new ObservableCollection<ItemModel>
-            {
-                new ItemModel { Nome = "Item 1" },
-                new ItemModel { Nome = "Item 2" },
-                new ItemModel { Nome = "Item 3" }
-            };
-            meuItemControl.ItemsSource = Itens;
+
+
+            ViewModel = new EstoqueViewModel();
+            DataContext = ViewModel;
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -68,86 +67,89 @@ namespace cvgPrograma.Views
 
         }
 
-        //private void virarCard(object sender, RoutedEventArgs e)
-        //{
-        //    var itemIndex = 0;
-        //    var itemContainer = listagemCards.ItemContainerGenerator.ContainerFromIndex(itemIndex) as FrameworkElement;
-        //    if (itemContainer != null)
-        //    {
-        //        itemContainer.Visibility = Visibility.Collapsed;
-        //    }
-        //}
 
-        private void AzulButton_Click(object sender, RoutedEventArgs e)
+
+        private void voltarCard(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            var item = button?.DataContext as ItemModel;
-            if (item != null)
+            if (sender is Button button && button.Tag is long ProdutoId)
             {
-                item.Cor = Brushes.Blue;
-                item.Visibilidade = "Hidden";
+
+                funcaoVoltaCard(ProdutoId);
             }
+            else
+                MessageBox.Show("False");
         }
 
-        private void VermelhoButton_Click(object sender, RoutedEventArgs e)
+        private void virarCard(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            var item = button?.DataContext as ItemModel;
-            if (item != null)
+            if (sender is Button button && button.Tag is long ProdutoId)
             {
-                item.Cor = Brushes.Red;
-                item.Visibilidade = "Visible";
+
+                funcaoViraCard(ProdutoId);
             }
+            else
+                MessageBox.Show("False");
+        }
+
+
+        private void funcaoVoltaCard(long valorDoId)
+        {
+            int index = -1;
+
+            for (int i = 0; i < listagemCards.Items.Count; i++)
+            {
+                if (listagemCards.Items[i] is Produto produtos && produtos.ProdutoId.ToString() == valorDoId.ToString())
+                {
+                    index = i;                    
+                    break;
+                }
+
+            }
+
+            if (index != -1)
+            {
+                // Access the item at the found index and modify its properties
+                Produto itemAtIndex = listagemCards.Items[index] as Produto;
+                if (itemAtIndex != null)
+                {                    
+                    itemAtIndex.atributoVisibilidade = "Visible";
+                }
+
+            }
+
+
+        }
+
+        private void funcaoViraCard(long ProdutoId)
+        {
+            int index = -1;
+
+            for (int i = 0; i < listagemCards.Items.Count; i++)
+            {
+                if (listagemCards.Items[i] is Produto produtos && produtos.ProdutoId.ToString() == ProdutoId.ToString())
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            if (index != -1)
+            {
+                // Access the item at the found index and modify its properties
+                Produto itemAtIndex = listagemCards.Items[index] as Produto;
+                if (itemAtIndex != null)
+                {
+                    itemAtIndex.atributoVisibilidade = "Hidden";
+                }
+
+            }
+
+
+
+
         }
 
     }
 
-    public class ItemModel : INotifyPropertyChanged
-    {
-        private string _visibilidade;
 
-        public string Visibilidade
-        {
-            get { return _visibilidade; }
-            set { _visibilidade = value; OnPropertyChanged(nameof(Visibilidade)); }
-        }
-
-
-
-        private string _nome;
-        public string Nome
-        {
-            get { return _nome; }
-            set
-            {
-                if (_nome != value)
-                {
-                    _nome = value;
-                    OnPropertyChanged(nameof(Nome));
-                }
-            }
-        }
-
-        private Brush _cor = Brushes.Black;
-        public Brush Cor
-        {
-            get { return _cor; }
-            set
-            {
-                if (_cor != value)
-                {
-                    _cor = value;
-                    OnPropertyChanged(nameof(Cor));
-                }
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-    }
     }
