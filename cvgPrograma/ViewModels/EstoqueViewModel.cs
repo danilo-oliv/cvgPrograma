@@ -17,7 +17,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+<<<<<<< HEAD
 using System.Windows.Media.Imaging;
+=======
+using ZstdSharp.Unsafe;
+>>>>>>> 403245b8f674733afc58ae37c4a4c30db45218e6
 
 namespace cvgPrograma.ViewModels
 {
@@ -30,6 +34,7 @@ namespace cvgPrograma.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+<<<<<<< HEAD
         public RelayCommand AddProdCommand => new RelayCommand(execute => AddProdHelper(), canExecute => { return true; });
         public RelayCommand AtualizarCollection => new RelayCommand(execute => AtualizarMetodo(), canExecute => { return true; });
         public RelayCommand EditandoCard => new RelayCommand(execute => EditarCard(), canExecute => { return true; });
@@ -44,6 +49,10 @@ namespace cvgPrograma.ViewModels
         }
 
 
+=======
+        public RelayCommand AtualizarCollection => new RelayCommand(execute => AtualizarMetodo(), canExecute => { return true; });
+        public RelayCommand UpdateProduto => new RelayCommand(execute => AlterarProduto(), canExecute => { return true; });
+>>>>>>> 403245b8f674733afc58ae37c4a4c30db45218e6
 
 
         private ObservableCollection<Produto> _produto;
@@ -116,67 +125,48 @@ namespace cvgPrograma.ViewModels
         }
 
 
+<<<<<<< HEAD
 
 
 
         private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=;";
         public void InserirProduto(string NomeProduto, decimal PrecoProduto, int QuantidadeEstoque)
+=======
+        private string _connectionString = "Server=localhost;Database=casadovideogame=root;Pwd=;";
+        
+        public void AlterarProduto()
+>>>>>>> 403245b8f674733afc58ae37c4a4c30db45218e6
         {
-            
-                MySqlConnection conexao = new MySqlConnection(_connectionString);
-
-                try
+            MySqlConnection conexao = new MySqlConnection(_connectionString);
+            try
+            {
+                conexao.Open();
+                string updateProduto = "UPDATE produto SET NomeProd = @NovoNome, PrecoProd = @NovoPreco WHERE ProdId = @ProdId;";
+                string updateProdutoEstoque = "UPDATE estoque SET QuantidadeProduto = @Quantidade where ProdId = @ProdId;";
+                using (MySqlCommand comandoUpdateProduto = new MySqlCommand(updateProduto, conexao))
                 {
-                    conexao.Open();
-
-                    // Query para cadastrar na tabela produto
-                    // @Nome e @Preco são chaves para parâmetros 
-                    string inserirProdutoSql = "INSERT INTO produto (NomeProd, PrecoProd) VALUES (@Nome, @Preco);";
-                    using (MySqlCommand comandoInserirProduto = new MySqlCommand(inserirProdutoSql, conexao))
+                    comandoUpdateProduto.Parameters.AddWithValue("@NovoNome", "textbox_update_nomeproduto"); //ALTERAR TEXTBOX
+                    comandoUpdateProduto.Parameters.AddWithValue("@NovoPreco", "textbox_update_precoproduto"); //ALTERAR TEXTBOX
+                    comandoUpdateProduto.Parameters.AddWithValue("@ProdId", "prodId_do_card_clicado"); //PEGAR ID
+                    comandoUpdateProduto.ExecuteNonQuery();
+                    using (MySqlCommand comandoUpdateProdutoEstoque = new MySqlCommand(updateProdutoEstoque, conexao))
                     {
-                        // "@Chave", valor de um campo input
-                        comandoInserirProduto.Parameters.AddWithValue("@Nome", NomeProduto);
-                        comandoInserirProduto.Parameters.AddWithValue("@Preco", PrecoProduto); // NOMEAR AS TEXTBOX E TROCAR
-                        comandoInserirProduto.ExecuteNonQuery();
-                    }
-
-                    // Pega o maior id de produto (ultimo adicionado) para fazer o match no estoque
-                    string consultarMaiorIdSql = "SELECT MAX(ProdId) FROM produto;";
-                    using (MySqlCommand comandoConsultarMaiorId = new MySqlCommand(consultarMaiorIdSql, conexao))
-                    {
-                        object resultado = comandoConsultarMaiorId.ExecuteScalar();
-
-                        if (resultado != null && resultado != DBNull.Value)
-                        {
-                            int maiorId = Convert.ToInt32(resultado);
-
-                            // Com o ID obtido, insere no estoque
-                            string inserirEstoqueSql = "INSERT INTO estoque (QuantidadeProduto, ProdId) VALUES (@Quantidade, @IdProduto);";
-                            using (MySqlCommand comandoInserirEstoque = new MySqlCommand(inserirEstoqueSql, conexao))
-                            {
-                                comandoInserirEstoque.Parameters.AddWithValue("@Quantidade", QuantidadeEstoque); // TROCAR!
-                                comandoInserirEstoque.Parameters.AddWithValue("@IdProduto", maiorId);
-                                comandoInserirEstoque.ExecuteNonQuery();
-                            }
-
-                            MessageBox.Show("Inserção concluída com sucesso.");                            
-                        }
-                        else
-                        {
-                            MessageBox.Show("Nenhum registro encontrado na tabela 'produto'.");
-                        }
+                        comandoUpdateProduto.Parameters.AddWithValue("@Quantidade", "textbox_update_nomeproduto"); //ALTERAR TEXTBOX
+                        comandoUpdateProduto.Parameters.AddWithValue("@ProdId", "prodId_do_card_clicado"); //PEGAR ID
+                        comandoUpdateProduto.ExecuteNonQuery();
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro: " + ex.Message);
-                }
-                finally
-                {
-                    conexao.Close();
-                }
-            
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+            }
+            finally
+            {
+                conexao.Close();
+            }
         }
+}
 
         private BitmapImage _imagemExibicao1;
         private BitmapImage _imagemExibicao2;
@@ -300,4 +290,4 @@ namespace cvgPrograma.ViewModels
 
 
     }
-}
+
