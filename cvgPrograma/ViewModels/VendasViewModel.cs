@@ -79,6 +79,7 @@ namespace cvgPrograma.ViewModels
         public void AbrirNovo()
         {
             NovoView novo = new NovoView();
+            novo.tabControlNovo.SelectedIndex = 3;
             novo.Show();
         }
 

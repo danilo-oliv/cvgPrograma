@@ -23,135 +23,32 @@
         
     <Grid>
         <!--Novo Serviço-->
-        <materialDesign:DialogHost>
-            <materialDesign:DialogHost.DialogContent>
-                <TextBlock Text="Yes"/>
-            </materialDesign:DialogHost.DialogContent>
-            <Button
-                Background="MediumBlue"
-                x:Name="mdDialog"                
-    Width="128"
-    Margin="-40,60,50,8"
-    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-    Content="Novo Serviço" HorizontalAlignment="Right" VerticalAlignment="Top">
-                <Button.CommandParameter>
-                    <Grid Width="515"
-                  Height="355"
-                  Background="White">
-                        <StackPanel HorizontalAlignment="Right" 
-                        VerticalAlignment="Top"
-                        >
-                            <Button x:Name="btnCloseModal"
-                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                        Margin="0 10 10 0"
-                        Padding="2 0 2 0"
-                            
-                        
-                        >
-                                <materialDesign:PackIcon Height="25" Width="25" Kind="CloseBoxOutline" />
-                            </Button>
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Adicionar Serviço"
-                       HorizontalAlignment="Center"
-                       Margin="15"
-                      />
 
-                            <TextBox
-                        Height="70"
-                        Width="400"
-                        VerticalAlignment="Top"
-                        materialDesign:HintAssist.Hint="Descrição"
-                        materialDesign:HintAssist.HintOpacity="0.9"
-                        AcceptsReturn="True"                       
-                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                        TextWrapping="Wrap"
-                        VerticalScrollBarVisibility="Auto" />
-                            <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Center">
-                                <TextBox
-                                HorizontalAlignment="Center"
-                                Margin="0 10 10 10"
-                                Width="183"
-                                VerticalAlignment="Top"
-                                materialDesign:HintAssist.Hint="Preço:"
-                                materialDesign:HintAssist.HintOpacity="0.9"
-                                AcceptsReturn="True"                       
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
-                                <DatePicker 
-                            HorizontalAlignment="Center"
-                            Width="206"
-                            materialDesign:HintAssist.Hint="Data de entrada:"
-                            materialDesign:TextFieldAssist.HasClearButton="True"
-                            Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
-                            </StackPanel>
+            <StackPanel Panel.ZIndex="10" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Button         IsEnabled="True"       
+                x:Name="mdDialog"  Margin="10 30"              
+    Width="32"
+    Padding="0"
+    Command="{Binding JanelaNovo}"
+    HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <materialDesign:PackIcon FontSize="60"  Kind="Plus"/>                    
+                </Button>
 
-                            <ComboBox
-                      HorizontalAlignment="Center"
-                      materialDesign:HintAssist.Hint="Método de Pagamento"
-                      Width="400"
-                      Margin="10"
-                      Padding="5"        
-                      Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                                <ComboBoxItem Content="Cartão de crédito" />
-                                <ComboBoxItem Content="Cartão de débito" />
-                                <ComboBoxItem Content="Dinheiro" />
-                                <ComboBoxItem Content="Pix" />
-                            </ComboBox>
-                            <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Center">
-                                <TextBox
-                                Margin="0 10 10 10"
-                                Width="195"
-                                VerticalAlignment="Top"
-                                materialDesign:HintAssist.Hint="Cliente:"
-                                materialDesign:HintAssist.HintOpacity="0.9"
-                                AcceptsReturn="True"                       
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
-                                <TextBox
-                                Margin="0 10 0 10"
-                                Width="195"
-                                VerticalAlignment="Top"
-                                materialDesign:HintAssist.Hint="Contato:"
-                                materialDesign:HintAssist.HintOpacity="0.9"
-                                AcceptsReturn="True"                       
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
+                <Button Command="{Binding AtualizarCollection}"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="10 30"
+                   
+                Content="Atualizar"
+                Width="128"
+        />
+            </StackPanel>
 
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Right">
-                                <Button Width="90"
-                    Content="Salvar"
-                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                    Style="{StaticResource MaterialDesignOutlinedLightButton}"
-                    ToolTip="MaterialDesignOutlinedButton"
-                        Margin="10"/>
-                                <Button Width="90"
-                    Content="Cancelar"
-                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"                                        
-                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                    Style="{StaticResource MaterialDesignOutlinedLightButton}"
-                    ToolTip="MaterialDesignOutlinedButton"
-                        Margin="10"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Grid>
-                </Button.CommandParameter>
-            </Button>
-        </materialDesign:DialogHost>
-
-        <Grid>
+            <Grid>
             <Calendar Height="370" Margin="120,70,0,0" HorizontalAlignment="Left" Background="LightCyan"
             Name="calendar1" VerticalAlignment="Top" Width="295"/>
         </Grid>
 
-        <materialDesign:Card HorizontalAlignment="Left"
+        <!--<materialDesign:Card HorizontalAlignment="Left"
   Padding="10,5"                           
   Background="#03a9f4"
   Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" Margin="1000,130,0,240" Width="355" Height="80">
@@ -338,7 +235,7 @@ Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" Margin="1000,400,0,
 
                 </StackPanel>
             </Grid>
-        </materialDesign:Card>
+        </materialDesign:Card> -->
 
             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.ColumnSpan="3">
                 <ItemsControl ItemsSource="{Binding Servico}">
@@ -374,11 +271,6 @@ Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" Margin="1000,400,0,
                 </ItemsControl>
             </ScrollViewer>
         </Grid>
-        <Button Command="{Binding AtualizarCollection}"
-                Content="Atualizar"
-                Grid.Row="0"
-                Grid.Column="1"
-                Width="128"
-        />
+
     </Grid>
 </UserControl>

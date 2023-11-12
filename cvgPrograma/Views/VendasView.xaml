@@ -19,23 +19,36 @@
         <vm:VendasViewModel x:Key="vmVendas"/>
     </UserControl.Resources>
     <Grid DataContext="{StaticResource vmVendas}">
+        
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="71*"/>
             <RowDefinition Height="154*"/>
         </Grid.RowDefinitions>
 
-        <Grid VerticalAlignment="Top" HorizontalAlignment="Center">
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Right">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <StackPanel Panel.ZIndex="10" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Button         IsEnabled="True"       
+                x:Name="mdDialog"  Margin="10 30"              
+    Width="32"
+    Padding="0"
+    Command="{Binding JanelaNovo}"
+    HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <materialDesign:PackIcon FontSize="60"  Kind="Plus"/>
+                </Button>
 
-
-            <Button Command="{Binding JanelaNovo}">Novo</Button>
-        
-            <Button Margin="20" Grid.Column="1" Command="{Binding AtualizarVendas}">
-                <materialDesign:PackIcon Kind="Cached" />
-             </Button>
+                <Button Command="{Binding AtualizarCollection}"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="10 30"
+                   
+                Content="Atualizar"
+                Width="128"
+        />
+            </StackPanel>
         </Grid>
 
 

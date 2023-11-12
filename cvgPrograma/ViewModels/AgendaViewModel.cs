@@ -55,6 +55,15 @@ namespace cvgPrograma.ViewModels
 
         }
 
+        public RelayCommand JanelaNovo => new RelayCommand(execute => AbrirNovo(), canExecute => { return true; });
+
+        public void AbrirNovo()
+        {
+            NovoView novo = new NovoView();
+            novo.tabControlNovo.SelectedIndex = 1;
+            novo.Show();
+        }
+
 
 
 

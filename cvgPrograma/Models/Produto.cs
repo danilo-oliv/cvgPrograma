@@ -8,15 +8,43 @@ using System.Windows;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Collections.ObjectModel;
+using cvgPrograma.ViewModels;
+using System.ComponentModel;
 
 namespace cvgPrograma.Models
 {
-    public class Produto
+    public class Produto : INotifyPropertyChanged
     {
-        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=root;";        
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=;";        
 
         public long ProdutoId { get; set;  }
-        public string NomeProduto { get; set; }
+
+        private long _retornaProdutoId;
+
+        public long retornaProdutoId
+        {
+            get { return _retornaProdutoId; }
+            set { _retornaProdutoId = ProdutoId; }
+        }
+
+        private string _atributoVisibilidade;
+
+        public string atributoVisibilidade
+        {
+            get { return _atributoVisibilidade; }
+            set { _atributoVisibilidade = value; OnPropertyChanged(nameof(atributoVisibilidade)); }
+        }
+
+
+
+        public string? NomeProduto { get; set; }
         public decimal PrecoProduto { get; set; }
 
         public long EstoqueId { get; set; }
