@@ -30,14 +30,16 @@ namespace cvgPrograma.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public RelayCommand AddProdCommand => new RelayCommand(execute => AddProdHelper(), canExecute => { return true; });
         public RelayCommand AtualizarCollection => new RelayCommand(execute => AtualizarMetodo(), canExecute => { return true; });
-        
+        public RelayCommand JanelaNovo => new RelayCommand(execute => AbrirNovo(), canExecute => { return true; });
 
-        public void AddProdHelper()
+
+
+        public void AbrirNovo()
         {
-            InserirProduto(txbxNomeProduto, txtPrecoProduto, txtQuantidadeProduto);
-            AtualizarMetodo();
+            NovoView novo = new NovoView();
+            novo.tabControlNovo.SelectedIndex = 2;
+            novo.Show();
         }
 
         
@@ -107,7 +109,8 @@ namespace cvgPrograma.ViewModels
         }
 
         #endregion
-
+        
+        public ICommand DeletCommand { get; set; }
 
         public EstoqueViewModel()
         {
@@ -122,70 +125,6 @@ namespace cvgPrograma.ViewModels
             Produtos = produto.ConsultarProduto();
         }
 
-
-
-
-
-        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=;";
-        public void InserirProduto(string NomeProduto, decimal PrecoProduto, int QuantidadeEstoque)
-        {
-
-            MySqlConnection conexao = new MySqlConnection(_connectionString);
-
-            try
-            {
-                conexao.Open();
-
-                // Query para cadastrar na tabela produto
-                // @Nome e @Preco são chaves para parâmetros 
-                string inserirProdutoSql = "INSERT INTO produto (NomeProd, PrecoProd) VALUES (@Nome, @Preco);";
-                using (MySqlCommand comandoInserirProduto = new MySqlCommand(inserirProdutoSql, conexao))
-                {
-                    // "@Chave", valor de um campo input
-                    comandoInserirProduto.Parameters.AddWithValue("@Nome", NomeProduto);
-                    comandoInserirProduto.Parameters.AddWithValue("@Preco", PrecoProduto); // NOMEAR AS TEXTBOX E TROCAR
-                    comandoInserirProduto.ExecuteNonQuery();
-                }
-
-                // Pega o maior id de produto (ultimo adicionado) para fazer o match no estoque
-                string consultarMaiorIdSql = "SELECT MAX(ProdId) FROM produto;";
-                using (MySqlCommand comandoConsultarMaiorId = new MySqlCommand(consultarMaiorIdSql, conexao))
-                {
-                    object resultado = comandoConsultarMaiorId.ExecuteScalar();
-
-                    if (resultado != null && resultado != DBNull.Value)
-                    {
-                        int maiorId = Convert.ToInt32(resultado);
-
-                        // Com o ID obtido, insere no estoque
-                        string inserirEstoqueSql = "INSERT INTO estoque (QuantidadeProduto, ProdId) VALUES (@Quantidade, @IdProduto);";
-                        using (MySqlCommand comandoInserirEstoque = new MySqlCommand(inserirEstoqueSql, conexao))
-                        {
-                            comandoInserirEstoque.Parameters.AddWithValue("@Quantidade", QuantidadeEstoque); // TROCAR!
-                            comandoInserirEstoque.Parameters.AddWithValue("@IdProduto", maiorId);
-                            comandoInserirEstoque.ExecuteNonQuery();
-                        }
-
-                        MessageBox.Show("Inserção concluída com sucesso.");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Nenhum registro encontrado na tabela 'produto'.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro: " + ex.Message);
-            }
-            finally
-            {
-                conexao.Close();
-            }
-
-        }
-
-
         public void DelProdHelper(object parameter )
         {
             Produto produto = new Produto();
@@ -196,7 +135,6 @@ namespace cvgPrograma.ViewModels
             }
         }
 
-        public ICommand DeletCommand { get; set; }
         
 
 

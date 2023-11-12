@@ -47,26 +47,10 @@ namespace cvgPrograma.Views
         {
         }
 
-        private void BtnLoadFromFile_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true)
-            {
-                Uri fileUri = new Uri(openFileDialog.FileName);
-                imgDynamic.Source = new BitmapImage(fileUri);
-            }
-        }
-
-        private void BtnLimparImagem(object sender, RoutedEventArgs e)
-        {
-            imgDynamic.Source = null;
-        }
-
         private void btnEditarCard_Click(object sender, RoutedEventArgs e)
         {
 
         }
-
 
 
         private void voltarCard(object sender, RoutedEventArgs e)
@@ -100,7 +84,8 @@ namespace cvgPrograma.Views
             {
                 if (listagemCards.Items[i] is Produto produtos && produtos.ProdutoId.ToString() == valorDoId.ToString())
                 {
-                    index = i;
+
+                    index = i;                    
                     break;
                 }
 
@@ -111,7 +96,7 @@ namespace cvgPrograma.Views
                 // Access the item at the found index and modify its properties
                 Produto itemAtIndex = listagemCards.Items[index] as Produto;
                 if (itemAtIndex != null)
-                {
+                {                    
                     itemAtIndex.atributoVisibilidade = "Visible";
                 }
 
@@ -149,13 +134,7 @@ namespace cvgPrograma.Views
 
         }
 
-        
-
-
-
-
 
     }
 
-
-}
+    }
