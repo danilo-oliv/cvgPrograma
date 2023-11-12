@@ -109,9 +109,7 @@
                                                     <Button x:Name="btnAdicionarImagem" Content="{materialDesign:PackIcon Kind=ImagePlusOutline}" Width="50" Height="30"/>
                                                     <Button Content="{materialDesign:PackIcon Kind=DeleteOutline}" Width="50" Height="30" Command="{Binding DataContext.DeletCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding ProdutoId}"  Tag="{Binding ProdutoId}" Cursor="Hand" />
 
-                                                    <Button x:Name="btnSalvarCard" Content="{materialDesign:PackIcon Kind=Check}" Width="50" Height="30" Click="voltarCard" Tag="{Binding ProdutoId}" />
-                                                    <Button x:Name="btnOffImagem" Content="{materialDesign:PackIcon Kind=ImageOffOutline}" Width="50" Height="30" Command="{Binding ExcluindoImagem}"/>
-                                                    <Button x:Name="btnAdicionarImagem" Content="{materialDesign:PackIcon Kind=ImagePlusOutline}" Width="50" Height="30" Command="{Binding ImportandoImagem}"/>
+                                                 
                                                     <Button Content="{materialDesign:PackIcon Kind=DeleteOutline}" Width="50" Height="30" />
 
                                                 </StackPanel>
