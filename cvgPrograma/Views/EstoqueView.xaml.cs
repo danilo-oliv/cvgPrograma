@@ -53,7 +53,6 @@ namespace cvgPrograma.Views
         }
 
 
-
         private void voltarCard(object sender, RoutedEventArgs e)
         {
             if (sender is Button button && button.Tag is long ProdutoId)
@@ -85,6 +84,7 @@ namespace cvgPrograma.Views
             {
                 if (listagemCards.Items[i] is Produto produtos && produtos.ProdutoId.ToString() == valorDoId.ToString())
                 {
+
                     index = i;                    
                     break;
                 }
@@ -134,7 +134,7 @@ namespace cvgPrograma.Views
 
         }
 
-    }
 
+    }
 
     }

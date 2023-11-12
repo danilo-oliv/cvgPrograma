@@ -88,6 +88,7 @@ namespace cvgPrograma.ViewModels
             }
         }
 
+
         public bool AddProdValida()
         {
             if (txbxNomeProduto != null && txtPrecoProduto > 0 && txtQuantidadeProduto > 0)
