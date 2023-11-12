@@ -32,15 +32,20 @@ namespace cvgPrograma.ViewModels
         }
 
         public RelayCommand AtualizarCollection => new RelayCommand(execute => AtualizarMetodo(), canExecute => { return true; });
-        public RelayCommand UpdateProduto => new RelayCommand(execute => AlterarProduto(), canExecute => { return true; });
-        public RelayCommand AddProdCommand => new RelayCommand(execute => AddProdHelper(), canExecute => { return true; });      
+        public RelayCommand UpdateProduto => new RelayCommand(execute => AlterarProduto(), canExecute => { return true; });     
         public RelayCommand ImportandoImagem => new RelayCommand(execute => AdicionarImagem(), canExecute => { return true; });
         public RelayCommand ExcluindoImagem => new RelayCommand(execute => OffImagem(), canExecute => { return true; });
 
-        public void AddProdHelper()
+
+        public RelayCommand JanelaNovo => new RelayCommand(execute => AbrirNovo(), canExecute => { return true; });
+
+
+
+        public void AbrirNovo()
         {
-            
-            AtualizarMetodo();
+            NovoView novo = new NovoView();
+            novo.tabControlNovo.SelectedIndex = 2;
+            novo.Show();
         }
 
 
