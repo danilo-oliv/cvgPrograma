@@ -2,6 +2,7 @@
 using cvgPrograma.Models;
 using cvgPrograma.Views;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
 using Org.BouncyCastle.Bcpg.OpenPgp;
@@ -16,7 +17,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ZstdSharp.Unsafe;
+using System.Windows.Media.Imaging;
+
 
 namespace cvgPrograma.ViewModels
 {
@@ -31,6 +33,15 @@ namespace cvgPrograma.ViewModels
 
         public RelayCommand AtualizarCollection => new RelayCommand(execute => AtualizarMetodo(), canExecute => { return true; });
         public RelayCommand UpdateProduto => new RelayCommand(execute => AlterarProduto(), canExecute => { return true; });
+        public RelayCommand AddProdCommand => new RelayCommand(execute => AddProdHelper(), canExecute => { return true; });      
+        public RelayCommand ImportandoImagem => new RelayCommand(execute => AdicionarImagem(), canExecute => { return true; });
+        public RelayCommand ExcluindoImagem => new RelayCommand(execute => OffImagem(), canExecute => { return true; });
+
+        public void AddProdHelper()
+        {
+            
+            AtualizarMetodo();
+        }
 
 
         private ObservableCollection<Produto> _produto;
@@ -136,7 +147,71 @@ namespace cvgPrograma.ViewModels
                 conexao.Close();
             }
         }
-}
+        private BitmapImage _imagemExibicao1;
+        private BitmapImage _imagemExibicao2;
+        private string _produtoNome;
+        private string _preco;
+
+        public BitmapImage ImagemExibicao1
+        {
+            get { return _imagemExibicao1; }
+            set
+            {
+                _imagemExibicao1 = value;
+                OnPropertyChanged(nameof(ImagemExibicao1));
+            }
+        }
+
+        public BitmapImage ImagemExibicao2
+        {
+            get { return _imagemExibicao2; }
+            set
+            {
+                _imagemExibicao2 = value;
+                OnPropertyChanged(nameof(ImagemExibicao2));
+            }
+        }
+
+        public string ProdutoNome
+        {
+            get { return _produtoNome; }
+            set
+            {
+                _produtoNome = value;
+                OnPropertyChanged(nameof(ProdutoNome));
+            }
+        }
+
+        public string Preco
+        {
+            get { return _preco; }
+            set
+            {
+                _preco = value;
+                OnPropertyChanged(nameof(Preco));
+            }
+        }
+
+        public void AdicionarImagem()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Arquivos de Imagem|*.jpg;*.jpeg;*.png;*.gif;*.bmp|Todos os Arquivos|*.*";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                BitmapImage bitmapImage = new BitmapImage(new Uri(openFileDialog.FileName));
+
+                ImagemExibicao1 = bitmapImage;
+                ImagemExibicao2 = bitmapImage;
+            }
+        }
+
+        public void OffImagem()
+        {
+            ImagemExibicao1 = null;
+            ImagemExibicao2 = null;
+        }
+    }
 
     }
 

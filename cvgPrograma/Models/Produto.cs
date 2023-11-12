@@ -15,7 +15,6 @@ namespace cvgPrograma.Models
 {
     public class Produto : INotifyPropertyChanged
     {
-<<<<<<< HEAD
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -46,12 +45,6 @@ namespace cvgPrograma.Models
 
 
         public string? NomeProduto { get; set; }
-=======
-        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=root;";        
-
-        public long ProdutoId { get; set;  }
-        public string NomeProduto { get; set; }
->>>>>>> 403245b8f674733afc58ae37c4a4c30db45218e6
         public decimal PrecoProduto { get; set; }
 
         public long EstoqueId { get; set; }
