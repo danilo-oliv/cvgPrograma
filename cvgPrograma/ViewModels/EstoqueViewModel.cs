@@ -17,11 +17,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-<<<<<<< HEAD
 using System.Windows.Media.Imaging;
-=======
-using ZstdSharp.Unsafe;
->>>>>>> 403245b8f674733afc58ae37c4a4c30db45218e6
 
 namespace cvgPrograma.ViewModels
 {
@@ -34,13 +30,9 @@ namespace cvgPrograma.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-<<<<<<< HEAD
         public RelayCommand AddProdCommand => new RelayCommand(execute => AddProdHelper(), canExecute => { return true; });
         public RelayCommand AtualizarCollection => new RelayCommand(execute => AtualizarMetodo(), canExecute => { return true; });
-        public RelayCommand EditandoCard => new RelayCommand(execute => EditarCard(), canExecute => { return true; });
-        public RelayCommand SalvandoCard => new RelayCommand(execute => SalvarCard(), canExecute => { return true; });
-        public RelayCommand ImportandoImagem => new RelayCommand(execute => AdicionarImagem(), canExecute => { return true; });
-        public RelayCommand ExcluindoImagem => new RelayCommand(execute => OffImagem(), canExecute => { return true; });
+        
 
         public void AddProdHelper()
         {
@@ -48,12 +40,7 @@ namespace cvgPrograma.ViewModels
             AtualizarMetodo();
         }
 
-
-=======
-        public RelayCommand AtualizarCollection => new RelayCommand(execute => AtualizarMetodo(), canExecute => { return true; });
-        public RelayCommand UpdateProduto => new RelayCommand(execute => AlterarProduto(), canExecute => { return true; });
->>>>>>> 403245b8f674733afc58ae37c4a4c30db45218e6
-
+        
 
         private ObservableCollection<Produto> _produto;
         public ObservableCollection<Produto> Produtos
@@ -66,6 +53,16 @@ namespace cvgPrograma.ViewModels
             }
         }
         #region Valores das TextBox
+
+        private long _Idproduto;
+
+        public long Idproduto
+        {
+            get { return _Idproduto; }
+            set { _Idproduto = value; OnPropertyChanged(nameof(Idproduto)); }
+        }
+
+
 
         private string _txbxNomeProduto;
         public string txbxNomeProduto
@@ -85,8 +82,8 @@ namespace cvgPrograma.ViewModels
         public decimal txtPrecoProduto
         {
             get { return _txtPrecoProduto; }
-            set 
-            { 
+            set
+            {
                 if (_txtPrecoProduto != value)
                 {
                     _txtPrecoProduto = value;
@@ -99,8 +96,8 @@ namespace cvgPrograma.ViewModels
         public int txtQuantidadeProduto
         {
             get { return _txtQuantidadeProduto; }
-            set 
-            { 
+            set
+            {
                 if (_txtQuantidadeProduto != value)
                 {
                     _txtQuantidadeProduto = value;
@@ -116,6 +113,7 @@ namespace cvgPrograma.ViewModels
         {
             Produto produto = new Produto();
             Produtos = produto.ConsultarProduto();
+            DeletCommand = new RelayCommand(DelProdHelper);
         }
 
         public void AtualizarMetodo()
@@ -125,39 +123,58 @@ namespace cvgPrograma.ViewModels
         }
 
 
-<<<<<<< HEAD
 
 
 
         private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=;";
         public void InserirProduto(string NomeProduto, decimal PrecoProduto, int QuantidadeEstoque)
-=======
-        private string _connectionString = "Server=localhost;Database=casadovideogame=root;Pwd=;";
-        
-        public void AlterarProduto()
->>>>>>> 403245b8f674733afc58ae37c4a4c30db45218e6
         {
+
             MySqlConnection conexao = new MySqlConnection(_connectionString);
+
             try
             {
                 conexao.Open();
-                string updateProduto = "UPDATE produto SET NomeProd = @NovoNome, PrecoProd = @NovoPreco WHERE ProdId = @ProdId;";
-                string updateProdutoEstoque = "UPDATE estoque SET QuantidadeProduto = @Quantidade where ProdId = @ProdId;";
-                using (MySqlCommand comandoUpdateProduto = new MySqlCommand(updateProduto, conexao))
+
+                // Query para cadastrar na tabela produto
+                // @Nome e @Preco são chaves para parâmetros 
+                string inserirProdutoSql = "INSERT INTO produto (NomeProd, PrecoProd) VALUES (@Nome, @Preco);";
+                using (MySqlCommand comandoInserirProduto = new MySqlCommand(inserirProdutoSql, conexao))
                 {
-                    comandoUpdateProduto.Parameters.AddWithValue("@NovoNome", "textbox_update_nomeproduto"); //ALTERAR TEXTBOX
-                    comandoUpdateProduto.Parameters.AddWithValue("@NovoPreco", "textbox_update_precoproduto"); //ALTERAR TEXTBOX
-                    comandoUpdateProduto.Parameters.AddWithValue("@ProdId", "prodId_do_card_clicado"); //PEGAR ID
-                    comandoUpdateProduto.ExecuteNonQuery();
-                    using (MySqlCommand comandoUpdateProdutoEstoque = new MySqlCommand(updateProdutoEstoque, conexao))
+                    // "@Chave", valor de um campo input
+                    comandoInserirProduto.Parameters.AddWithValue("@Nome", NomeProduto);
+                    comandoInserirProduto.Parameters.AddWithValue("@Preco", PrecoProduto); // NOMEAR AS TEXTBOX E TROCAR
+                    comandoInserirProduto.ExecuteNonQuery();
+                }
+
+                // Pega o maior id de produto (ultimo adicionado) para fazer o match no estoque
+                string consultarMaiorIdSql = "SELECT MAX(ProdId) FROM produto;";
+                using (MySqlCommand comandoConsultarMaiorId = new MySqlCommand(consultarMaiorIdSql, conexao))
+                {
+                    object resultado = comandoConsultarMaiorId.ExecuteScalar();
+
+                    if (resultado != null && resultado != DBNull.Value)
                     {
-                        comandoUpdateProduto.Parameters.AddWithValue("@Quantidade", "textbox_update_nomeproduto"); //ALTERAR TEXTBOX
-                        comandoUpdateProduto.Parameters.AddWithValue("@ProdId", "prodId_do_card_clicado"); //PEGAR ID
-                        comandoUpdateProduto.ExecuteNonQuery();
+                        int maiorId = Convert.ToInt32(resultado);
+
+                        // Com o ID obtido, insere no estoque
+                        string inserirEstoqueSql = "INSERT INTO estoque (QuantidadeProduto, ProdId) VALUES (@Quantidade, @IdProduto);";
+                        using (MySqlCommand comandoInserirEstoque = new MySqlCommand(inserirEstoqueSql, conexao))
+                        {
+                            comandoInserirEstoque.Parameters.AddWithValue("@Quantidade", QuantidadeEstoque); // TROCAR!
+                            comandoInserirEstoque.Parameters.AddWithValue("@IdProduto", maiorId);
+                            comandoInserirEstoque.ExecuteNonQuery();
+                        }
+
+                        MessageBox.Show("Inserção concluída com sucesso.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Nenhum registro encontrado na tabela 'produto'.");
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Erro: " + ex.Message);
             }
@@ -165,129 +182,24 @@ namespace cvgPrograma.ViewModels
             {
                 conexao.Close();
             }
+
         }
-}
 
-        private BitmapImage _imagemExibicao1;
-        private BitmapImage _imagemExibicao2;
-        private string _produtoNome;
-        private string _preco;
 
-        public BitmapImage ImagemExibicao1
+        public void DelProdHelper(object parameter )
         {
-            get { return _imagemExibicao1; }
-            set
+            Produto produto = new Produto();
+            if (parameter is long Produto_Id )
             {
-                _imagemExibicao1 = value;
-                OnPropertyChanged(nameof(ImagemExibicao1));
+                produto.DeletarProduto(Produto_Id);
+                AtualizarMetodo();
             }
         }
 
-        public BitmapImage ImagemExibicao2
-        {
-            get { return _imagemExibicao2; }
-            set
-            {
-                _imagemExibicao2 = value;
-                OnPropertyChanged(nameof(ImagemExibicao2));
-            }
-        }
-
-        public string ProdutoNome
-        {
-            get { return _produtoNome; }
-            set
-            {
-                _produtoNome = value;
-                OnPropertyChanged(nameof(ProdutoNome));
-            }
-        }
-
-        public string Preco
-        {
-            get { return _preco; }
-            set
-            {
-                _preco = value;
-                OnPropertyChanged(nameof(Preco));
-            }
-        }
-
-        public void AdicionarImagem()
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Arquivos de Imagem|*.jpg;*.jpeg;*.png;*.gif;*.bmp|Todos os Arquivos|*.*";
-
-            if (openFileDialog.ShowDialog() == true)
-            {
-                BitmapImage bitmapImage = new BitmapImage(new Uri(openFileDialog.FileName));
-
-                ImagemExibicao1 = bitmapImage;
-                ImagemExibicao2 = bitmapImage;
-            }
-        }
-
-        public void OffImagem()
-        {
-            ImagemExibicao1 = null;
-            ImagemExibicao2 = null;
-        }
-
-
-        private string _IsVisible;
-        public string IsVisible
-        {
-            get { return _IsVisible; }
-            set
-            {
-                _IsVisible = value;
-                OnPropertyChanged(nameof(IsVisible));
-            }
-        }
-        private string _IsVisible2;
-        public string IsVisible2
-        {
-            get { return _IsVisible2; }
-            set
-            {
-                _IsVisible2 = value;
-                OnPropertyChanged(nameof(IsVisible2));
-            }
-        }
-
-        private object _prodID;
-
-        public object prodID
-        {
-            get { return _prodID; }
-            set { _prodID = value; }
-        }
-
-        private string  _InsiraId;
-
-        public string InsiraID
-        {
-            get { return _InsiraId; }
-            set { _InsiraId = value; OnPropertyChanged(nameof(InsiraID)); }
-        }
-
-        public void EditarCard()
-        {
-
-                IsVisible = "Visible";
-                IsVisible2 = "Collapsed";            
-        }
-
-        public void SalvarCard()
-        {
-            IsVisible = "Collapsed";   
-            IsVisible2 = "Visible";  
-        }
-
-
-
+        public ICommand DeletCommand { get; set; }
+        
 
 
 
     }
-
+}

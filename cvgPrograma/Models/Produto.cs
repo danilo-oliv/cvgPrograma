@@ -15,7 +15,6 @@ namespace cvgPrograma.Models
 {
     public class Produto : INotifyPropertyChanged
     {
-<<<<<<< HEAD
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -23,9 +22,9 @@ namespace cvgPrograma.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=;";        
+        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=;";
 
-        public long ProdutoId { get; set;  }
+        public long ProdutoId { get; set; }
 
         private long _retornaProdutoId;
 
@@ -46,12 +45,6 @@ namespace cvgPrograma.Models
 
 
         public string? NomeProduto { get; set; }
-=======
-        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=root;";        
-
-        public long ProdutoId { get; set;  }
-        public string NomeProduto { get; set; }
->>>>>>> 403245b8f674733afc58ae37c4a4c30db45218e6
         public decimal PrecoProduto { get; set; }
 
         public long EstoqueId { get; set; }
@@ -68,16 +61,16 @@ namespace cvgPrograma.Models
             MySqlConnection conexao = new MySqlConnection(_connectionString);
             MySqlDataReader dr;
             ObservableCollection<Produto> produtos = new ObservableCollection<Produto>();
-            try 
+            try
             {
                 conexao.Open();
 
                 string consultarProduto = "SELECT * FROM PRODUTO as p INNER JOIN estoque as e on p.ProdId = e.ProdId";
                 using (MySqlCommand comandoConsultarProduto = new MySqlCommand(consultarProduto, conexao))
                 {
-                    using (dr = comandoConsultarProduto.ExecuteReader()) 
-                    { 
-                        while (dr.Read()) 
+                    using (dr = comandoConsultarProduto.ExecuteReader())
+                    {
+                        while (dr.Read())
                         {
                             Produto produto = new Produto
                             {
@@ -92,8 +85,8 @@ namespace cvgPrograma.Models
                     }
                 }
                 return produtos;
-            } 
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Erro: " + ex.Message);
                 return null;
@@ -147,6 +140,34 @@ namespace cvgPrograma.Models
                         MessageBox.Show("Nenhum registro encontrado na tabela 'produto'.");
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        public void DeletarProduto(long Idproduto)
+        {
+            MySqlConnection conexao = new MySqlConnection(_connectionString);
+
+            try
+            {
+                conexao.Open();
+
+                string deletarProdutoSql = "DELETE from estoque WHERE ProdId = @ProdId;" +
+                    "DELETE from produto WHERE ProdId = @ProdId;";
+
+                using (MySqlCommand comandoDeletarProduto = new MySqlCommand(deletarProdutoSql, conexao))
+                {
+                    comandoDeletarProduto.Parameters.AddWithValue("@ProdId", Idproduto);
+                    comandoDeletarProduto.ExecuteNonQuery();
+                }
+
             }
             catch (Exception ex)
             {

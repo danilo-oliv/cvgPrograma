@@ -32,13 +32,10 @@ namespace cvgPrograma.Views
         public EstoqueView()
         {
             InitializeComponent();
-<<<<<<< HEAD
 
 
             ViewModel = new EstoqueViewModel();
             DataContext = ViewModel;
-=======
->>>>>>> 403245b8f674733afc58ae37c4a4c30db45218e6
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -65,7 +62,6 @@ namespace cvgPrograma.Views
             imgDynamic.Source = null;
         }
 
-<<<<<<< HEAD
         private void btnEditarCard_Click(object sender, RoutedEventArgs e)
         {
 
@@ -104,7 +100,7 @@ namespace cvgPrograma.Views
             {
                 if (listagemCards.Items[i] is Produto produtos && produtos.ProdutoId.ToString() == valorDoId.ToString())
                 {
-                    index = i;                    
+                    index = i;
                     break;
                 }
 
@@ -115,7 +111,7 @@ namespace cvgPrograma.Views
                 // Access the item at the found index and modify its properties
                 Produto itemAtIndex = listagemCards.Items[index] as Produto;
                 if (itemAtIndex != null)
-                {                    
+                {
                     itemAtIndex.atributoVisibilidade = "Visible";
                 }
 
@@ -153,11 +149,13 @@ namespace cvgPrograma.Views
 
         }
 
+        
+
+
+
+
+
     }
 
 
-    }
-=======
-    }
 }
->>>>>>> 403245b8f674733afc58ae37c4a4c30db45218e6
