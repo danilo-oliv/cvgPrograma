@@ -10,24 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace cvgPrograma.Views
+namespace cvgPrograma
 {
     /// <summary>
-    /// Interação lógica para LoginView.xam
+    /// Lógica interna para Login.xaml
     /// </summary>
-    public partial class LoginView : UserControl
+    public partial class Login : Window
     {
-        public LoginView()
+        public Login()
         {
             InitializeComponent();
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }
