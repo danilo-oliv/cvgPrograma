@@ -23,6 +23,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using LiveChartsCore.Drawing;
 
 namespace cvgPrograma.ViewModels
 {
@@ -189,46 +190,29 @@ namespace cvgPrograma.ViewModels
 
         #region Grafico
 
-        private string _nomeMaisVendido;
-
-        public string nomeMaisVendido
-        {
-            get { return _nomeMaisVendido; }
-            set { _nomeMaisVendido = MaisVendidos(); }
-        }
 
 
+        // Mais Vendido
         public ISeries[] Series { get; set; } =
-            {
-        new BoxSeries<BoxValue>
+     {
+        new ColumnSeries<double>
         {
-            Name = mais,
-            Values = new BoxValue[]
-            {
-                // max, upper quartile, median, lower quartile, min
-                new(100, 80, 60, 20, 70),
-                new(90, 70, 50, 30, 60)
-            }
+            // Conseguir Nome String
+            Name = "P1",
+            // Conseguir Quantidade Vendida Int
+            Values = new double[] { 2 } 
         },
-        new BoxSeries<BoxValue>
+        new ColumnSeries<double>
         {
-            Name = "Year 2024",
-            Values = new BoxValue[]
-            {
-                new(90, 70, 50, 30, 60),
-                new(80, 60, 40, 10, 50)
-
-            }
+            DataPadding = new LvcPoint(0, 0),
+            Name = "P2",
+            Values = new double[] { 3 }
         },
-        new BoxSeries<BoxValue>
+        new ColumnSeries<double>
         {
-            Name = "Year 2025",
-            Values = new BoxValue[]
-            {
-                new(80, 60, 40, 10, 50),
-                new(70, 50, 30, 20, 40)
-
-            }
+            DataPadding = new LvcPoint(0, 0),
+            Name = "P3",
+            Values = new double[] { 4 }
         }
     };
 
@@ -236,12 +220,12 @@ namespace cvgPrograma.ViewModels
         {
         new Axis
         {
-            Labels = new string[] { "Mais Vendidos", "Mais Rentáveis"},
+            Labels = new string[] { "Top 1", "Top 2", "Top 3" },
             LabelsRotation = 0,
             SeparatorsPaint = new SolidColorPaint(new SKColor(200, 200, 200)),
             SeparatorsAtCenter = false,
             TicksPaint = new SolidColorPaint(new SKColor(35, 35, 35)),
-            TicksAtCenter = true
+            TicksAtCenter = true,
         }
     };
 
