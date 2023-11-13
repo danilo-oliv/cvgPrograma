@@ -1,6 +1,11 @@
 ﻿using cvgPrograma.Commands;
 using cvgPrograma.Models;
 using cvgPrograma.Views;
+using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore;
+using LiveChartsCore.Defaults;
+using LiveChartsCore.SkiaSharpView.Painting;
+using SkiaSharp;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 using MySql.Data.MySqlClient;
@@ -135,7 +140,113 @@ namespace cvgPrograma.ViewModels
             }
         }
 
-        
+        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=;";
+
+        public object MaisVendidos()
+        {
+            MySqlConnection conexao = new MySqlConnection(_connectionString);
+            MySqlDataReader dr;
+            ObservableCollection<Produto> maisVendidos = new ObservableCollection<Produto>();
+            try
+            {
+                conexao.Open();
+
+                string pegaMaisVendidos = "SELECT p.NomeProd, SUM(pv.QuantVenda) AS total_vendido" +
+                    "FROM produto p JOIN produtovenda pv ON p.ProdId = pv.ProdId GROUP BY p.ProdId, p.NomeProd, p.PrecoProd" +
+                    "ORDER BY total_vendido DESC LIMIT 3;";
+
+                using (MySqlCommand comandoMaisVendidos = new MySqlCommand(pegaMaisVendidos, conexao))
+                {
+                    using (dr = comandoMaisVendidos.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            Produto maisvendido = new Produto
+                            {
+                                NomeProduto = dr["NomeProd"].ToString(),
+                                QuantVenda = Convert.ToInt32(dr["total_vendido"]),
+                            };
+                            maisVendidos.Add(maisvendido);
+                        }
+                    }
+                }
+                return maisVendidos;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+                return null;
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+
+
+
+
+        #region Grafico
+
+        private string _nomeMaisVendido;
+
+        public string nomeMaisVendido
+        {
+            get { return _nomeMaisVendido; }
+            set { _nomeMaisVendido = MaisVendidos(); }
+        }
+
+
+        public ISeries[] Series { get; set; } =
+            {
+        new BoxSeries<BoxValue>
+        {
+            Name = mais,
+            Values = new BoxValue[]
+            {
+                // max, upper quartile, median, lower quartile, min
+                new(100, 80, 60, 20, 70),
+                new(90, 70, 50, 30, 60)
+            }
+        },
+        new BoxSeries<BoxValue>
+        {
+            Name = "Year 2024",
+            Values = new BoxValue[]
+            {
+                new(90, 70, 50, 30, 60),
+                new(80, 60, 40, 10, 50)
+
+            }
+        },
+        new BoxSeries<BoxValue>
+        {
+            Name = "Year 2025",
+            Values = new BoxValue[]
+            {
+                new(80, 60, 40, 10, 50),
+                new(70, 50, 30, 20, 40)
+
+            }
+        }
+    };
+
+        public Axis[] XAxes { get; set; } =
+        {
+        new Axis
+        {
+            Labels = new string[] { "Mais Vendidos", "Mais Rentáveis"},
+            LabelsRotation = 0,
+            SeparatorsPaint = new SolidColorPaint(new SKColor(200, 200, 200)),
+            SeparatorsAtCenter = false,
+            TicksPaint = new SolidColorPaint(new SKColor(35, 35, 35)),
+            TicksAtCenter = true
+        }
+    };
+
+
+        #endregion
 
 
 
