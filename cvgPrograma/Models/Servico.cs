@@ -18,7 +18,7 @@ namespace cvgPrograma.Models
     public class Servico
     {
         private string _connectionString = "Server=localhost;Database=casadovideogame;User=root;Password=;";
-        
+
         public int ServicoId { get; set; }
         public string? DescSevico { get; set; }
         public DateOnly DataEntradaServico { get; set; }
@@ -35,6 +35,9 @@ namespace cvgPrograma.Models
             MySqlDataReader dr;
             ObservableCollection<Servico> servicos = new ObservableCollection<Servico>();
 
+            int IdMetodo = TipoPagamentoHelper(TipoPagamento);
+
+
             try
             {
                 conexao.Open();
@@ -42,18 +45,17 @@ namespace cvgPrograma.Models
                         "(DescServico, DataEntradaServico, DataSaidaServico, ProntoServico, TotalServico, NomeCliente, TelefoneCliente, CodMetodo) " +
                         "VALUES (@DescServico, @DataEntradaServico, @DataSaidaServico, false, @TotalServico, @NomeCliente, @TelefoneCliente, @CodMetodo);";
 
-                Venda venda = new Venda();
 
                 using (MySqlCommand comandoInserirServico = new MySqlCommand(inserirServico, conexao))
                 {
-                        comandoInserirServico.Parameters.AddWithValue("@DescServico", DescricaoServ);
-                        comandoInserirServico.Parameters.AddWithValue("@DataEntradaServico", DateTime.Now);
-                        comandoInserirServico.Parameters.AddWithValue("@DataSaidaServico", SaidaServ);
-                        comandoInserirServico.Parameters.AddWithValue("@TotalServico", TotalServ); 
-                        comandoInserirServico.Parameters.AddWithValue("@NomeCliente", NomeCliente);
-                        comandoInserirServico.Parameters.AddWithValue("@TelefoneCliente", TelefoneCliente);
-                        comandoInserirServico.Parameters.AddWithValue("@CodMetodo", venda.TipoPagamentoHelper(TipoPagamento));
-                        comandoInserirServico.ExecuteNonQuery();
+                    comandoInserirServico.Parameters.AddWithValue("@DescServico", DescricaoServ);
+                    comandoInserirServico.Parameters.AddWithValue("@DataEntradaServico", DateTime.Now);
+                    comandoInserirServico.Parameters.AddWithValue("@DataSaidaServico", SaidaServ);
+                    comandoInserirServico.Parameters.AddWithValue("@TotalServico", TotalServ);
+                    comandoInserirServico.Parameters.AddWithValue("@NomeCliente", NomeCliente);
+                    comandoInserirServico.Parameters.AddWithValue("@TelefoneCliente", TelefoneCliente);
+                    comandoInserirServico.Parameters.AddWithValue("@CodMetodo", IdMetodo);
+                    comandoInserirServico.ExecuteNonQuery();
                 }
 
                 MessageBox.Show("Inserção concluída com sucesso.");
@@ -67,6 +69,42 @@ namespace cvgPrograma.Models
             {
                 conexao.Close();
             }
+        }
+
+        public int TipoPagamentoHelper(string TipoPagamento)
+        {
+            MySqlConnection conexao = new MySqlConnection(_connectionString);
+            conexao.Open();
+            try
+            {
+                string encontraTipo = "SELECT CodMetodo FROM metodopagamento WHERE TipoPagamento = @TipoPagamentoo;";
+                using (MySqlCommand comandoEncontraTipo = new MySqlCommand(encontraTipo, conexao))
+                {
+                    comandoEncontraTipo.Parameters.AddWithValue("@TipoPagamentoo", TipoPagamento);
+                    using (MySqlDataReader reader = comandoEncontraTipo.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return reader.GetInt32("CodMetodo");
+                        }
+                        else
+                        {                            
+                            throw new InvalidOperationException("Método de Pagamento não encontrado.");
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+                return 0;
+            }
+            finally
+            {
+                conexao.Close();
+            }
+
         }
     }
 

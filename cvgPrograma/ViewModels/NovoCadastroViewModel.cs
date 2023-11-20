@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +10,7 @@ using System.Windows;
 using System.Windows.Data;
 using cvgPrograma.Commands;
 using cvgPrograma.Models;
+using MySql.Data.MySqlClient;
 
 namespace cvgPrograma.ViewModels
 {
@@ -20,8 +23,104 @@ namespace cvgPrograma.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public NovoCadastroViewModel()
+        {
+            Produto produto = new Produto();
+            Produtos = produto.ConsultarProduto();
+            Pagamentos = MetodosPagamento();
+        }
+
+
+        #region Metodo de Pagamento
+
+        public class Pagamento
+        {
+            public long CodPagamento { get; set; }
+            public string TipoPagamento { get; set; }
+        }
+
+        private ObservableCollection<Pagamento> _pagamento;
+
+        public ObservableCollection<Pagamento> Pagamentos
+        {
+            get { return _pagamento; }
+            set { _pagamento = value; OnPropertyChanged(nameof(Pagamentos)); }
+        }
+
+
+        private string _connectionString = "Server=localhost;Database=casadovideogame;User=root;Password=;";
+        public ObservableCollection<Pagamento> MetodosPagamento()
+        {
+            MySqlConnection conexao = new MySqlConnection(_connectionString);
+            try
+            {
+                conexao.Open();
+                MySqlDataReader dr;
+                ObservableCollection<Pagamento> pagamentos2 = new ObservableCollection<Pagamento>();
+
+                string stringSelecao = "select * from metodopagamento;";
+
+                using (MySqlCommand comandoSelecionar = new MySqlCommand(stringSelecao, conexao))
+                {
+                    using (dr = comandoSelecionar.ExecuteReader())
+                        while (dr.Read())
+                        {
+                            Pagamento pagamentos = new Pagamento
+                            {
+                                CodPagamento = Convert.ToInt64(dr["CodMetodo"]),
+                                TipoPagamento = dr["TipoPagamento"].ToString()
+                            };
+                            pagamentos2.Add(pagamentos);
+                        }
+                }
+                return pagamentos2;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+                return null;
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        } 
+        #endregion
+
         #region Produto
         #region Valores das TextBox - Produto
+
+        private ObservableCollection<Produto> _produto;
+        public ObservableCollection<Produto> Produtos
+        {
+            get { return _produto; }
+            set
+            {
+                _produto = value;
+                OnPropertyChanged(nameof(Produtos));
+            }
+        }
+
+        private Produto _ProdSelecionado;
+        public Produto ProdSelecionado
+        {
+            get { return _ProdSelecionado; }
+            set
+            {
+                if (_ProdSelecionado != value)
+                {
+                    _ProdSelecionado = value;
+                    OnPropertyChanged(nameof(ProdSelecionado));
+                    OnPropertyChanged(nameof(PrecoProdSelecionado));
+                }
+            }
+        }
+
+        public decimal PrecoProdSelecionado
+        {
+            get { return ProdSelecionado?.PrecoProduto ?? 0; }
+        }
+
 
         private string _txbxNomeProduto;
         public string txbxNomeProduto
@@ -172,11 +271,11 @@ namespace cvgPrograma.ViewModels
             }
             finally
             {
-                txtDesc = "";
-                txtPrecoServico = 0;
-                txtCliente = "";
-                txtContato = "";
-                txtMetodoPg = "";
+                //txtDesc = "";
+                //txtPrecoServico = 0;
+                //txtCliente = "";
+                //txtContato = "";
+                //txtMetodoPg = "";
             }
         }
 
@@ -214,7 +313,15 @@ namespace cvgPrograma.ViewModels
         public int txtQuantidadeVenda
         {
             get { return _txtQuantidadeVenda; }
-            set { _txtQuantidadeVenda = value; OnPropertyChanged(nameof(txtQuantidadeVenda)); }
+            set
+            {
+                if (_txtQuantidadeVenda != value)
+                {
+                    _txtQuantidadeVenda = value;
+                    OnPropertyChanged(nameof(txtQuantidadeVenda));
+                    CalculaTotal();
+                }
+            }
         }
 
         private decimal _totalVenda;
@@ -222,7 +329,14 @@ namespace cvgPrograma.ViewModels
         public decimal totalVenda
         {
             get { return _totalVenda; }
-            set { _totalVenda = txtPrecoVenda * txtQuantidadeVenda; OnPropertyChanged(nameof(totalVenda)); }
+            set
+            {
+                if (_totalVenda != value)
+                {
+                    _totalVenda = value;
+                    OnPropertyChanged(nameof(totalVenda));                    
+                }
+            }
         }
 
         private string _txtMetodoPgVenda;
@@ -232,7 +346,17 @@ namespace cvgPrograma.ViewModels
             get { return _txtMetodoPgVenda; }
             set { _txtMetodoPgVenda = value; OnPropertyChanged(nameof(txtMetodoPgVenda)); }
         }
+
+
+
+
+
         #endregion
+
+        public void CalculaTotal()
+        {
+           totalVenda = PrecoProdSelecionado * txtQuantidadeVenda;
+        }
 
         public RelayCommand AddVendaCommand => new RelayCommand(execute => AddVendaHelper(), canExecute => AddVendaValida());
 

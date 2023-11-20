@@ -194,7 +194,7 @@ namespace cvgPrograma.ViewModels
         public string nomeMaisVendido
         {
             get { return _nomeMaisVendido; }
-            set { _nomeMaisVendido = MaisVendidos(); }
+            set { _nomeMaisVendido = MaisVendidos().ToString(); }
         }
 
 
@@ -202,7 +202,7 @@ namespace cvgPrograma.ViewModels
             {
         new BoxSeries<BoxValue>
         {
-            Name = mais,
+            Name = "NOme",
             Values = new BoxValue[]
             {
                 // max, upper quartile, median, lower quartile, min
