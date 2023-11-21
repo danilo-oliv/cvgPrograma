@@ -1,7 +1,13 @@
 ﻿using cvgPrograma.Commands;
 using cvgPrograma.Models;
 using cvgPrograma.Views;
+using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore;
+using LiveChartsCore.Defaults;
+using LiveChartsCore.SkiaSharpView.Painting;
+using SkiaSharp;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
 using Org.BouncyCastle.Bcpg.OpenPgp;
@@ -16,6 +22,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace cvgPrograma.ViewModels
 {
@@ -28,8 +35,19 @@ namespace cvgPrograma.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public RelayCommand AddProdCommand => new RelayCommand(execute => InserirProduto(txbxNomeProduto, txtPrecoProduto, txtQuantidadeProduto), canExecute => { return true; });
         public RelayCommand AtualizarCollection => new RelayCommand(execute => AtualizarMetodo(), canExecute => { return true; });
+        public RelayCommand JanelaNovo => new RelayCommand(execute => AbrirNovo(), canExecute => { return true; });
+
+
+
+        public void AbrirNovo()
+        {
+            NovoView novo = new NovoView();
+            novo.tabControlNovo.SelectedIndex = 2;
+            novo.Show();
+        }
+
+        
 
         private ObservableCollection<Produto> _produto;
         public ObservableCollection<Produto> Produtos
@@ -42,6 +60,16 @@ namespace cvgPrograma.ViewModels
             }
         }
         #region Valores das TextBox
+
+        private long _Idproduto;
+
+        public long Idproduto
+        {
+            get { return _Idproduto; }
+            set { _Idproduto = value; OnPropertyChanged(nameof(Idproduto)); }
+        }
+
+
 
         private string _txbxNomeProduto;
         public string txbxNomeProduto
@@ -61,8 +89,8 @@ namespace cvgPrograma.ViewModels
         public decimal txtPrecoProduto
         {
             get { return _txtPrecoProduto; }
-            set 
-            { 
+            set
+            {
                 if (_txtPrecoProduto != value)
                 {
                     _txtPrecoProduto = value;
@@ -75,8 +103,8 @@ namespace cvgPrograma.ViewModels
         public int txtQuantidadeProduto
         {
             get { return _txtQuantidadeProduto; }
-            set 
-            { 
+            set
+            {
                 if (_txtQuantidadeProduto != value)
                 {
                     _txtQuantidadeProduto = value;
@@ -86,12 +114,14 @@ namespace cvgPrograma.ViewModels
         }
 
         #endregion
-
+        
+        public ICommand DeletCommand { get; set; }
 
         public EstoqueViewModel()
         {
             Produto produto = new Produto();
             Produtos = produto.ConsultarProduto();
+            DeletCommand = new RelayCommand(DelProdHelper);
         }
 
         public void AtualizarMetodo()
@@ -100,68 +130,125 @@ namespace cvgPrograma.ViewModels
             Produtos = produto.ConsultarProduto();
         }
 
-
-
-
-
-        private string _connectionString = "Server=localhost;Database=cvgtestedois;Uid=root;Pwd=;";
-        public void InserirProduto(string NomeProduto, decimal PrecoProduto, int QuantidadeEstoque)
+        public void DelProdHelper(object parameter )
         {
-            
-                MySqlConnection conexao = new MySqlConnection(_connectionString);
-
-                try
-                {
-                    conexao.Open();
-
-                    // Query para cadastrar na tabela produto
-                    // @Nome e @Preco são chaves para parâmetros 
-                    string inserirProdutoSql = "INSERT INTO produto (NomeProd, PrecoProd) VALUES (@Nome, @Preco);";
-                    using (MySqlCommand comandoInserirProduto = new MySqlCommand(inserirProdutoSql, conexao))
-                    {
-                        // "@Chave", valor de um campo input
-                        comandoInserirProduto.Parameters.AddWithValue("@Nome", NomeProduto);
-                        comandoInserirProduto.Parameters.AddWithValue("@Preco", PrecoProduto); // NOMEAR AS TEXTBOX E TROCAR
-                        comandoInserirProduto.ExecuteNonQuery();
-                    }
-
-                    // Pega o maior id de produto (ultimo adicionado) para fazer o match no estoque
-                    string consultarMaiorIdSql = "SELECT MAX(ProdId) FROM produto;";
-                    using (MySqlCommand comandoConsultarMaiorId = new MySqlCommand(consultarMaiorIdSql, conexao))
-                    {
-                        object resultado = comandoConsultarMaiorId.ExecuteScalar();
-
-                        if (resultado != null && resultado != DBNull.Value)
-                        {
-                            int maiorId = Convert.ToInt32(resultado);
-
-                            // Com o ID obtido, insere no estoque
-                            string inserirEstoqueSql = "INSERT INTO estoque (QuantidadeProduto, ProdId) VALUES (@Quantidade, @IdProduto);";
-                            using (MySqlCommand comandoInserirEstoque = new MySqlCommand(inserirEstoqueSql, conexao))
-                            {
-                                comandoInserirEstoque.Parameters.AddWithValue("@Quantidade", QuantidadeEstoque); // TROCAR!
-                                comandoInserirEstoque.Parameters.AddWithValue("@IdProduto", maiorId);
-                                comandoInserirEstoque.ExecuteNonQuery();
-                            }
-
-                            MessageBox.Show("Inserção concluída com sucesso.");                            
-                        }
-                        else
-                        {
-                            MessageBox.Show("Nenhum registro encontrado na tabela 'produto'.");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro: " + ex.Message);
-                }
-                finally
-                {
-                    conexao.Close();
-                }
-            
+            Produto produto = new Produto();
+            if (parameter is long Produto_Id )
+            {
+                produto.DeletarProduto(Produto_Id);
+                AtualizarMetodo();
+            }
         }
+
+        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=;";
+
+        public object MaisVendidos()
+        {
+            MySqlConnection conexao = new MySqlConnection(_connectionString);
+            MySqlDataReader dr;
+            ObservableCollection<Produto> maisVendidos = new ObservableCollection<Produto>();
+            try
+            {
+                conexao.Open();
+
+                string pegaMaisVendidos = "SELECT p.NomeProd, SUM(pv.QuantVenda) AS total_vendido" +
+                    "FROM produto p JOIN produtovenda pv ON p.ProdId = pv.ProdId GROUP BY p.ProdId, p.NomeProd, p.PrecoProd" +
+                    "ORDER BY total_vendido DESC LIMIT 3;";
+
+                using (MySqlCommand comandoMaisVendidos = new MySqlCommand(pegaMaisVendidos, conexao))
+                {
+                    using (dr = comandoMaisVendidos.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            Produto maisvendido = new Produto
+                            {
+                                NomeProduto = dr["NomeProd"].ToString(),
+                                QuantVenda = Convert.ToInt32(dr["total_vendido"]),
+                            };
+                            maisVendidos.Add(maisvendido);
+                        }
+                    }
+                }
+                return maisVendidos;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+                return null;
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+
+
+
+
+        #region Grafico
+
+        private string _nomeMaisVendido;
+
+        public string nomeMaisVendido
+        {
+            get { return _nomeMaisVendido; }
+            set { _nomeMaisVendido = MaisVendidos().ToString(); }
+        }
+
+
+        public ISeries[] Series { get; set; } =
+            {
+        new BoxSeries<BoxValue>
+        {
+            Name = "NOme",
+            Values = new BoxValue[]
+            {
+                // max, upper quartile, median, lower quartile, min
+                new(100, 80, 60, 20, 70),
+                new(90, 70, 50, 30, 60)
+            }
+        },
+        new BoxSeries<BoxValue>
+        {
+            Name = "Year 2024",
+            Values = new BoxValue[]
+            {
+                new(90, 70, 50, 30, 60),
+                new(80, 60, 40, 10, 50)
+
+            }
+        },
+        new BoxSeries<BoxValue>
+        {
+            Name = "Year 2025",
+            Values = new BoxValue[]
+            {
+                new(80, 60, 40, 10, 50),
+                new(70, 50, 30, 20, 40)
+
+            }
+        }
+    };
+
+        public Axis[] XAxes { get; set; } =
+        {
+        new Axis
+        {
+            Labels = new string[] { "Mais Vendidos", "Mais Rentáveis"},
+            LabelsRotation = 0,
+            SeparatorsPaint = new SolidColorPaint(new SKColor(200, 200, 200)),
+            SeparatorsAtCenter = false,
+            TicksPaint = new SolidColorPaint(new SKColor(35, 35, 35)),
+            TicksAtCenter = true
+        }
+    };
+
+
+        #endregion
+
+
 
     }
 }

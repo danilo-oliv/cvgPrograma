@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,21 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace cvgPrograma.Views
 {
     /// <summary>
-    /// Interação lógica para InfoView.xam
+    /// Lógica interna para NovoView.xaml
     /// </summary>
-    public partial class InfoView : UserControl
+    public partial class NovoView : Window
     {
-        public InfoView()
+        public NovoView()
         {
             InitializeComponent();
         }
-
-       
     }
 }

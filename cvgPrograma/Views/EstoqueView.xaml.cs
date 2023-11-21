@@ -2,6 +2,8 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
@@ -15,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using cvgPrograma.Models;
 
 namespace cvgPrograma.Views
 {
@@ -23,9 +26,16 @@ namespace cvgPrograma.Views
     /// </summary>
     public partial class EstoqueView : UserControl
     {
+        public EstoqueViewModel ViewModel { get; set; }
+
+
         public EstoqueView()
         {
-            InitializeComponent();            
+            InitializeComponent();
+
+
+            ViewModel = new EstoqueViewModel();
+            DataContext = ViewModel;
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -37,21 +47,94 @@ namespace cvgPrograma.Views
         {
         }
 
-        private void BtnLoadFromFile_Click(object sender, RoutedEventArgs e)
+        private void btnEditarCard_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true)
+
+        }
+
+
+        private void voltarCard(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is long ProdutoId)
             {
-                Uri fileUri = new Uri(openFileDialog.FileName);
-                imgDynamic.Source = new BitmapImage(fileUri);
+
+                funcaoVoltaCard(ProdutoId);
             }
+            else
+                MessageBox.Show("False");
         }
 
-        private void BtnLimparImagem(object sender, RoutedEventArgs e)
+        private void virarCard(object sender, RoutedEventArgs e)
         {
-            imgDynamic.Source = null;
+            if (sender is Button button && button.Tag is long ProdutoId)
+            {
+
+                funcaoViraCard(ProdutoId);
+            }
+            else
+                MessageBox.Show("False");
         }
 
 
-}
-}
+        private void funcaoVoltaCard(long valorDoId)
+        {
+            int index = -1;
+
+            for (int i = 0; i < listagemCards.Items.Count; i++)
+            {
+                if (listagemCards.Items[i] is Produto produtos && produtos.ProdutoId.ToString() == valorDoId.ToString())
+                {
+
+                    index = i;                    
+                    break;
+                }
+
+            }
+
+            if (index != -1)
+            {
+                // Access the item at the found index and modify its properties
+                Produto itemAtIndex = listagemCards.Items[index] as Produto;
+                if (itemAtIndex != null)
+                {                    
+                    itemAtIndex.atributoVisibilidade = "Visible";
+                }
+
+            }
+
+
+        }
+
+        private void funcaoViraCard(long ProdutoId)
+        {
+            int index = -1;
+
+            for (int i = 0; i < listagemCards.Items.Count; i++)
+            {
+                if (listagemCards.Items[i] is Produto produtos && produtos.ProdutoId.ToString() == ProdutoId.ToString())
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            if (index != -1)
+            {
+                // Access the item at the found index and modify its properties
+                Produto itemAtIndex = listagemCards.Items[index] as Produto;
+                if (itemAtIndex != null)
+                {
+                    itemAtIndex.atributoVisibilidade = "Hidden";
+                }
+
+            }
+
+
+
+
+        }
+
+
+    }
+
+    }

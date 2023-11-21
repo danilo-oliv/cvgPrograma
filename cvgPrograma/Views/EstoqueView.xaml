@@ -20,172 +20,33 @@
                 >
     <UserControl.Resources>
         <viewModel:EstoqueViewModel x:Key="vmEstoque"/>
-    </UserControl.Resources> 
+    </UserControl.Resources>
     <Grid DataContext="{StaticResource vmEstoque}">
         <Grid.InputBindings>
             <KeyBinding Key="F5" Command="{Binding AtualizarCollection}"/>
         </Grid.InputBindings>
-        <!--Novo Produto-->
-
-            
-            
-            
-            
-            <materialDesign:DialogHost>
-                <materialDesign:DialogHost.DialogContent>
-                    <TextBlock>a</TextBlock>
-                </materialDesign:DialogHost.DialogContent>
 
 
 
+        <StackPanel Panel.ZIndex="10" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Button         IsEnabled="True"       
+                x:Name="mdDialog"  Margin="10 30"              
+    Width="32"
+    Padding="0"
+    Command="{Binding JanelaNovo}"
+    HorizontalAlignment="Right" VerticalAlignment="Top">
+                <materialDesign:PackIcon FontSize="60"  Kind="Plus"/>
+            </Button>
 
+            <Button Command="{Binding AtualizarCollection}"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="10 30"
+                   
+                Content="Atualizar"
+                Width="128"
+        />
+        </StackPanel>
 
-
-                <Button 
-                x:Name="mdDialog2"
-                    Margin="620 0 0 580"
-    Width="128"
-    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-    Content="Novo Produto">
-                    <!--#region CommandParameter - Modal Add Produto -->
-                    <Button.CommandParameter>
-                        <Grid Width="515"
-                  Height="445"
-                  Background="White">
-                            <TextBlock 
-                       TextAlignment="CENTER"
-                       Margin="10">CADASTRAR PRODUTO</TextBlock>
-                            <Button x:Name="btnCloseModal2"
-                        Margin="0 10 10 0"
-                        Padding="2 0 2 0"
-                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"                        
-                        Width="30"
-                        Height="30"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top">
-                                <materialDesign:PackIcon Height="25" Width="25" Kind="CloseBoxOutline" />
-                            </Button>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="40"></RowDefinition>
-                                    <RowDefinition Height="4*"></RowDefinition>
-                                    <RowDefinition Height="*"></RowDefinition>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <!--PRIMEIRO QUADRANTE-->
-                                <StackPanel x:Name="PRIMEIRO_QUADRANTE"
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Orientation="Vertical">
-                                    <!--NOME-->
-                                    <TextBox
-                                x:Name="boxNomeProduto"
-                                Text="{Binding txbxNomeProduto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Margin="0 10 10 10"
-                                Width="195"
-                                VerticalAlignment="Top"
-                                materialDesign:HintAssist.Hint="Nome:"
-                                materialDesign:HintAssist.HintOpacity="0.9"
-                                AcceptsReturn="True"                       
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
-                                    <TextBlock Text="{Binding txbxNomeProduto}"/>
-                                    <!--PREÇO CUSTO-->
-                                    <TextBox
-                                Text="{Binding txtPrecoProduto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Margin="0 10 10 10"
-                                Width="195"
-                                VerticalAlignment="Top"
-                                materialDesign:HintAssist.Hint="Preço de custo:"
-                                materialDesign:HintAssist.HintOpacity="0.9"
-                                AcceptsReturn="True"                       
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
-                                    <!--PREÇO VENDA-->
-                                    <TextBox
-                                Margin="0 10 10 10"
-                                Width="195"
-                                VerticalAlignment="Top"
-                                materialDesign:HintAssist.Hint="Preço de venda:"
-                                materialDesign:HintAssist.HintOpacity="0.9"
-                                AcceptsReturn="True"                       
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
-                                    <TextBox
-                                Text="{Binding txtQuantidadeProduto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Margin="0 10 10 10"
-                                Width="195"
-                                VerticalAlignment="Top"
-                                materialDesign:HintAssist.Hint="Quantidade:"
-                                materialDesign:HintAssist.HintOpacity="0.9"
-                                AcceptsReturn="True"                       
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
-                                    <StackPanel Orientation="Horizontal" 
-                                VerticalAlignment="Bottom"
-                                Margin="10">
-                                        <Button Width="126"
-                            Margin="10 0 10 0" 
-                            Click="BtnLoadFromFile_Click">Inserir Imagem:</Button>
-                                        <Button Width="85"
-                            Margin="10 0 10 0" 
-                            Click="BtnLimparImagem">Limpar</Button>
-                                    </StackPanel>
-                                </StackPanel>
-                                <!--SEGUNDO QUADRANTE-->
-                                <StackPanel x:Name="SEGUNDO_QUADRANTE"
-                        Grid.Row="1"
-                        Grid.Column="1">
-                                    <Image Name="imgDynamic" 
-                           Margin="0 30" 
-                           Stretch="Uniform"
-                           Width="160"
-                           Height="200"
-                           Panel.ZIndex="1"></Image>
-                                </StackPanel>
-                                <!--TERCEIRO QUADRANTE-->
-                                <StackPanel x:Name="TERCEIRO_QUADRANTE"
-                        Grid.Row="2"
-                        Grid.Column="0">
-                                </StackPanel>
-                                <!--QUARTO QUADRANTE-->
-                                <StackPanel x:Name="QUARTO_QUADRANTE"
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        >
-                                    <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                                Margin="0 20">
-                                        <Button Width="90"
-                                            Command="{Binding AddProdCommand}"
-                    Content="Salvar"
-                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                    Style="{StaticResource MaterialDesignOutlinedLightButton}"
-                    ToolTip="MaterialDesignOutlinedButton"
-                        Margin="10"/>
-                                        <Button Width="90"
-                    Content="Cancelar"
-                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"                                      
-                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                    Style="{StaticResource MaterialDesignOutlinedLightButton}"
-                    ToolTip="MaterialDesignOutlinedButton"
-                        Margin="10"/>
-                                    </StackPanel>
-                                </StackPanel>
-                            </Grid>
-                        </Grid>
-                    </Button.CommandParameter>
-                    <!--#endregion-->
-                </Button>
-            </materialDesign:DialogHost>
         <Grid>
 
             <Grid.RowDefinitions>
@@ -201,6 +62,7 @@
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
                 <StackPanel Margin="10" Orientation="Horizontal">
                     <TextBox
+                        x:Name="buscaProduto"
                     Foreground="Black"
                     MaxWidth="400"
                     VerticalAlignment="Top"
@@ -208,20 +70,15 @@
                     AcceptsReturn="True"
                     IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        Text="{Binding InsiraId}"
                     TextWrapping="Wrap" />
                     <Button Content="{materialDesign:PackIcon Kind=Magnify}" Height="30" Padding="4" Width="30" Foreground="#FFF" Margin="5" FontSize="20" FontWeight="Bold" Cursor="Hand"/>
                 </StackPanel>
             </StackPanel>
 
 
-
-            <Button Command="{Binding AtualizarCollection}"
-                    Content="Atualizar"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Width="128"/>
             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.ColumnSpan="3" >
-                <ItemsControl ItemsSource="{Binding Produtos}" >
+                <ItemsControl x:Name="listagemCards" ItemsSource="{Binding Produtos}" >
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal" Margin="20 5 20 5" />
@@ -230,23 +87,99 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="10">
-                                <StackPanel Background="Purple" Width="165" Height="200"
-                                            VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,130,0,0">
-                                    <TextBlock Text="{Binding NomeProduto}" FontSize="18" HorizontalAlignment="Center" Foreground="Black" FontWeight="Bold" Margin="0"/>
-                                    <TextBlock Text="{Binding PrecoProduto}" FontSize="14" HorizontalAlignment="Center" Foreground="Black" FontWeight="Bold" Margin="3"/>
-                                    <TextBlock Text="{Binding QuantidadeEstoque}" FontSize="14" HorizontalAlignment="Center" Foreground="Black" FontWeight="Bold" Margin=".5"/>
-                                    <Button x:Name="btnEditarCard" Content="Editar" Height="28" Padding="4" Width="78" Foreground="{DynamicResource PrimaryHueMidBrush}" Background="White" Margin="10" FontSize="12" FontWeight="Bold"/>
-                                </StackPanel>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+
+                                    <StackPanel x:Name="cardEditavel" Orientation="Vertical" Margin="30" 
+                                                
+                                                Visibility="{Binding DataContext.IsVisible, RelativeSource={RelativeSource AncestorType=ItemsControl}}">
+                                        <Grid Background="{DynamicResource PrimaryHueMidBrush}" Width="230" Height="300" Margin="10">
+                                            <Grid.Effect>
+                                                <DropShadowEffect Color="#AAAA" Direction="320" ShadowDepth="8" BlurRadius="10"/>
+                                            </Grid.Effect>
+                                            <StackPanel Margin="15">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Cursor="">
+
+                                                    <Button x:Name="btnSalvarCard" Content="{materialDesign:PackIcon Kind=Check}" Width="50" Height="30" Click="voltarCard"  Tag="{Binding ProdutoId}" />
+                                                    <Button x:Name="btnOffImagem" Content="{materialDesign:PackIcon Kind=ImageOffOutline}" Width="50" Height="30"/>
+                                                    <Button x:Name="btnAdicionarImagem" Content="{materialDesign:PackIcon Kind=ImagePlusOutline}" Width="50" Height="30"/>
+                                                    <Button Content="{materialDesign:PackIcon Kind=DeleteOutline}" Width="50" Height="30" Command="{Binding DataContext.DeletCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding ProdutoId}"  Tag="{Binding ProdutoId}" Cursor="Hand" />
+
+                                                 
+                                                    <Button Content="{materialDesign:PackIcon Kind=DeleteOutline}" Width="50" Height="30" />
+
+                                                </StackPanel>
+                                                <StackPanel>
+                                                    <Image x:Name="imagemExibicao1" Width="120" Height="100" Margin="1,5" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="Auto" Margin="0,140,0,0">
+                                                <TextBox 
+                                                    x:Name="textBox1"
+                                                    Margin="0,3"
+                                                    Foreground="White"
+                                                    MaxWidth="300"
+                                                    MaxHeight="50"
+                                                    VerticalAlignment="Top"
+                                                    materialDesign:HintAssist.Hint="Nome do Produto"
+                                                    AcceptsReturn="True"
+                                                    IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}"
+                                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                    TextWrapping="Wrap" />
+                                                <TextBox
+                                                    x:Name="textBox2"
+                                                    Margin="0,3"
+                                                    Foreground="White"
+                                                    MaxWidth="300"
+                                                    MaxHeight="50"
+                                                    VerticalAlignment="Top"
+                                                    materialDesign:HintAssist.Hint="Preço de Venda"
+                                                    AcceptsReturn="True"
+                                                    IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}"
+                                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                    TextWrapping="Wrap" />
+                                                <TextBlock Text="{Binding QuantidadeEstoque}" FontSize="14" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="3"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </StackPanel>
+
+                                    <StackPanel x:Name="cardSalvo" Orientation="Vertical" Margin="30" Visibility="{Binding atributoVisibilidade}">
+                                        <Grid Background="{DynamicResource PrimaryHueMidBrush}" Width="230" Height="300" Margin="10">
+                                            <Grid.Effect>
+                                                <DropShadowEffect Color="#AAAA" Direction="320" ShadowDepth="8" BlurRadius="10"/>
+                                            </Grid.Effect>
+                                            <StackPanel Margin="15">
+                                                <Image x:Name="imagemExibicao2" Width="120" Height="100" Margin="1,5" />
+                                            </StackPanel>
+                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="Auto" Margin="0,130,0,0">
+                                                <TextBlock x:Name="textID" Text="{Binding ProdutoId}" FontSize="18" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="0"/>
+                                                <TextBlock x:Name="textBlock1" Text="{Binding NomeProduto}" FontSize="18" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="0"/>
+                                                <TextBlock Text="{Binding QuantidadeEstoque}" FontSize="14" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="3"/>
+                                                <TextBlock x:Name="textBlock2" Text="{Binding PrecoProduto}" FontSize="14" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin=".5"/>
+                                                <Button x:Name="btnEditarCard" Content="Editar" Height="28" Padding="4" Width="78" Foreground="{DynamicResource PrimaryHueMidBrush}" Background="White" Margin="10" FontSize="12" FontWeight="Bold" 
+                                                        Click="virarCard" Tag="{Binding ProdutoId}"
+                                                        Cursor="Hand"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </StackPanel>
+
+
+                                </Grid>
                             </StackPanel>
 
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-            </ScrollViewer>
+            </ScrollViewer> 
+
         </Grid>
 
     </Grid>
-    
-    
+
+
 </UserControl>
 
