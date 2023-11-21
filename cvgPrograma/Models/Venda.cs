@@ -11,7 +11,7 @@ namespace cvgPrograma.Models
 {
     public class Venda
     {
-        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=Amorinha 24;";
+        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=;";
 
         public DataTable ConsultarVenda()
         {
@@ -22,7 +22,11 @@ namespace cvgPrograma.Models
             {
                 conexao.Open();
 
-                string consultarVenda = "SELECT * FROM VENDA;";
+                string consultarVenda = "SELECT v.VendaId, v.DataVenda, v.TotalVenda, mp.TipoPagamento, " +
+                    "pv.ProdutoVendaId, pv.QuantVenda, p.NomeProd, p.PrecoProd from venda as v " +
+                    "INNER JOIN metodopagamento as mp on v.CodMetodo = mp.CodMetodo " +
+                    "INNER JOIN produtovenda as pv on v.VendaId = pv.VendaId " +
+                    "INNER JOIN produto as p on pv.ProdId = p.ProdId;";
                 using (MySqlCommand comandoConsultarVenda = new MySqlCommand(consultarVenda, conexao))
                 {
                     da.SelectCommand = comandoConsultarVenda;
