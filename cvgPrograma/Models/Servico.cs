@@ -21,21 +21,21 @@ namespace cvgPrograma.Models
 
         public int ServicoId { get; set; }
         public string? DescSevico { get; set; }
-        public DateOnly DataEntradaServico { get; set; }
-        public DateOnly DataSaidaServico { get; set; }
+        public DateTime DataEntradaServico { get; set; }
+        public DateTime DataSaidaServico { get; set; }
         public bool ProntoServico { get; set; }
         public decimal TotalServico { get; set; }
         public int ClienteId { get; set; }
         public int CodMetodo { get; set; }
         public int CodServico { get; set; }
 
-        public void InserirCard(string DescricaoServ, DateOnly SaidaServ, decimal TotalServ, string NomeCliente, string TelefoneCliente, string TipoPagamento)
+        public void InserirCard(string DescricaoServ, DateTime SaidaServ, decimal TotalServ, string NomeCliente, string TelefoneCliente, string TipoPagamento)
         {
             MySqlConnection conexao = new MySqlConnection(_connectionString);
             MySqlDataReader dr;
             ObservableCollection<Servico> servicos = new ObservableCollection<Servico>();
 
-            int IdMetodo = TipoPagamentoHelper(TipoPagamento);
+            int IdMetodo = EncontrarCodMetodo(TipoPagamento);
 
 
             try
@@ -71,40 +71,31 @@ namespace cvgPrograma.Models
             }
         }
 
-        public int TipoPagamentoHelper(string TipoPagamento)
+        public int EncontrarCodMetodo(string tipoPagamento)
         {
-            MySqlConnection conexao = new MySqlConnection(_connectionString);
-            conexao.Open();
-            try
+            int codMetodo = -1;
+
+            string encontraTipo = "SELECT CodMetodo FROM metodopagamento WHERE TipoPagamento = @TipoPagamentoP;";
+
+            using (MySqlConnection conexao = new MySqlConnection(_connectionString))
             {
-                string encontraTipo = "SELECT CodMetodo FROM metodopagamento WHERE TipoPagamento = @TipoPagamentoo;";
+                conexao.Open();
+
                 using (MySqlCommand comandoEncontraTipo = new MySqlCommand(encontraTipo, conexao))
                 {
-                    comandoEncontraTipo.Parameters.AddWithValue("@TipoPagamentoo", TipoPagamento);
-                    using (MySqlDataReader reader = comandoEncontraTipo.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            return reader.GetInt32("CodMetodo");
-                        }
-                        else
-                        {                            
-                            throw new InvalidOperationException("Método de Pagamento não encontrado.");
-                        }
-                    }
+                    comandoEncontraTipo.Parameters.AddWithValue("@TipoPagamentoP", tipoPagamento);
 
+                    object resultado = comandoEncontraTipo.ExecuteScalar();
+
+                    if (resultado != null && resultado != DBNull.Value)
+                    {
+                        codMetodo = Convert.ToInt32(resultado);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro: " + ex.Message);
-                return 0;
-            }
-            finally
-            {
                 conexao.Close();
             }
 
+            return codMetodo;
         }
     }
 
