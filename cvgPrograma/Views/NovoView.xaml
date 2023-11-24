@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:cvgPrograma.Views"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:cvgPrograma.ViewModels"
         Title="Cadastros" Height="500" Width="750"
@@ -89,13 +90,18 @@
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                 TextWrapping="Wrap"
                                 VerticalScrollBarVisibility="Auto" />
-                                <DatePicker
-                                    Text="{Binding txtDataEntrega}"
-                            HorizontalAlignment="Center"
-                            Width="206"
-                            materialDesign:HintAssist.Hint="Previsão de entrega:"
-                            materialDesign:TextFieldAssist.HasClearButton="True"
-                            Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
+                                <TextBox
+                                    Text="{Binding txtDataEntrega,StringFormat={}{0:dd-MM-yyyy}}"                                    
+                                HorizontalAlignment="Center"
+                                Margin="0 10 10 10"
+                                Width="206"
+                                VerticalAlignment="Top"
+                                materialDesign:HintAssist.Hint="Data de Entrega:"
+                                materialDesign:HintAssist.HintOpacity="0.9"
+                                AcceptsReturn="True"                       
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                TextWrapping="Wrap"
+                                VerticalScrollBarVisibility="Auto" />
                             </StackPanel>
 
                             <ComboBox
@@ -347,7 +353,7 @@
                                      Margin="5"
                                      Width="256" Height="60"/>
                             </StackPanel>
-                        <ComboBox Grid.Row="2" ItemsSource="{Binding Pagamentos}" DisplayMemberPath="TipoPagamento" SelectedItem="{Binding PagamentoSelecionado}"  Width="400" materialDesign:HintAssist.Hint="Método de Pagamento" ></ComboBox>
+                        <ComboBox Grid.Row="2" ItemsSource="{Binding Pagamentos}" DisplayMemberPath="TipoPagamento" SelectedItem="{Binding PagamentoSelecionado}" Text="{Binding txtMetodoPgVenda}" Width="400" materialDesign:HintAssist.Hint="Método de Pagamento" ></ComboBox>
                             <StackPanel Grid.Row="3" Orientation="Horizontal"
                         HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 0">
                                 <Button Width="90"

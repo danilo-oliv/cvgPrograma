@@ -28,6 +28,7 @@ namespace cvgPrograma.ViewModels
             Produto produto = new Produto();
             Produtos = produto.ConsultarProduto();
             Pagamentos = MetodosPagamento();
+            diaHoje = DateTime.Now;
         }
 
 
@@ -230,6 +231,17 @@ namespace cvgPrograma.ViewModels
 
         #region Serviço
         #region Valores das TextBox - Serviço
+
+        private DateTime _diaHoje;
+
+        public DateTime diaHoje
+        {
+            get { return _diaHoje; }
+            set { _diaHoje = DateTime.Now; OnPropertyChanged(nameof(diaHoje)); }
+        }
+
+
+
         private string _txtDesc;
 
         public string txtDesc
@@ -250,9 +262,9 @@ namespace cvgPrograma.ViewModels
             set { _txtPrecoServico = value; OnPropertyChanged(nameof(txtPrecoServico)); }
         }
 
-        private DateOnly _txtDataEntrega;
+        private DateTime _txtDataEntrega;
 
-        public DateOnly txtDataEntrega
+        public DateTime txtDataEntrega
         {
             get { return _txtDataEntrega; }
             set { _txtDataEntrega = value; OnPropertyChanged(nameof(txtDataEntrega)); }
@@ -392,7 +404,7 @@ namespace cvgPrograma.ViewModels
             Venda venda = new Venda();
             try
             {
-                venda.InserirVenda(txtComboProduto, txtDataEntrega, txtQuantidadeVenda, totalVenda, PagamentoSelecionado.ToString());
+                venda.InserirVenda(ProdSelecionado.ToString(), txtQuantidadeVenda, totalVenda, txtMetodoPgVenda);
             }
             catch (Exception ex)
             {
@@ -400,16 +412,16 @@ namespace cvgPrograma.ViewModels
             }
             finally
             {
-                txtComboProduto = "";
-                txtQuantidadeVenda = 0;
-                totalVenda = 0;
-                txtMetodoPgVenda = "";
+                //txtComboProduto = "";
+                //txtQuantidadeVenda = 0;
+                //totalVenda = 0;
+                //txtMetodoPgVenda = "";
             }
         }
 
         public bool AddVendaValida()
         {
-            if (PagamentoSelecionado != null && totalVenda > 0 && txtMetodoPgVenda != null)
+            if (PagamentoSelecionado != null && totalVenda > 0 && ProdSelecionado != null)
                 return true;
             else
                 return false;
