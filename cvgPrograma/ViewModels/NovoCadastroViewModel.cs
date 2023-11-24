@@ -47,6 +47,33 @@ namespace cvgPrograma.ViewModels
             set { _pagamento = value; OnPropertyChanged(nameof(Pagamentos)); }
         }
 
+        private Pagamento _PagamentoSelecionado;
+        public Pagamento PagamentoSelecionado
+        {
+            get { return _PagamentoSelecionado; }
+            set
+            {
+                if (_PagamentoSelecionado != value)
+                {
+                    _PagamentoSelecionado = value;
+                    OnPropertyChanged(nameof(PagamentoSelecionado));
+                }
+            }
+        }
+
+        private Pagamento _PagamentoSelecionadoServico;
+        public Pagamento PagamentoSelecionadoServico
+        {
+            get { return _PagamentoSelecionadoServico; }
+            set
+            {
+                if (_PagamentoSelecionadoServico != value)
+                {
+                    _PagamentoSelecionadoServico = value;
+                    OnPropertyChanged(nameof(PagamentoSelecionadoServico));
+                }
+            }
+        }
 
         private string _connectionString = "Server=localhost;Database=casadovideogame;User=root;Password=;";
         public ObservableCollection<Pagamento> MetodosPagamento()
@@ -365,7 +392,7 @@ namespace cvgPrograma.ViewModels
             Venda venda = new Venda();
             try
             {
-                venda.InserirVenda(txtComboProduto, txtDataEntrega, txtQuantidadeVenda, totalVenda, txtMetodoPgVenda);
+                venda.InserirVenda(txtComboProduto, txtDataEntrega, txtQuantidadeVenda, totalVenda, PagamentoSelecionado.ToString());
             }
             catch (Exception ex)
             {
@@ -382,7 +409,7 @@ namespace cvgPrograma.ViewModels
 
         public bool AddVendaValida()
         {
-            if (txtComboProduto != null && totalVenda > 0 && txtMetodoPgVenda != null)
+            if (PagamentoSelecionado != null && totalVenda > 0 && txtMetodoPgVenda != null)
                 return true;
             else
                 return false;

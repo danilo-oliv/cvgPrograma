@@ -101,6 +101,7 @@
                             <ComboBox
                                 Text="{Binding txtMetodoPg}"
                                 ItemsSource="{Binding Pagamentos}" DisplayMemberPath="TipoPagamento"
+                                SelectedItem="{Binding PagamentoSelecionadoServico}"
                                 Grid.Row="1"
                       HorizontalAlignment="Center"
                       materialDesign:HintAssist.Hint="Método de Pagamento"
@@ -346,20 +347,19 @@
                                      Margin="5"
                                      Width="256" Height="60"/>
                             </StackPanel>
-                            <ComboBox Grid.Row="2" Width="400" materialDesign:HintAssist.Hint="Método de Pagamento" ></ComboBox>
+                        <ComboBox Grid.Row="2" ItemsSource="{Binding Pagamentos}" DisplayMemberPath="TipoPagamento" SelectedItem="{Binding PagamentoSelecionado}"  Width="400" materialDesign:HintAssist.Hint="Método de Pagamento" ></ComboBox>
                             <StackPanel Grid.Row="3" Orientation="Horizontal"
                         HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 0">
                                 <Button Width="90"
-                                        Command="{Binding AddProdCommand}"
-                    Content="Salvar"
-                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                        Command="{Binding AddVendaCommand}"
+                    Content="Salvar"                   
                     Style="{StaticResource MaterialDesignOutlinedLightButton}"
                     ToolTip="MaterialDesignOutlinedButton"
                         Margin="10"/>
                                 <Button Width="90"
                     Content="Cancelar"
-                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"                                        
-                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"                                   
+                    
                     Style="{StaticResource MaterialDesignOutlinedLightButton}"
                     ToolTip="MaterialDesignOutlinedButton"
                         Margin="10"/>
