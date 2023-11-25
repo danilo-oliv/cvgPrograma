@@ -45,7 +45,7 @@
 
             <Grid>
             <Calendar Height="370" Margin="120,70,0,0" HorizontalAlignment="Left" Background="LightCyan"
-            Name="calendar1" VerticalAlignment="Top" Width="295"/>
+            Name="calendar1" VerticalAlignment="Top" Width="295" Language="pt-BR"/>
         </Grid>
 
         <!--<materialDesign:Card HorizontalAlignment="Left"

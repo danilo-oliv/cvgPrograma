@@ -106,6 +106,13 @@ namespace cvgPrograma.Models
                                     }
                                 }
                             }
+                    string reduzEstoque = "UPDATE estoque SET QuantidadeProduto = QuantidadeProduto - @QuantVenda WHERE ProdId = @IdProduto;";
+                    using(MySqlCommand comandoReduzEstoque = new MySqlCommand(reduzEstoque, conexao))
+                    {
+                        comandoReduzEstoque.Parameters.AddWithValue("@QuantVenda", QuantVenda);
+                        comandoReduzEstoque.Parameters.AddWithValue("@IdProduto", IdProduto);
+                        comandoReduzEstoque.ExecuteNonQuery();
+                    }
                     MessageBox.Show("Inserido com sucesso.");
                 }
 
