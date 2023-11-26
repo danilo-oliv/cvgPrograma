@@ -89,7 +89,7 @@ namespace cvgPrograma.ViewModels
             dataTableVenda = venda.ConsultarVenda();
         }
 
-        private string _connectionString = "Server=localhost;Database=casadovideogame=root;Pwd=;";
+        private string _connectionString = "Server=localhost;Database=casadovideogame; Uid=root;Pwd=Amorinha 24;";
         public void UpdateVenda(int VendaId, decimal NovoTotal)
         {
             MySqlConnection conexao = new MySqlConnection(_connectionString);

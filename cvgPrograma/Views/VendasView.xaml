@@ -41,7 +41,7 @@
                     <materialDesign:PackIcon FontSize="60"  Kind="Plus"/>
                 </Button>
 
-                <Button Command="{Binding AtualizarCollection}"
+                <Button Command="{Binding AtualizarVendas}"
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="10 30"
                    
