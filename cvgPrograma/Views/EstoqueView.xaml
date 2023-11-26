@@ -97,32 +97,31 @@
                                     <StackPanel x:Name="cardEditavel" Orientation="Vertical" Margin="30" 
                                                 
                                                 Visibility="{Binding DataContext.IsVisible, RelativeSource={RelativeSource AncestorType=ItemsControl}}">
-                                        <Grid Background="{DynamicResource PrimaryHueMidBrush}" Width="230" Height="300" Margin="10">
+                                        <Grid Background="{DynamicResource PrimaryHueMidBrush}" Width="250" Height="350" Margin="10">
                                             <Grid.Effect>
                                                 <DropShadowEffect Color="#AAAA" Direction="320" ShadowDepth="8" BlurRadius="10"/>
                                             </Grid.Effect>
                                             <StackPanel Margin="15">
-                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Cursor="">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Cursor="">
 
-                                                    <Button x:Name="btnSalvarCard" Content="{materialDesign:PackIcon Kind=Check}" Width="50" Height="30" Click="voltarCard"  Tag="{Binding ProdutoId}" />
-                                                    <Button x:Name="btnOffImagem" Content="{materialDesign:PackIcon Kind=ImageOffOutline}" Width="50" Height="30"/>
-                                                    <Button x:Name="btnAdicionarImagem" Content="{materialDesign:PackIcon Kind=ImagePlusOutline}" Width="50" Height="30"/>
+                                                    <Button x:Name="btnSalvarCard" Content="{materialDesign:PackIcon Kind=ArrowLeft}" Width="50" Height="30" Click="voltarCard" Tag="{Binding ProdutoId}" />
+                                                    <Button x:Name="btncheck" Content="{materialDesign:PackIcon Kind=Check}" Command="{Binding DataContext.UpdateDoProduto, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                            CommandParameter="{Binding ProdutoId}" Width="50" Height="30"/>
+                                                    <Button x:Name="btnAdicionarImagem" Content="{materialDesign:PackIcon Kind=ImagePlusOutline}" Width="50" Height="30" Command="{Binding DataContext.Imagem, RelativeSource={RelativeSource AncestorType=ItemsControl}}"/>
                                                     <Button Content="{materialDesign:PackIcon Kind=DeleteOutline}" Width="50" Height="30" Command="{Binding DataContext.DeletCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding ProdutoId}"  Tag="{Binding ProdutoId}" Cursor="Hand" />
-
-                                                 
-                                                    <Button Content="{materialDesign:PackIcon Kind=DeleteOutline}" Width="50" Height="30" />
 
                                                 </StackPanel>
                                                 <StackPanel>
-                                                    <Image x:Name="imagemExibicao1" Width="120" Height="100" Margin="1,5" />
+                                                    <Image x:Name="imagemExibicao1" Source="{Binding DataContext.upcaminhoDoArquivo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=ItemsControl}}"  Width="120" Height="100" Margin="1,8" />
                                                 </StackPanel>
                                             </StackPanel>
-                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="Auto" Margin="0,140,0,0">
+                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="Auto" Margin="0,150,0,0">
                                                 <TextBox 
+                                                    Text="{Binding DataContext.updateNome, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                     x:Name="textBox1"
-                                                    Margin="0,3"
-                                                    Foreground="White"
-                                                    MaxWidth="300"
+                                                    Margin="0,5"
+                                                    Foreground="white"
+                                                    MaxWidth="280"
                                                     MaxHeight="50"
                                                     VerticalAlignment="Top"
                                                     materialDesign:HintAssist.Hint="Nome do Produto"
@@ -131,38 +130,52 @@
                                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                                     TextWrapping="Wrap" />
                                                 <TextBox
+                                                     Text="{Binding DataContext.updatePreco, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                     x:Name="textBox2"
-                                                    Margin="0,3"
+                                                    Margin="0,5"
                                                     Foreground="White"
-                                                    MaxWidth="300"
+                                                    MaxWidth="280"
                                                     MaxHeight="50"
                                                     VerticalAlignment="Top"
-                                                    materialDesign:HintAssist.Hint="Preço de Venda"
+                                                    materialDesign:HintAssist.Hint="Preço do Produto"
                                                     AcceptsReturn="True"
                                                     IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}"
                                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                                     TextWrapping="Wrap" />
-                                                <TextBlock Text="{Binding QuantidadeEstoque}" FontSize="14" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="3"/>
+                                                <TextBox
+                                                    Text="{Binding DataContext.updateQuant, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                    x:Name="textBox3"
+                                                    Margin="0,5"
+                                                    Foreground="White"
+                                                    MaxWidth="280"
+                                                    MaxHeight="50"
+                                                    VerticalAlignment="Top"
+                                                    materialDesign:HintAssist.Hint="Quantidade em estoque"
+                                                    AcceptsReturn="True"
+                                                    IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}"
+                                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                    TextWrapping="Wrap" />
                                             </StackPanel>
                                         </Grid>
                                     </StackPanel>
 
                                     <StackPanel x:Name="cardSalvo" Orientation="Vertical" Margin="30" Visibility="{Binding atributoVisibilidade}">
-                                        <Grid Background="{DynamicResource PrimaryHueMidBrush}" Width="230" Height="300" Margin="10">
+                                        <Grid Background="{DynamicResource PrimaryHueMidBrush}" Width="250" Height="350" Margin="10">
                                             <Grid.Effect>
                                                 <DropShadowEffect Color="#AAAA" Direction="320" ShadowDepth="8" BlurRadius="10"/>
                                             </Grid.Effect>
                                             <StackPanel Margin="15">
-                                                <Image x:Name="imagemExibicao2" Width="120" Height="100" Margin="1,5" />
+                                                <Image x:Name="imagemExibicao2" Source="{Binding caminhoDoArquivo}"  Width="160" Height="140" Margin="5" />
                                             </StackPanel>
-                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="Auto" Margin="0,130,0,0">
-                                                <TextBlock x:Name="textID" Text="{Binding ProdutoId}" FontSize="18" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="0"/>
-                                                <TextBlock x:Name="textBlock1" Text="{Binding NomeProduto}" FontSize="18" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="0"/>
-                                                <TextBlock Text="{Binding QuantidadeEstoque}" FontSize="14" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="3"/>
+                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="Auto" Margin="0,155,0,0">
+
+                                                <TextBlock x:Name="textBlock1" Text="{Binding NomeProduto}" FontSize="20" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="0,15,0,3"/>
                                                 <TextBlock x:Name="textBlock2" Text="{Binding PrecoProduto}" FontSize="14" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin=".5"/>
-                                                <Button x:Name="btnEditarCard" Content="Editar" Height="28" Padding="4" Width="78" Foreground="{DynamicResource PrimaryHueMidBrush}" Background="White" Margin="10" FontSize="12" FontWeight="Bold" 
+                                                <TextBlock Text="{Binding QuantidadeEstoque}" FontSize="18" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="0,12,0,3"/>
+                                                <Button x:Name="btnEditarCard" Content="Editar" Height="35" Padding="4" Width="90" Foreground="{DynamicResource PrimaryHueMidBrush}" Background="White" Margin="12" FontSize="16" FontWeight="Bold" 
                                                         Click="virarCard" Tag="{Binding ProdutoId}"
                                                         Cursor="Hand"/>
+                                                <TextBlock x:Name="textID" Text="{Binding ProdutoId}" FontSize="12" HorizontalAlignment="Right" Foreground="White" FontWeight="Bold" Margin="0"/>
                                             </StackPanel>
                                         </Grid>
                                     </StackPanel>

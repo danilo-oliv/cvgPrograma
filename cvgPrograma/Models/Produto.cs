@@ -45,6 +45,7 @@ namespace cvgPrograma.Models
 
 
         public string? NomeProduto { get; set; }
+        public string? caminhoDoArquivo { get; set; }
         public decimal PrecoProduto { get; set; }
 
         public long EstoqueId { get; set; }
@@ -54,6 +55,7 @@ namespace cvgPrograma.Models
         public override string ToString()
         {
             return NomeProduto;
+            return caminhoDoArquivo;
         }
 
         public ObservableCollection<Produto> ConsultarProduto()
@@ -76,6 +78,7 @@ namespace cvgPrograma.Models
                             {
                                 ProdutoId = Convert.ToInt32(dr["ProdId"]),
                                 NomeProduto = dr["NomeProd"].ToString(),
+                                caminhoDoArquivo = dr["CaminhoImagem"].ToString(),
                                 PrecoProduto = Convert.ToDecimal(dr["PrecoProd"]),
                                 EstoqueId = Convert.ToInt32(dr["EstoqueId"]),
                                 QuantidadeEstoque = Convert.ToInt32(dr["QuantidadeProduto"]),
@@ -97,7 +100,7 @@ namespace cvgPrograma.Models
             }
         }
 
-        public void InserirProduto(string NomeProduto, decimal PrecoProduto, int QuantidadeEstoque)
+        public void InserirProduto(string NomeProduto, decimal PrecoProduto, int QuantidadeEstoque, string caminhoDoArquivo)
         {
 
             MySqlConnection conexao = new MySqlConnection(_connectionString);
@@ -106,11 +109,12 @@ namespace cvgPrograma.Models
             {
                 conexao.Open();
 
-                string inserirProdutoSql = "INSERT INTO produto (NomeProd, PrecoProd) VALUES (@Nome, @Preco);";
+                string inserirProdutoSql = "INSERT INTO produto (NomeProd, PrecoProd, CaminhoImagem) VALUES (@Nome, @Preco, @CaminhoImagem);";
                 using (MySqlCommand comandoInserirProduto = new MySqlCommand(inserirProdutoSql, conexao))
                 {
                     comandoInserirProduto.Parameters.AddWithValue("@Nome", NomeProduto);
                     comandoInserirProduto.Parameters.AddWithValue("@Preco", PrecoProduto);
+                    comandoInserirProduto.Parameters.AddWithValue("@CaminhoImagem", caminhoDoArquivo);
                     comandoInserirProduto.ExecuteNonQuery();
                 }
 
@@ -178,5 +182,7 @@ namespace cvgPrograma.Models
                 conexao.Close();
             }
         }
+
+
     }
 }

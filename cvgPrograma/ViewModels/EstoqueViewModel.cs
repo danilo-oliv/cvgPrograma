@@ -1,7 +1,8 @@
-﻿using cvgPrograma.Commands;
-using cvgPrograma.Models;
+﻿using cvgPrograma.Models;
 using cvgPrograma.Views;
+using cvgPrograma.Commands;
 using MaterialDesignThemes.Wpf;
+using Microsoft.VisualBasic;
 using Microsoft.Win32;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
@@ -32,7 +33,7 @@ namespace cvgPrograma.ViewModels
 
         public RelayCommand AtualizarCollection => new RelayCommand(execute => AtualizarMetodo(), canExecute => { return true; });
         public RelayCommand JanelaNovo => new RelayCommand(execute => AbrirNovo(), canExecute => { return true; });
-
+        public RelayCommand Imagem => new RelayCommand(execute => EscolherImagem(), canExecute => { return true; });
 
 
         public void AbrirNovo()
@@ -55,6 +56,39 @@ namespace cvgPrograma.ViewModels
             }
         }
         #region Valores das TextBox
+
+        private string _upcaminhoDoArquivo;
+
+        public string upcaminhoDoArquivo
+        {
+            get { return _upcaminhoDoArquivo; }
+            set { _upcaminhoDoArquivo = value; OnPropertyChanged(nameof(upcaminhoDoArquivo)); }
+        }
+
+        private string _updateNome;
+
+        public string updateNome
+        {
+            get { return _updateNome; }
+            set { _updateNome = value; OnPropertyChanged(nameof(updateNome)); }
+        }
+
+        private int _updateQuant;
+
+        public int updateQuant
+        {
+            get { return _updateQuant; }
+            set { _updateQuant = value; OnPropertyChanged(nameof(updateQuant)); }
+        }
+
+
+        private decimal _updatePreco;
+
+        public decimal updatePreco
+        {
+            get { return _updatePreco; }
+            set { _updatePreco = value; OnPropertyChanged(nameof(updatePreco)); }
+        }
 
         private long _Idproduto;
 
@@ -111,12 +145,31 @@ namespace cvgPrograma.ViewModels
         #endregion
         
         public ICommand DeletCommand { get; set; }
+        public ICommand UpdateDoProduto { get; set; }
 
         public EstoqueViewModel()
         {
             Produto produto = new Produto();
             Produtos = produto.ConsultarProduto();
             DeletCommand = new RelayCommand(DelProdHelper);
+            UpdateDoProduto = new RelayCommand(UpdateProdHelper);
+        }
+
+        public void UpdateProdHelper(object parameter)
+        {
+            try
+            {
+                if (parameter is long ProdutoId)
+                    UpdateProduto(ProdutoId, updateNome, updatePreco, updateQuant, upcaminhoDoArquivo);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+            }
+            finally
+            {
+
+            }
         }
 
         public void AtualizarMetodo()
@@ -135,7 +188,67 @@ namespace cvgPrograma.ViewModels
             }
         }
 
-        
+
+        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=;";
+        public void UpdateProduto(long ProdutoId, string updateNome, decimal updatePreco, int updateQuant, string upcaminhoDoArquivo)
+        {
+            MySqlConnection conexao = new MySqlConnection(_connectionString);
+            try
+            {
+                conexao.Open();
+                string updateProduto = "UPDATE estoque SET QuantidadeProduto = @QuantidadeProduto WHERE ProdId = @ProdId;";
+                string updateProduto2 = "UPDATE produto SET NomeProd = @NomeProd, CaminhoImagem = @CaminhoImagem, PrecoProd = @PrecoProd WHERE ProdId = @ProduId;";
+
+                using (MySqlCommand comandoUpdateProduto = new MySqlCommand(updateProduto, conexao))
+                {
+
+                    comandoUpdateProduto.Parameters.AddWithValue("@QuantidadeProduto", updateQuant);
+                    comandoUpdateProduto.Parameters.AddWithValue("@ProdId", ProdutoId);
+                    comandoUpdateProduto.ExecuteNonQuery();
+
+                    using (MySqlCommand comandoUpdateProduto2 = new MySqlCommand(updateProduto2, conexao))
+                    {
+                        comandoUpdateProduto2.Parameters.AddWithValue("@NomeProd", updateNome);
+                        comandoUpdateProduto2.Parameters.AddWithValue("@PrecoProd", updatePreco);
+                        comandoUpdateProduto2.Parameters.AddWithValue("@ProduId", ProdutoId);
+                        comandoUpdateProduto2.Parameters.AddWithValue("@CaminhoImagem", upcaminhoDoArquivo);
+                        comandoUpdateProduto2.ExecuteNonQuery();
+                    }
+            
+                }
+            
+           
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+
+        private void EscolherImagem()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Filter = "Arquivos de Imagem|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+            openFileDialog.Title = "Escolher uma Imagem";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                upcaminhoDoArquivo = openFileDialog.FileName;
+                BitmapImage caminho = new BitmapImage(new Uri(upcaminhoDoArquivo));
+
+            }
+        }
+
+
+
+
 
 
 

@@ -6,8 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media.Imaging;
 using cvgPrograma.Commands;
 using cvgPrograma.Models;
+using Microsoft.Win32;
 
 namespace cvgPrograma.ViewModels
 {
@@ -22,6 +24,20 @@ namespace cvgPrograma.ViewModels
 
         #region Produto
         #region Valores das TextBox - Produto
+
+        private string _txbxcaminhoDoArquivo;
+        public string txbxcaminhoDoArquivo
+        {
+            get { return _txbxcaminhoDoArquivo; }
+            set
+            {
+                if (_txbxcaminhoDoArquivo != value)
+                {
+                    _txbxcaminhoDoArquivo = value;
+                    OnPropertyChanged(nameof(txbxcaminhoDoArquivo));
+                }
+            }
+        }
 
         private string _txbxNomeProduto;
         public string txbxNomeProduto
@@ -68,13 +84,14 @@ namespace cvgPrograma.ViewModels
         #endregion
 
         public RelayCommand AddProdCommand => new RelayCommand(execute => AddProdHelper(), canExecute => AddProdValida());
+        public RelayCommand ImagemEscolha => new RelayCommand(execute => EscolhaImagem(), canExecute => { return true; });
 
         public void AddProdHelper()
         {
             Produto produto = new Produto();
             try
             {
-                produto.InserirProduto(txbxNomeProduto, txtPrecoProduto, txtQuantidadeProduto);
+                produto.InserirProduto(txbxNomeProduto, txtPrecoProduto, txtQuantidadeProduto, txbxcaminhoDoArquivo);
             }
             catch (Exception ex)
             {
@@ -85,6 +102,7 @@ namespace cvgPrograma.ViewModels
                 txbxNomeProduto = "";
                 txtPrecoProduto = 0;
                 txtQuantidadeProduto = 0;
+                txbxcaminhoDoArquivo = "";
             }
         }
 
@@ -98,6 +116,21 @@ namespace cvgPrograma.ViewModels
             else
             {
                 return false;
+            }
+        }
+
+        private void EscolhaImagem()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Filter = "Arquivos de Imagem|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+            openFileDialog.Title = "Escolher uma Imagem";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                txbxcaminhoDoArquivo = openFileDialog.FileName;
+                BitmapImage caminho = new BitmapImage(new Uri(txbxcaminhoDoArquivo));
+
             }
         }
         #endregion
