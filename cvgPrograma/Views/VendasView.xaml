@@ -145,7 +145,7 @@
                                         </StackPanel>
                                     </materialDesign:DialogHost.DialogContent>
                                 </materialDesign:DialogHost>
-                                <Button Margin="5 0" Background="#C90020" BorderThickness="0">Deletar</Button>
+                                <Button Margin="5 0" Background="#C90020" BorderThickness="0" Command="{Binding DataContext.DeletCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding VendaId}">Deletar </Button>
                             </StackPanel>
 
                         </StackPanel>

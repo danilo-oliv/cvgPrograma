@@ -22,7 +22,7 @@ namespace cvgPrograma.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=;";        
+        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=Amorinha 24;";        
 
         public long ProdutoId { get; set;  }
 

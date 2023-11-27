@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace cvgPrograma.ViewModels
 {
@@ -65,14 +66,27 @@ namespace cvgPrograma.ViewModels
         public VendasViewModel()
         {
             Venda venda = new Venda();
-            dataTableVenda = venda.ConsultarVenda();            
+            dataTableVenda = venda.ConsultarVenda();
+            DeletCommand = new RelayCommand(DelProdHelper);
         }
 
-        
+
+
 
 
         public RelayCommand AtualizarVendas => new RelayCommand(execute => AtualizarTabela(), canExecute => { return true; });
         public RelayCommand JanelaNovo => new RelayCommand(execute => AbrirNovo(), canExecute => { return true;  } );
+        private ObservableCollection<Venda> _vendas; // alterei o nome da propriedade para _vendas
+
+        public ObservableCollection<Venda> Vendas
+        {
+            get { return _vendas; }
+            set
+            {
+                _vendas = value;
+                OnPropertyChanged(nameof(Vendas));
+            }
+        }
 
 
 
@@ -85,8 +99,8 @@ namespace cvgPrograma.ViewModels
 
         public void AtualizarTabela()
         {
-            Venda venda = new Venda();
-            dataTableVenda = venda.ConsultarVenda();
+            Venda Venda = new Venda();
+            dataTableVenda = Venda.ConsultarVenda();
         }
 
         private string _connectionString = "Server=localhost;Database=casadovideogame; Uid=root;Pwd=Amorinha 24;";
@@ -180,6 +194,19 @@ namespace cvgPrograma.ViewModels
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+      
+        }
+
+        
+        public ICommand DeletCommand { get; set; }
+        
+        public void DelProdHelper(object parameter )
+        {
+            Venda venda = new Venda();
+            
+            
+                venda.DeletarVenda(Convert.ToInt32(parameter));
         }
     }
+       
 }

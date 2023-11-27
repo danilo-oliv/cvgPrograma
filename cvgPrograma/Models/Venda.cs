@@ -3,6 +3,8 @@ using MySql.Data.Types;
 using Org.BouncyCastle.Utilities.Collections;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -11,29 +13,36 @@ using System.Windows;
 
 namespace cvgPrograma.Models
 {
-    public class Venda
+    public class Venda : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=Amorinha 24;";
 
 
         public int VendaId { get; set; }
-        public DateOnly DataVenda { get ; set; }
+        public DateOnly DataVenda { get; set; }
         public decimal TotalVenda { get; set; }
 
         public long ProdId { get; set; }
         public string? NomeProd { get; set; }
         public decimal PrecoProd { get; set; }
 
-        public long ProdVendaId { get; set; }
+        public int ProdVendaId { get; set; }
         public int QuantVenda { get; set; }
 
         public string? TipoPagamento { get; set; }
 
 
-  
+
 
         public int Quantidade { get; set; }
-        public DateOnly Data { get; set; }        
+        public DateOnly Data { get; set; }
 
         public DataTable ConsultarVenda()
         {
@@ -68,7 +77,7 @@ namespace cvgPrograma.Models
         }
 
 
-        public void InserirVenda(string NomeProduto, int QuantVenda, decimal TotalVenda,string TipoPagamento)
+        public void InserirVenda(string NomeProduto, int QuantVenda, decimal TotalVenda, string TipoPagamento)
         {
             MySqlConnection conexao = new MySqlConnection(_connectionString);
             int IdMetodo = EncontrarCodMetodo(TipoPagamento);
@@ -82,32 +91,32 @@ namespace cvgPrograma.Models
                                       "VALUES (@DataVenda, @TotalVenda, @CodMetodo);";
                     string selecionaVenda = "SELECT MAX(VendaId) FROM venda;";
                     using (MySqlCommand comandoInsereVenda = new MySqlCommand(insereVenda, conexao))
-                            {
-                                comandoInsereVenda.Parameters.AddWithValue("@DataVenda", DateTime.Now);
-                                comandoInsereVenda.Parameters.AddWithValue("@TotalVenda", TotalVenda);
-                                comandoInsereVenda.Parameters.AddWithValue("@CodMetodo", IdMetodo);
-                                comandoInsereVenda.ExecuteNonQuery();
-                            }
+                    {
+                        comandoInsereVenda.Parameters.AddWithValue("@DataVenda", DateTime.Now);
+                        comandoInsereVenda.Parameters.AddWithValue("@TotalVenda", TotalVenda);
+                        comandoInsereVenda.Parameters.AddWithValue("@CodMetodo", IdMetodo);
+                        comandoInsereVenda.ExecuteNonQuery();
+                    }
 
                     using (MySqlCommand comandoSelecionaVenda = new MySqlCommand(selecionaVenda, conexao))
+                    {
+                        object resultadoSelecao = comandoSelecionaVenda.ExecuteScalar();
+                        if (resultadoSelecao != null && resultadoSelecao != DBNull.Value)
+                        {
+                            int VendaIdConvertida = Convert.ToInt32(resultadoSelecao);
+                            string insereProdutoVenda = "INSERT into produtovenda (ProdId, VendaId, QuantVenda)" +
+                                                "VALUES (@ProdId, @VendaId, @QuantVenda);";
+                            using (MySqlCommand comandoInsereProdutoVenda = new MySqlCommand(insereProdutoVenda, conexao))
                             {
-                                object resultadoSelecao = comandoSelecionaVenda.ExecuteScalar();
-                                if (resultadoSelecao != null && resultadoSelecao != DBNull.Value)
-                                {
-                                    int VendaIdConvertida = Convert.ToInt32(resultadoSelecao);
-                                    string insereProdutoVenda = "INSERT into produtovenda (ProdId, VendaId, QuantVenda)" +
-                                                        "VALUES (@ProdId, @VendaId, @QuantVenda);";
-                                    using (MySqlCommand comandoInsereProdutoVenda = new MySqlCommand(insereProdutoVenda, conexao))
-                                    {
-                                        comandoInsereProdutoVenda.Parameters.AddWithValue("@QuantVenda", QuantVenda);
-                                        comandoInsereProdutoVenda.Parameters.AddWithValue("@VendaId", VendaIdConvertida);
-                                        comandoInsereProdutoVenda.Parameters.AddWithValue("@ProdId", IdProduto);
-                                        comandoInsereProdutoVenda.ExecuteNonQuery();
-                                    }
-                                }
+                                comandoInsereProdutoVenda.Parameters.AddWithValue("@QuantVenda", QuantVenda);
+                                comandoInsereProdutoVenda.Parameters.AddWithValue("@VendaId", VendaIdConvertida);
+                                comandoInsereProdutoVenda.Parameters.AddWithValue("@ProdId", IdProduto);
+                                comandoInsereProdutoVenda.ExecuteNonQuery();
                             }
+                        }
+                    }
                     string reduzEstoque = "UPDATE estoque SET QuantidadeProduto = QuantidadeProduto - @QuantVenda WHERE ProdId = @IdProduto;";
-                    using(MySqlCommand comandoReduzEstoque = new MySqlCommand(reduzEstoque, conexao))
+                    using (MySqlCommand comandoReduzEstoque = new MySqlCommand(reduzEstoque, conexao))
                     {
                         comandoReduzEstoque.Parameters.AddWithValue("@QuantVenda", QuantVenda);
                         comandoReduzEstoque.Parameters.AddWithValue("@IdProduto", IdProduto);
@@ -151,7 +160,7 @@ namespace cvgPrograma.Models
                 }
                 conexao.Close();
             }
-            
+
             return codMetodo;
         }
 
@@ -180,6 +189,36 @@ namespace cvgPrograma.Models
             }
 
             return prodId;
+
+             
+        }
+
+        public void DeletarVenda(int Idvenda)
+        {
+            MySqlConnection conexao = new MySqlConnection(_connectionString);
+
+            try
+            {
+                conexao.Open();
+
+                string deletarVendaSql = "DELETE from venda WHERE VendaId = @VendaId;" +
+                    "DELETE from venda WHERE VendaId = @VendaId;";
+
+                using (MySqlCommand comandoDeletarVenda = new MySqlCommand(deletarVendaSql, conexao))
+                {
+                    comandoDeletarVenda.Parameters.AddWithValue("@VendaId", Idvenda);
+                    comandoDeletarVenda.ExecuteNonQuery();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+            }
+            finally
+            {
+                conexao.Close();
+            }
         }
     }
 }

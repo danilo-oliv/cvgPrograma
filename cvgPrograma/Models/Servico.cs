@@ -17,7 +17,7 @@ namespace cvgPrograma.Models
 {
     public class Servico
     {
-        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=;";
+        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=Amorinha 24;";
 
         public int ServicoId { get; set; }
         public string? DescSevico { get; set; }
