@@ -11,11 +11,8 @@ using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using cvgPrograma.Commands;
 using cvgPrograma.Models;
-<<<<<<< HEAD
-using Microsoft.Win32;
-=======
 using MySql.Data.MySqlClient;
->>>>>>> a170577a96776ba23dd4de15ca7c8df4b22d87ee
+using Microsoft.Win32;
 
 namespace cvgPrograma.ViewModels
 {
@@ -123,18 +120,6 @@ namespace cvgPrograma.ViewModels
         #region Produto
         #region Valores das TextBox - Produto
 
-<<<<<<< HEAD
-        private string _txbxcaminhoDoArquivo;
-        public string txbxcaminhoDoArquivo
-        {
-            get { return _txbxcaminhoDoArquivo; }
-            set
-            {
-                if (_txbxcaminhoDoArquivo != value)
-                {
-                    _txbxcaminhoDoArquivo = value;
-                    OnPropertyChanged(nameof(txbxcaminhoDoArquivo));
-=======
         private ObservableCollection<Produto> _produto;
         public ObservableCollection<Produto> Produtos
         {
@@ -157,20 +142,30 @@ namespace cvgPrograma.ViewModels
                     _ProdSelecionado = value;
                     OnPropertyChanged(nameof(ProdSelecionado));
                     OnPropertyChanged(nameof(PrecoProdSelecionado));
->>>>>>> a170577a96776ba23dd4de15ca7c8df4b22d87ee
                 }
             }
         }
 
-<<<<<<< HEAD
-=======
         public decimal PrecoProdSelecionado
         {
             get { return ProdSelecionado?.PrecoProduto ?? 0; }
         }
 
 
->>>>>>> a170577a96776ba23dd4de15ca7c8df4b22d87ee
+        private string _txbxcaminhoDoArquivo;
+        public string txbxcaminhoDoArquivo
+        {
+            get { return _txbxcaminhoDoArquivo; }
+            set
+            {
+                if (_txbxcaminhoDoArquivo != value)
+                {
+                    _txbxcaminhoDoArquivo = value;
+                    OnPropertyChanged(nameof(txbxcaminhoDoArquivo));
+                }
+            }
+        }
+
         private string _txbxNomeProduto;
         public string txbxNomeProduto
         {
