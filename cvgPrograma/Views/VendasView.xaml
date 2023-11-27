@@ -19,8 +19,8 @@
         <vm:VendasViewModel x:Key="vmVendas"/>
     </UserControl.Resources>
     <Grid DataContext="{StaticResource vmVendas}">
-        
-        
+
+
         <Grid.RowDefinitions>
             <RowDefinition Height="71*"/>
             <RowDefinition Height="154*"/>
@@ -54,9 +54,25 @@
 
 
         <DataGrid ItemsSource="{Binding dataTableVenda}"
-                  Grid.Row="1" 
-                  x:Name="dataGridVendas" AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Center">
-            <DataGrid.Columns>
+          Grid.Row="1"   x:Name="dataGridVendas" AutoGenerateColumns="False"  IsReadOnly="True" HorizontalAlignment="Center"          
+          Background="White">
+            
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="BlueViolet" />
+                    <Setter Property="FontSize" Value="14" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="ContentTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" Padding="10px" />
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+
+                <DataGrid.Columns>
                 <DataGridTextColumn Header="#" Binding="{Binding VendaId}"/>
                 <DataGridTextColumn Header="Produto" Binding="{Binding NomeProd}"/>
                 <DataGridTextColumn Header="Preço" Binding="{Binding PrecoProd}"/>
@@ -66,10 +82,10 @@
                 <DataGridTextColumn Header="Data" Binding="{Binding DataVenda}"/>
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
-            <DataTemplate>
-                <Border BorderThickness="0" Background="#C6C6C6" Padding="10">
-                    <StackPanel Orientation="Horizontal">
+                <DataTemplate>
+                    <Border BorderThickness="0" Background="#C6C6C6" Padding="10">
                         <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal">
                                 <materialDesign:DialogHost>
                                     <Button Margin="5 0" Background="#006FFF" BorderThickness="0"  
                                         Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">Editar</Button>
@@ -133,8 +149,8 @@
                             </StackPanel>
 
                         </StackPanel>
-                </Border>
-            </DataTemplate>
+                    </Border>
+                </DataTemplate>
             </DataGrid.RowDetailsTemplate>
         </DataGrid>
 

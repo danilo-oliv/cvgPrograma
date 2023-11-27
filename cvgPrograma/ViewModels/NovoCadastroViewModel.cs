@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +11,11 @@ using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using cvgPrograma.Commands;
 using cvgPrograma.Models;
+<<<<<<< HEAD
 using Microsoft.Win32;
+=======
+using MySql.Data.MySqlClient;
+>>>>>>> a170577a96776ba23dd4de15ca7c8df4b22d87ee
 
 namespace cvgPrograma.ViewModels
 {
@@ -22,9 +28,102 @@ namespace cvgPrograma.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public NovoCadastroViewModel()
+        {
+            Produto produto = new Produto();
+            Produtos = produto.ConsultarProduto();
+            Pagamentos = MetodosPagamento();
+            diaHoje = DateTime.Now;
+        }
+
+
+        #region Metodo de Pagamento
+
+        public class Pagamento
+        {
+            public long CodPagamento { get; set; }
+            public string TipoPagamento { get; set; }
+        }
+
+        private ObservableCollection<Pagamento> _pagamento;
+
+        public ObservableCollection<Pagamento> Pagamentos
+        {
+            get { return _pagamento; }
+            set { _pagamento = value; OnPropertyChanged(nameof(Pagamentos)); }
+        }
+
+        private Pagamento _PagamentoSelecionado;
+        public Pagamento PagamentoSelecionado
+        {
+            get { return _PagamentoSelecionado; }
+            set
+            {
+                if (_PagamentoSelecionado != value)
+                {
+                    _PagamentoSelecionado = value;
+                    OnPropertyChanged(nameof(PagamentoSelecionado));
+                }
+            }
+        }
+
+        private Pagamento _PagamentoSelecionadoServico;
+        public Pagamento PagamentoSelecionadoServico
+        {
+            get { return _PagamentoSelecionadoServico; }
+            set
+            {
+                if (_PagamentoSelecionadoServico != value)
+                {
+                    _PagamentoSelecionadoServico = value;
+                    OnPropertyChanged(nameof(PagamentoSelecionadoServico));
+                }
+            }
+        }
+
+        private string _connectionString = "Server=localhost;Database=casadovideogame;User=root;Password=;";
+        public ObservableCollection<Pagamento> MetodosPagamento()
+        {
+            MySqlConnection conexao = new MySqlConnection(_connectionString);
+            try
+            {
+                conexao.Open();
+                MySqlDataReader dr;
+                ObservableCollection<Pagamento> pagamentos2 = new ObservableCollection<Pagamento>();
+
+                string stringSelecao = "select * from metodopagamento;";
+
+                using (MySqlCommand comandoSelecionar = new MySqlCommand(stringSelecao, conexao))
+                {
+                    using (dr = comandoSelecionar.ExecuteReader())
+                        while (dr.Read())
+                        {
+                            Pagamento pagamentos = new Pagamento
+                            {
+                                CodPagamento = Convert.ToInt64(dr["CodMetodo"]),
+                                TipoPagamento = dr["TipoPagamento"].ToString()
+                            };
+                            pagamentos2.Add(pagamentos);
+                        }
+                }
+                return pagamentos2;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+                return null;
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        } 
+        #endregion
+
         #region Produto
         #region Valores das TextBox - Produto
 
+<<<<<<< HEAD
         private string _txbxcaminhoDoArquivo;
         public string txbxcaminhoDoArquivo
         {
@@ -35,10 +134,43 @@ namespace cvgPrograma.ViewModels
                 {
                     _txbxcaminhoDoArquivo = value;
                     OnPropertyChanged(nameof(txbxcaminhoDoArquivo));
+=======
+        private ObservableCollection<Produto> _produto;
+        public ObservableCollection<Produto> Produtos
+        {
+            get { return _produto; }
+            set
+            {
+                _produto = value;
+                OnPropertyChanged(nameof(Produtos));
+            }
+        }
+
+        private Produto _ProdSelecionado;
+        public Produto ProdSelecionado
+        {
+            get { return _ProdSelecionado; }
+            set
+            {
+                if (_ProdSelecionado != value)
+                {
+                    _ProdSelecionado = value;
+                    OnPropertyChanged(nameof(ProdSelecionado));
+                    OnPropertyChanged(nameof(PrecoProdSelecionado));
+>>>>>>> a170577a96776ba23dd4de15ca7c8df4b22d87ee
                 }
             }
         }
 
+<<<<<<< HEAD
+=======
+        public decimal PrecoProdSelecionado
+        {
+            get { return ProdSelecionado?.PrecoProduto ?? 0; }
+        }
+
+
+>>>>>>> a170577a96776ba23dd4de15ca7c8df4b22d87ee
         private string _txbxNomeProduto;
         public string txbxNomeProduto
         {
@@ -137,6 +269,17 @@ namespace cvgPrograma.ViewModels
 
         #region Serviço
         #region Valores das TextBox - Serviço
+
+        private DateTime _diaHoje;
+
+        public DateTime diaHoje
+        {
+            get { return _diaHoje; }
+            set { _diaHoje = DateTime.Now; OnPropertyChanged(nameof(diaHoje)); }
+        }
+
+
+
         private string _txtDesc;
 
         public string txtDesc
@@ -157,9 +300,9 @@ namespace cvgPrograma.ViewModels
             set { _txtPrecoServico = value; OnPropertyChanged(nameof(txtPrecoServico)); }
         }
 
-        private DateOnly _txtDataEntrega;
+        private DateTime _txtDataEntrega;
 
-        public DateOnly txtDataEntrega
+        public DateTime txtDataEntrega
         {
             get { return _txtDataEntrega; }
             set { _txtDataEntrega = value; OnPropertyChanged(nameof(txtDataEntrega)); }
@@ -205,11 +348,11 @@ namespace cvgPrograma.ViewModels
             }
             finally
             {
-                txtDesc = "";
-                txtPrecoServico = 0;
-                txtCliente = "";
-                txtContato = "";
-                txtMetodoPg = "";
+                //txtDesc = "";
+                //txtPrecoServico = 0;
+                //txtCliente = "";
+                //txtContato = "";
+                //txtMetodoPg = "";
             }
         }
 
@@ -247,7 +390,15 @@ namespace cvgPrograma.ViewModels
         public int txtQuantidadeVenda
         {
             get { return _txtQuantidadeVenda; }
-            set { _txtQuantidadeVenda = value; OnPropertyChanged(nameof(txtQuantidadeVenda)); }
+            set
+            {
+                if (_txtQuantidadeVenda != value)
+                {
+                    _txtQuantidadeVenda = value;
+                    OnPropertyChanged(nameof(txtQuantidadeVenda));
+                    CalculaTotal();
+                }
+            }
         }
 
         private decimal _totalVenda;
@@ -255,7 +406,14 @@ namespace cvgPrograma.ViewModels
         public decimal totalVenda
         {
             get { return _totalVenda; }
-            set { _totalVenda = txtPrecoVenda * txtQuantidadeVenda; OnPropertyChanged(nameof(totalVenda)); }
+            set
+            {
+                if (_totalVenda != value)
+                {
+                    _totalVenda = value;
+                    OnPropertyChanged(nameof(totalVenda));                    
+                }
+            }
         }
 
         private string _txtMetodoPgVenda;
@@ -265,7 +423,17 @@ namespace cvgPrograma.ViewModels
             get { return _txtMetodoPgVenda; }
             set { _txtMetodoPgVenda = value; OnPropertyChanged(nameof(txtMetodoPgVenda)); }
         }
+
+
+
+
+
         #endregion
+
+        public void CalculaTotal()
+        {
+           totalVenda = PrecoProdSelecionado * txtQuantidadeVenda;
+        }
 
         public RelayCommand AddVendaCommand => new RelayCommand(execute => AddVendaHelper(), canExecute => AddVendaValida());
 
@@ -274,7 +442,7 @@ namespace cvgPrograma.ViewModels
             Venda venda = new Venda();
             try
             {
-                venda.InserirVenda(txtComboProduto, txtDataEntrega, txtQuantidadeVenda, totalVenda, txtMetodoPgVenda);
+                venda.InserirVenda(ProdSelecionado.ToString(), txtQuantidadeVenda, totalVenda, txtMetodoPgVenda);
             }
             catch (Exception ex)
             {
@@ -282,16 +450,16 @@ namespace cvgPrograma.ViewModels
             }
             finally
             {
-                txtComboProduto = "";
-                txtQuantidadeVenda = 0;
-                totalVenda = 0;
-                txtMetodoPgVenda = "";
+                //txtComboProduto = "";
+                //txtQuantidadeVenda = 0;
+                //totalVenda = 0;
+                //txtMetodoPgVenda = "";
             }
         }
 
         public bool AddVendaValida()
         {
-            if (txtComboProduto != null && totalVenda > 0 && txtMetodoPgVenda != null)
+            if (PagamentoSelecionado != null && totalVenda > 0 && ProdSelecionado != null)
                 return true;
             else
                 return false;

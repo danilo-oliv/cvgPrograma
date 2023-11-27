@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,15 +16,13 @@ using System.Windows.Shapes;
 namespace cvgPrograma.Views
 {
     /// <summary>
-    /// Interação lógica para InfoView.xam
+    /// Interação lógica para TopVendasChart.xam
     /// </summary>
-    public partial class InfoView : UserControl
+    public partial class TopVendasChart : UserControl
     {
-        public InfoView()
+        public TopVendasChart()
         {
             InitializeComponent();
         }
-
-       
     }
 }

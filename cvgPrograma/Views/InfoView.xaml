@@ -6,280 +6,30 @@
              xmlns:local="clr-namespace:cvgPrograma.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             
+             xmlns:vm="clr-namespace:cvgPrograma.ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:views="clr-namespace:cvgPrograma.Views"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
-             FontFamily="{DynamicResource MaterialDesignFont}">
-    <Grid>
-        <!--Novo Serviço-->
-        <materialDesign:DialogHost>
-            <materialDesign:DialogHost.DialogContent>
-                <TextBlock Text="Yes"/>
-            </materialDesign:DialogHost.DialogContent>
-            <Button
-                x:Name="mdDialog"                
-    Width="128"
-    Margin="0,32,0,0"
-    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-    Content="Novo Serviço">
-                <Button.CommandParameter>
-                    <Grid Width="515"
-                  Height="355"
-                  Background="White">
-                        <StackPanel HorizontalAlignment="Right" 
-                        VerticalAlignment="Top"
-                        >
-                            <Button x:Name="btnCloseModal"
-                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                        Margin="0 10 10 0"
-                        Padding="2 0 2 0"
-                            
-                        Click="OnCloseModalClick"
-                        >
-                                <materialDesign:PackIcon Height="25" Width="25" Kind="CloseBoxOutline" />
-                            </Button>
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Adicionar Serviço"
-                       HorizontalAlignment="Center"
-                       Margin="15"
-                      />
-
-                            <TextBox
-                        Height="70"
-                        Width="400"
-                        VerticalAlignment="Top"
-                        materialDesign:HintAssist.Hint="Descrição"
-                        materialDesign:HintAssist.HintOpacity="0.9"
-                        AcceptsReturn="True"                       
-                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                        TextWrapping="Wrap"
-                        VerticalScrollBarVisibility="Auto" />
-                            <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Center">
-                                <TextBox
-                                HorizontalAlignment="Center"
-                                Margin="0 10 10 10"
-                                Width="183"
-                                VerticalAlignment="Top"
-                                materialDesign:HintAssist.Hint="Preço:"
-                                materialDesign:HintAssist.HintOpacity="0.9"
-                                AcceptsReturn="True"                       
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
-                                <DatePicker 
-                            HorizontalAlignment="Center"
-                            Width="206"
-                            materialDesign:HintAssist.Hint="Data de entrada:"
-                            materialDesign:TextFieldAssist.HasClearButton="True"
-                            Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
-                            </StackPanel>
-
-                            <ComboBox
-                      HorizontalAlignment="Center"
-                      materialDesign:HintAssist.Hint="Método de Pagamento"
-                      Width="400"
-                      Margin="10"
-                      Padding="5"        
-                      Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                                <ComboBoxItem Content="Cartão de crédito" />
-                                <ComboBoxItem Content="Cartão de débito" />
-                                <ComboBoxItem Content="Dinheiro" />
-                                <ComboBoxItem Content="Pix" />
-                            </ComboBox>
-                            <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Center">
-                                <TextBox
-                                Margin="0 10 10 10"
-                                Width="195"
-                                VerticalAlignment="Top"
-                                materialDesign:HintAssist.Hint="Cliente:"
-                                materialDesign:HintAssist.HintOpacity="0.9"
-                                AcceptsReturn="True"                       
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
-                                <TextBox
-                                Margin="0 10 0 10"
-                                Width="195"
-                                VerticalAlignment="Top"
-                                materialDesign:HintAssist.Hint="Contato:"
-                                materialDesign:HintAssist.HintOpacity="0.9"
-                                AcceptsReturn="True"                       
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
-
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Right">
-                                <Button Width="90"
-                    Content="Salvar"
-                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                    Style="{StaticResource MaterialDesignOutlinedLightButton}"
-                    ToolTip="MaterialDesignOutlinedButton"
-                        Margin="10"/>
-                                <Button Width="90"
-                    Content="Cancelar"
-                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"                                        
-                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                    Style="{StaticResource MaterialDesignOutlinedLightButton}"
-                    ToolTip="MaterialDesignOutlinedButton"
-                        Margin="10"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Grid>
-                </Button.CommandParameter>
-            </Button>
-        </materialDesign:DialogHost>
-
-<!--Novo Produto-->
-        <materialDesign:DialogHost>
-            <materialDesign:DialogHost.DialogContent>
-                <TextBlock>a</TextBlock>
-            </materialDesign:DialogHost.DialogContent>
-            <Button
-                x:Name="mdDialog2"                
-    Width="128"
-    Margin="600,32,0,0"
-    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-    Content="Novo Produto">
-                <Button.CommandParameter>
-            <Grid Width="515"
-                  Height="445"
-                  Background="White">
-                <TextBlock 
-                       TextAlignment="CENTER"
-                       Margin="10">CADASTRAR PRODUTO</TextBlock>
-                <Button x:Name="btnCloseModal2"
-                        Margin="0 10 10 0"
-                        Padding="2 0 2 0"
-                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"                        
-                        Width="30"
-                        Height="30"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top">
-                    <materialDesign:PackIcon Height="25" Width="25" Kind="CloseBoxOutline" />
-                </Button>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="40"></RowDefinition>
-                        <RowDefinition Height="4*"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <!--PRIMEIRO QUADRANTE-->
-                    <StackPanel x:Name="PRIMEIRO_QUADRANTE"
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Orientation="Vertical">
-                        <!--NOME-->
-                        <TextBox
-                                Margin="0 10 10 10"
-                                Width="195"
-                                VerticalAlignment="Top"
-                                materialDesign:HintAssist.Hint="Nome:"
-                                materialDesign:HintAssist.HintOpacity="0.9"
-                                AcceptsReturn="True"                       
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
-                        <!--PREÇO CUSTO-->
-                        <TextBox
-                                Margin="0 10 10 10"
-                                Width="195"
-                                VerticalAlignment="Top"
-                                materialDesign:HintAssist.Hint="Preço de custo:"
-                                materialDesign:HintAssist.HintOpacity="0.9"
-                                AcceptsReturn="True"                       
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
-                        <!--PREÇO VENDA-->
-                        <TextBox
-                                Margin="0 10 10 10"
-                                Width="195"
-                                VerticalAlignment="Top"
-                                materialDesign:HintAssist.Hint="Preço de venda:"
-                                materialDesign:HintAssist.HintOpacity="0.9"
-                                AcceptsReturn="True"                       
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
-                        <TextBox
-                                Margin="0 10 10 10"
-                                Width="195"
-                                VerticalAlignment="Top"
-                                materialDesign:HintAssist.Hint="Quantidade:"
-                                materialDesign:HintAssist.HintOpacity="0.9"
-                                AcceptsReturn="True"                       
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="Wrap"
-                                VerticalScrollBarVisibility="Auto" />
-                        <StackPanel Orientation="Horizontal" 
-                                VerticalAlignment="Bottom"
-                                Margin="10">
-                            <Button Width="126"
-                            Margin="10 0 10 0" 
-                            Click="BtnLoadFromFile_Click">Inserir Imagem:</Button>
-                            <Button Width="85"
-                            Margin="10 0 10 0" 
-                            Click="BtnLimparImagem">Limpar</Button>
-                        </StackPanel>
-                    </StackPanel>
-                    <!--SEGUNDO QUADRANTE-->
-                    <StackPanel x:Name="SEGUNDO_QUADRANTE"
-                        Grid.Row="1"
-                        Grid.Column="1">
-                        <Image Name="imgDynamic" 
-                           Margin="0 30" 
-                           Stretch="Uniform"
-                           Width="160"
-                           Height="200"
-                           Panel.ZIndex="1"></Image>
-                    </StackPanel>
-                    <!--TERCEIRO QUADRANTE-->
-                    <StackPanel x:Name="TERCEIRO_QUADRANTE"
-                        Grid.Row="2"
-                        Grid.Column="0">
-                    </StackPanel>
-                    <!--QUARTO QUADRANTE-->
-                    <StackPanel x:Name="QUARTO_QUADRANTE"
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        >
-                        <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                                Margin="0 20">
-                            <Button Width="90"
-                    Content="Salvar"
-                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                    Style="{StaticResource MaterialDesignOutlinedLightButton}"
-                    ToolTip="MaterialDesignOutlinedButton"
-                        Margin="10"/>
-                            <Button Width="90"
-                    Content="Cancelar"
-                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"                                      
-                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                    Style="{StaticResource MaterialDesignOutlinedLightButton}"
-                    ToolTip="MaterialDesignOutlinedButton"
-                        Margin="10"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Grid>
-            </Grid>
-                </Button.CommandParameter>
-            </Button>
-        </materialDesign:DialogHost>
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+             >
+    <UserControl.Resources>
+        <vm:EstoqueViewModel x:Key="vmEstoque"/>
+        <vm:InfoViewModel x:Key="vmInfo"/>
+    </UserControl.Resources>
+    <Grid DataContext="{StaticResource vmEstoque}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Produtos Mais Vendidos" FontSize="36" Margin="10" Grid.Row="0" HorizontalAlignment="Center"/>
+            <views:TopVendasChart DataContext="{StaticResource vmInfo}" Grid.Row="1" Margin="20"/>
+        </Grid>
     </Grid>
 </UserControl>

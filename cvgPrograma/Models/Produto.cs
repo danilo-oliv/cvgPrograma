@@ -51,6 +51,7 @@ namespace cvgPrograma.Models
         public long EstoqueId { get; set; }
         public int QuantidadeEstoque { get; set; }
 
+        public int QuantVenda { get; set; }
 
         public override string ToString()
         {
