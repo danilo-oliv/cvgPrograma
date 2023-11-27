@@ -7,7 +7,7 @@
         xmlns:views="clr-namespace:cvgPrograma.Views"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="NEDS - Software Gerencial" Height="450" Width="800"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -15,8 +15,10 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        WindowState="Maximized"
+        WindowState="Maximized"    
+        Icon="Assets/icon.ico"
         >
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="51"></RowDefinition>
@@ -50,16 +52,12 @@
                      x:Name="infoTab" PreviewMouseLeftButtonDown="infoTabClick"
                      IsTabStop="False">
             </TabItem>
-            <TabItem Header="Login"
-                     x:Name="loginTab" PreviewMouseLeftButtonDown="loginTabClick"
-                     IsTabStop="False">
-            </TabItem>
         </TabControl>
         <views:AgendaView Grid.Row="1" x:Name="agendaView" Visibility="Visible" IsTabStop="False"></views:AgendaView>
         <views:EstoqueView Grid.Row="1" x:Name="estoqueView" Visibility="Hidden" IsTabStop="False"></views:EstoqueView>
         <views:VendasView Grid.Row="1" x:Name="vendasView" Visibility="Hidden" IsTabStop="False"></views:VendasView>
         <views:InfoView Grid.Row="1" x:Name="infoView" Visibility="Hidden" IsTabStop="False"></views:InfoView>
-        <views:LoginView Grid.Row="1" x:Name="loginView" Visibility="Hidden" IsTabStop="False"></views:LoginView>
+        
 
 
     </Grid>
