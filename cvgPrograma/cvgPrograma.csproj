@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Assets\icon.ico" />
     <None Remove="Assets\Icons\agendaSVG.png" />
     <None Remove="Assets\Icons\caixaSVG.png" />
     <None Remove="Assets\Icons\cashSVG.png" />
@@ -28,12 +29,12 @@
 
   <ItemGroup>
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
-    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc2" />
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
     <PackageReference Include="MySql.Data" Version="8.1.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\icon.ico" />
     <Resource Include="Assets\Icons\agendaSVG.png" />
     <Resource Include="Assets\Icons\caixaSVG.png" />
     <Resource Include="Assets\Icons\cashSVG.png" />
