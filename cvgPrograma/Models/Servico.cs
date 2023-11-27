@@ -29,6 +29,65 @@ namespace cvgPrograma.Models
         public int CodMetodo { get; set; }
         public int CodServico { get; set; }
 
+
+        // as que nao tem no banco de dados servico
+        public string NomeCliente { get; set; }
+        public string TelefoneCliente { get; set; }
+        public string TipoPagamento { get; set; }
+        public string TipoServico { get; set; }
+
+
+
+        public ObservableCollection<Servico> ConsultarCard()
+        {
+            MySqlConnection conexao = new MySqlConnection(_connectionString);
+            MySqlDataReader dr;
+            ObservableCollection<Servico> servicos = new ObservableCollection<Servico>();
+            try
+            {
+                conexao.Open();
+
+                string consultarCard = "SELECT m.CodMetodo, m.TipoPagamento, s.ServicoId, s.NomeCliente, " +
+                    "s.TelefoneCliente, s.DescServico, s.DataEntradaServico, s.DataSaidaServico, s.ProntoServico, " +
+                    "s.TotalServico FROM MetodoPagamento m INNER JOIN Servico s ON m.CodMetodo = s.CodMetodo where s.ProntoServico = false;";
+
+                using (MySqlCommand comandConsultarCard = new MySqlCommand(consultarCard, conexao))
+                {
+                    using (dr = comandConsultarCard.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            Servico servico = new Servico
+                            {
+                                NomeCliente = dr["NomeCliente"].ToString(),
+                                TelefoneCliente = dr["TelefoneCliente"].ToString(),
+                                CodMetodo = Convert.ToInt32(dr["CodMetodo"]),
+                                TipoPagamento = dr["TipoPagamento"].ToString(),
+                                ServicoId = Convert.ToInt32(dr["ServicoId"]),
+                                DescSevico = dr["DescServico"].ToString(),
+                                DataEntradaServico = Convert.ToDateTime(dr["DataEntradaServico"]),
+                                DataSaidaServico =Convert.ToDateTime(dr["DataSaidaServico"]),
+                                ProntoServico = Convert.ToBoolean(dr["ProntoServico"]),
+                                TotalServico = Convert.ToDecimal(dr["TotalServico"])
+                            };
+                            servicos.Add(servico);
+                        }
+
+                    }
+                    return servicos;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+                return null;
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
         public void InserirCard(string DescricaoServ, DateTime SaidaServ, decimal TotalServ, string NomeCliente, string TelefoneCliente, string TipoPagamento)
         {
             MySqlConnection conexao = new MySqlConnection(_connectionString);

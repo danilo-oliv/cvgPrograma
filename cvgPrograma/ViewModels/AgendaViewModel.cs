@@ -159,13 +159,13 @@ namespace cvgPrograma.ViewModels
         public AgendaViewModel()
         {
             Servico Servico = new Servico();
-            Servicos = new ObservableCollection<Servico>();
+            Servicos = Servico.ConsultarCard();
 
         }
         public void AtualizarMetodo()
         {
             Servico Servico = new Servico();
-            Servicos.Add(Servico);
+            Servicos = Servico.ConsultarCard();
         }
 
         public RelayCommand JanelaNovo => new RelayCommand(execute => AbrirNovo(), canExecute => { return true; });
