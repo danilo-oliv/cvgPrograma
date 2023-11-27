@@ -16,7 +16,6 @@
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
-             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
              >
     <UserControl.Resources>
         <vm:EstoqueViewModel x:Key="vmEstoque"/>
@@ -30,6 +29,7 @@
             </Grid.RowDefinitions>
             <TextBlock Text="Produtos Mais Vendidos" FontSize="36" Margin="10" Grid.Row="0" HorizontalAlignment="Center"/>
             <views:TopVendasChart DataContext="{StaticResource vmInfo}" Grid.Row="1" Margin="20"/>
+            <!--<views:ServicoXVenda DataContext="{StaticResource vmInfo}" Grid.Row="1" Margin="20"></views:ServicoXVenda>-->
         </Grid>
     </Grid>
 </UserControl>

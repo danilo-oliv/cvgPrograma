@@ -17,6 +17,7 @@ namespace cvgPrograma.ViewModels
             QuantidadesVendidas = new ChartValues<int> { };
             NomesVendidos = new List<string> { };
             ConsegueTudo();
+            ResultadoSomas();
         }
 
 
@@ -66,6 +67,49 @@ namespace cvgPrograma.ViewModels
             }
         }
 
-    }
 
+        public int SomaServico { get; set; }
+        public int SomaVendas { get; set; }
+
+        public void ResultadoSomas()
+        {
+            MySqlConnection conexao = new MySqlConnection(_connectionString);
+            MySqlDataReader dr;
+            try
+            {
+                conexao.Open();
+                string selectServico = "SELECT SUM(totalservico) AS total_somado FROM servico;";
+                using (MySqlCommand comandoServico = new MySqlCommand(selectServico, conexao))
+                {
+                    using (dr = comandoServico.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            SomaServico = Convert.ToInt32(dr["total_somado"]);
+                        }
+
+                    }
+                }
+                string selectVenda = "SELECT sum(totalvenda) AS total_vendido_somado FROM venda;";
+                using (MySqlCommand comandoVenda = new MySqlCommand(selectVenda, conexao))
+                {
+                    using (dr = comandoVenda.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            SomaVendas = Convert.ToInt32(dr["total_vendido_somado"]);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+    }
 }
