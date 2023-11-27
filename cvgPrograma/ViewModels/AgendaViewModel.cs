@@ -160,7 +160,7 @@ namespace cvgPrograma.ViewModels
         {
             Servico Servico = new Servico();
             Servicos = Servico.ConsultarCard();
-
+            DeletCommand = new RelayCommand(DelProdHelper);
         }
         public void AtualizarMetodo()
         {
@@ -168,6 +168,15 @@ namespace cvgPrograma.ViewModels
             Servicos = Servico.ConsultarCard();
         }
 
+        public void DelProdHelper(object parameter )
+        {
+            Servico servico = new Servico();
+            if ( parameter is long Servico_Id) 
+            {
+                servico.DeletarServico(Servico_Id);
+                AtualizarMetodo();
+            }
+        }
         public RelayCommand JanelaNovo => new RelayCommand(execute => AbrirNovo(), canExecute => { return true; });
 
         public void AbrirNovo()
