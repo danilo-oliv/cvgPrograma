@@ -17,7 +17,7 @@ namespace cvgPrograma.Models
 {
     public class Servico
     {
-        private string _connectionString = "Server=localhost;Database=casadovideogame;User=root;Password=;";
+        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=;";
 
         public int ServicoId { get; set; }
         public string? DescSevico { get; set; }
@@ -96,6 +96,34 @@ namespace cvgPrograma.Models
             }
 
             return codMetodo;
+        }
+
+        public void DeletarProduto(long ServicoId)
+        {
+            MySqlConnection conexao = new MySqlConnection(_connectionString);
+
+            try
+            {
+                conexao.Open();
+
+                string deletarServicoSql = "DELETE from servico WHERE ServicoId = @ServicoId;" +
+                    "DELETE from servico WHERE ServicoId = @ServicoId;";
+
+                using (MySqlCommand comandoDeletarServico = new MySqlCommand(deletarServicoSql, conexao))
+                {
+                    comandoDeletarServico.Parameters.AddWithValue("@ServicoId", ServicoId);
+                    comandoDeletarServico.ExecuteNonQuery();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+            }
+            finally
+            {
+                conexao.Close();
+            }
         }
     }
 

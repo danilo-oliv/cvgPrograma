@@ -20,8 +20,8 @@
         <viewModel:AgendaViewModel x:Key="vmServico"/>
     </UserControl.Resources>
     <Grid DataContext="{StaticResource vmServico}">
-        
-    <Grid>
+        <StackPanel Orientation="Vertical">
+            <Grid>
         <!--Novo Serviço-->
 
             <StackPanel Panel.ZIndex="10" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
@@ -43,12 +43,13 @@
         />
             </StackPanel>
 
-            <Grid>
-            <Calendar Height="370" Margin="120,70,0,0" HorizontalAlignment="Left" Background="LightCyan"
-            Name="calendar1" VerticalAlignment="Top" Width="295" Language="pt-BR"/>
-        </Grid>
+                <Grid>
+                    <Calendar Background="#AFFF" FontWeight="Black" FontStyle="Italic" Height="370" Margin="120,70,0,0" HorizontalAlignment="Left"
+                 Name="calendar1" VerticalAlignment="Top" Width="295" Language="pt-BR">
+                    </Calendar>
+                </Grid>
 
-        <!--<materialDesign:Card HorizontalAlignment="Left"
+                <!--<materialDesign:Card HorizontalAlignment="Left"
   Padding="10,5"                           
   Background="#03a9f4"
   Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" Margin="1000,130,0,240" Width="355" Height="80">
@@ -237,8 +238,8 @@ Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" Margin="1000,400,0,
             </Grid>
         </materialDesign:Card> -->
 
-            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.ColumnSpan="3">
-                <ItemsControl ItemsSource="{Binding Servico}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="500,60,5,35" Grid.Row="1" Grid.ColumnSpan="3">
+                <ItemsControl ItemsSource="{Binding Servicos}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal" Margin="20, 5, 20, 5"/>
@@ -247,30 +248,81 @@ Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" Margin="1000,400,0,
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="10">
-                                <StackPanel Background="Purple" Width="165" Height="200"
-                                  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
-                                    <TextBlock Text="{Binding NomeCliente}" FontSize="18" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding TelefoneCliente}" FontSize="14" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding CodMetodo}" FontSize="14" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding TipoPagamento}" FontSize="14" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding CodServico}" FontSize="14" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding TipoServ}" FontSize="14" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding DescServico}" FontSize="14" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding DataEntradaServico}" FontSize="14" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding DataSaidaServico}" FontSize="14" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding ProntoServico}" FontSize="14" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding TotalServico}" FontSize="14" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding ClienteId}" FontSize="14" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding CodMetodo}" FontSize="14" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding CodServico}" FontSize="14" HorizontalAlignment="Center"/>
-                                    <Button x:Name="btnEditarCard" Content="Editar" Height="28" Padding="4"/>
+                                
+                                    <materialDesign:Card x:Name="Cards"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Padding="10,5"                           
+                                            Background="RoyalBlue"
+                                            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" 
+                                            Margin="15" Width="355" Height="80"
+                                            Visibility="{Binding CardVisibility, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition
+                                                     Height="Auto" />
+                                                <RowDefinition
+                                                     Height="Auto" />
+                                                <RowDefinition
+                                                     Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock
+                                                 Grid.Row="1"
+                                                 Margin="5,4,16,40"
+                                                 Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                                 Text="{Binding NomeCliente}" Grid.RowSpan="2" />
+                                            <Separator
+                                                 Grid.Row="1"
+                                                 Style="{StaticResource MaterialDesignLightSeparator}" />
+                                            <TextBlock
+                                                 Grid.Row="2"
+                                                 Margin="5,0,0,0"
+                                                 HorizontalAlignment="Left"
+                                                 VerticalAlignment="Center"
+                                                 Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                                 Text="{Binding DescSevico}" Height="20" Width="80" />
+                                            <StackPanel
+                                                 Grid.Row="2"
+                                                 Margin="16,10,10,8"
+                                                 HorizontalAlignment="Right"
+                                                 Orientation="Horizontal">
+                                                
+                                                <Button
+                                                     Width="33"
+                                                     Padding="8,0,8,0"
+                                                     materialDesign:RippleAssist.IsCentered="True"
+                     Style="{StaticResource MaterialDesignToolForegroundButton}" RenderTransformOrigin="1.2,0.604" Height="29">
+                                                    <materialDesign:PackIcon
+                                                         Kind="Phone" />
+                                                </Button>
+
+                                            
+                                                <TextBlock Text="{Binding ClienteId}" FontSize="14" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding NomeCliente}" FontSize="18" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding TelefoneCliente}" FontSize="14" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding CodMetodo}" FontSize="14" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding TipoPagamento}" FontSize="14" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding CodServico}" FontSize="14" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding TipoServ}" FontSize="14" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding DescSevico}" FontSize="14" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding DataEntradaServico}" FontSize="14" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding DataSaidaServico}" FontSize="14" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding ProntoServico}" FontSize="14" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding TotalServico}" FontSize="14" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding CodServico}" FontSize="14" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding CodMetodo}" FontSize="14" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding CodServico}" FontSize="14" HorizontalAlignment="Center"/>
+                                                
+                                            </StackPanel>
+                                        </Grid>
+                                    </materialDesign:Card>
+                                    <Button x:Name="btnEditarCard" Background="Black"  Content="{materialDesign:PackIcon Kind=DeleteOutline}" Width="50" Height="30" Command="{Binding DataContext.DeletCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding ServicoId}"  Tag="{Binding ServicoId}" Cursor="Hand" Padding="4"/>
                                 </StackPanel>
-                            </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
         </Grid>
-
+        </StackPanel>
     </Grid>
 </UserControl>
