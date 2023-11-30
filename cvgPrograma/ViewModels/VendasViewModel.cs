@@ -68,9 +68,21 @@ namespace cvgPrograma.ViewModels
             Venda venda = new Venda();
             dataTableVenda = venda.ConsultarVenda();
             DeletCommand = new RelayCommand(DelProdHelper);
+            UpdateCommand = new RelayCommand(UpdateVenda);
+            Produto produto = new Produto();
+            Produtos = produto.ConsultarProduto();
         }
 
 
+        public ICommand UpdateCommand { get; set; }
+
+        public void UpdateVenda(object parameter)
+        {
+            Venda venda = new Venda();
+            if (parameter is int Venda_Id)
+                venda.UpdateVenda(nomeProd, quantProd, Venda_Id, totalVenda);
+            AtualizarTabela();
+        }
 
 
 
@@ -206,6 +218,84 @@ namespace cvgPrograma.ViewModels
             venda.DeletarVenda(Convert.ToInt32(parameter));
             AtualizarTabela();
         }
+
+
+        #region Box pro update
+
+        private string _nomeProd;
+
+        public string nomeProd
+        {
+            get { return _nomeProd; }
+            set { _nomeProd = value; OnPropertyChanged(nameof(nomeProd)); }
+        }
+
+        private decimal _precoProd;
+
+        public decimal precoProd
+        {
+            get { return _precoProd; }
+            set { _precoProd = value; OnPropertyChanged(nameof(precoProd)); }
+        }
+
+        private int _quantProd;
+
+        public int quantProd
+        {
+            get { return _quantProd; }
+            set { _quantProd = value; OnPropertyChanged(nameof(quantProd)); CalculaTotal(); }
+        }
+
+        private decimal _totalVenda;
+
+        public decimal totalVenda
+        {
+            get { return _totalVenda; }
+            set { _totalVenda = value; OnPropertyChanged(nameof(totalVenda)); }
+        }
+
+        public void CalculaTotal()
+        {
+            totalVenda = PrecoProdSelecionado * quantProd;
+        }
+
+        private ObservableCollection<Produto> _produto;
+        public ObservableCollection<Produto> Produtos
+        {
+            get { return _produto; }
+            set
+            {
+                _produto = value;
+                OnPropertyChanged(nameof(Produtos));
+            }
+        }
+
+        private Produto _ProdSelecionado;
+        public Produto ProdSelecionado
+        {
+            get { return _ProdSelecionado; }
+            set
+            {
+                if (_ProdSelecionado != value)
+                {
+                    _ProdSelecionado = value;
+                    OnPropertyChanged(nameof(ProdSelecionado));
+                    OnPropertyChanged(nameof(PrecoProdSelecionado));
+                }
+            }
+        }
+
+        public decimal PrecoProdSelecionado
+        {
+            get { return ProdSelecionado?.PrecoProduto ?? 0; }
+        }
+
+
+
+
+
+        #endregion
+
     }
-       
+
 }

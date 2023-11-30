@@ -220,5 +220,42 @@ namespace cvgPrograma.Models
                 conexao.Close();
             }
         }
-    }
+
+        public void UpdateVenda(string nomeProduto, int quant, int idVenda, decimal total)
+        {
+            MySqlConnection conexao = new MySqlConnection(_connectionString);
+
+            int idProd = EncontrarProdId(nomeProduto);
+
+            try
+            {
+                conexao.Open();
+                string updateProdutoVenda = "UPDATE produtovenda SET ProdId = @idprod, QuantVenda = @quant WHERE VendaId = @idvenda;";
+                string updateVenda = "UPDATE venda SET TotalVenda = @total WHERE VendaId = @vendaid;";
+                using (MySqlCommand comandoProdutoVenda = new MySqlCommand(updateProdutoVenda, conexao))
+                {
+                    comandoProdutoVenda.Parameters.AddWithValue("idprod", idProd);
+                    comandoProdutoVenda.Parameters.AddWithValue("quant", quant);
+                    comandoProdutoVenda.Parameters.AddWithValue("idvenda", idVenda);
+                    comandoProdutoVenda.ExecuteNonQuery();
+                }
+                using (MySqlCommand comandoVenda = new MySqlCommand(updateVenda, conexao))
+                {
+                    comandoVenda.Parameters.AddWithValue("total", total);
+                    comandoVenda.Parameters.AddWithValue("vendaid", idVenda);
+                    comandoVenda.ExecuteNonQuery();
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+        }
 }

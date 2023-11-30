@@ -138,16 +138,68 @@
                                     </materialDesign:Card>
                                     <StackPanel Margin="10,25,5,0">
                                         <Button x:Name="btnEditarCard" Background="Black" Foreground="White" Content="{materialDesign:PackIcon Kind=DeleteOutline}" Width="50" Height="30" Command="{Binding DataContext.DeletCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding ServicoId}"  Tag="{Binding ServicoId}" Cursor="Hand" Padding="4"/>
-                                        <Button
-                                Width="50"
-                                Padding="2"
-                                            Margin="5,5,5,5"
-                                materialDesign:RippleAssist.IsCentered="True"
-                                   Background="Black" Foreground="White"
-RenderTransformOrigin="1.2,0.604" Height="29">
-                                            <materialDesign:PackIcon
-                                    Kind="ClipboardOutline" />
-                                        </Button>
+                                        <materialDesign:DialogHost>
+                                            <Button Margin="5 0" Width="50" Height="30"  Cursor="Hand" Padding="4" Content="{materialDesign:PackIcon Kind=PencilBoxMultiple}" Background="Black" BorderThickness="0"  
+                                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"/>
+                                            <materialDesign:DialogHost.DialogContent>
+                                                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Width="500" Height="500">
+                                                    <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">Fechar</Button>
+                                                    <TextBlock Text="{Binding VendaId}"/>                                                  
+                                                        
+                                                    <TextBox                                
+                                Text="{Binding DataContext.boxCliente, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                Margin="0 10 10 10"
+                                Width="250"
+                                VerticalAlignment="Top"
+                                materialDesign:HintAssist.Hint="Cliente:"
+                                materialDesign:HintAssist.HintOpacity="0.9"
+                                AcceptsReturn="True"                       
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                TextWrapping="Wrap"
+                                VerticalScrollBarVisibility="Auto" />
+                                                    <TextBox                               
+                                Text="{Binding DataContext.boxTelefone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                Margin="0 10 10 10"
+                                Width="250"
+                                VerticalAlignment="Top"
+                                materialDesign:HintAssist.Hint="Telefone Cliente:"
+                                materialDesign:HintAssist.HintOpacity="0.9"
+                                AcceptsReturn="True"                       
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                TextWrapping="Wrap"
+                                VerticalScrollBarVisibility="Auto" />
+                                                    <TextBox                                
+                                Text="{Binding DataContext.boxDesc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                Margin="0 10 10 10" 
+                                Width="250" Height="150"
+                                VerticalAlignment="Top"
+                                materialDesign:HintAssist.Hint="Descrição:"
+                                materialDesign:HintAssist.HintOpacity="0.9"
+                                AcceptsReturn="True"                       
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                TextWrapping="Wrap"
+                                VerticalScrollBarVisibility="Auto" />
+                                                    <TextBox                                
+                                Text="{Binding DataContext.boxValor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                Margin="0 10 10 10"
+                                Width="250"
+                                VerticalAlignment="Top"
+                                materialDesign:HintAssist.Hint="Valor:"
+                                materialDesign:HintAssist.HintOpacity="0.9"
+                                AcceptsReturn="True"                       
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                TextWrapping="Wrap"
+                                VerticalScrollBarVisibility="Auto" />
+                                                    <Button Command="{Binding DataContext.UpdateCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding ServicoId}"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                Margin="10 30"
+                   
+                Content="Salvar Alterações"
+                Width="150"
+        />
+                                                </StackPanel>
+                                            </materialDesign:DialogHost.DialogContent>
+                                        </materialDesign:DialogHost>
                                     </StackPanel>
                                 </StackPanel>
                         </DataTemplate>
