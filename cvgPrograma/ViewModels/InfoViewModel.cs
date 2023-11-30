@@ -25,7 +25,7 @@ namespace cvgPrograma.ViewModels
         public ChartValues<int> QuantidadesVendidas { get; set; }
         public List<string> NomesVendidos { get; set; }
 
-        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=;";
+        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=Amorinha 24;";
 
         public void ConsegueTudo()
         {

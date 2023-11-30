@@ -60,12 +60,12 @@
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="Background" Value="BlueViolet" />
-                    <Setter Property="FontSize" Value="14" />
+                    <Setter Property="FontSize" Value="15" />
                     <Setter Property="Foreground" Value="White" />
                     <Setter Property="ContentTemplate">
                         <Setter.Value>
                             <DataTemplate>
-                                <TextBlock Text="{Binding}" Padding="10px" />
+                                <TextBlock Text="{Binding}" Padding="15px" />
                             </DataTemplate>
                         </Setter.Value>
                     </Setter>
