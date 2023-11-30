@@ -171,7 +171,7 @@ namespace cvgPrograma.ViewModels
         public void DelProdHelper(object parameter )
         {
             Servico servico = new Servico();
-            if ( parameter is long Servico_Id) 
+            if ( parameter is int Servico_Id) 
             {
                 servico.DeletarServico(Servico_Id);
                 AtualizarMetodo();
