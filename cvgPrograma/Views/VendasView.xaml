@@ -55,7 +55,7 @@
 
         <DataGrid ItemsSource="{Binding dataTableVenda}"
           Grid.Row="1"   x:Name="dataGridVendas" AutoGenerateColumns="False"  IsReadOnly="True" HorizontalAlignment="Center"          
-          Background="White">
+          Background="White" Width="900" HorizontalContentAlignment="Center">
             
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">

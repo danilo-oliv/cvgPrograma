@@ -27,9 +27,14 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Produtos Mais Vendidos" FontSize="36" Margin="10" Grid.Row="0" HorizontalAlignment="Center"/>
-            <views:TopVendasChart DataContext="{StaticResource vmInfo}" Grid.Row="1" Margin="20"/>
-            <!--<views:ServicoXVenda DataContext="{StaticResource vmInfo}" Grid.Row="1" Margin="20"></views:ServicoXVenda>-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="PRODUTOS MAIS VENDIDOS" Foreground="Black" FontSize="22" Margin="10" Grid.Row="0" HorizontalAlignment="Center"/>
+            <TextBlock Text="VENDAS X SERVIÇOS" FontSize="22" Margin="10" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"/>
+            <views:TopVendasChart DataContext="{StaticResource vmInfo}" Grid.Row="1" Grid.Column="0" Margin="20"/>
+            <views:ComparaChart Grid.Row="1" Grid.Column="1" Margin="20"/>
         </Grid>
     </Grid>
 </UserControl>
