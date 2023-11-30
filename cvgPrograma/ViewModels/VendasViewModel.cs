@@ -103,7 +103,7 @@ namespace cvgPrograma.ViewModels
             dataTableVenda = Venda.ConsultarVenda();
         }
 
-        private string _connectionString = "Server=localhost;Database=casadovideogame; Uid=root;Pwd=Amorinha 24;";
+        private string _connectionString = "Server=localhost;Database=casadovideogame; Uid=root;Pwd=;";
         public void UpdateVenda(int VendaId, decimal NovoTotal)
         {
             MySqlConnection conexao = new MySqlConnection(_connectionString);
@@ -202,10 +202,9 @@ namespace cvgPrograma.ViewModels
         
         public void DelProdHelper(object parameter )
         {
-            Venda venda = new Venda();
-            
-            
-                venda.DeletarVenda(Convert.ToInt32(parameter));
+            Venda venda = new Venda();         
+            venda.DeletarVenda(Convert.ToInt32(parameter));
+            AtualizarTabela();
         }
     }
        

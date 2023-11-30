@@ -22,7 +22,7 @@ namespace cvgPrograma.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=Amorinha 24;";
+        private string _connectionString = "Server=localhost;Database=casadovideogame;Uid=root;Pwd=;";
 
 
         public int VendaId { get; set; }
@@ -201,7 +201,7 @@ namespace cvgPrograma.Models
             {
                 conexao.Open();
 
-                string deletarVendaSql = "DELETE from venda WHERE VendaId = @VendaId;" +
+                string deletarVendaSql = "DELETE from produtovenda WHERE VendaId = @VendaId;" +
                     "DELETE from venda WHERE VendaId = @VendaId;";
 
                 using (MySqlCommand comandoDeletarVenda = new MySqlCommand(deletarVendaSql, conexao))
@@ -209,7 +209,7 @@ namespace cvgPrograma.Models
                     comandoDeletarVenda.Parameters.AddWithValue("@VendaId", Idvenda);
                     comandoDeletarVenda.ExecuteNonQuery();
                 }
-
+                MessageBox.Show("Deletado com sucesso."); 
             }
             catch (Exception ex)
             {

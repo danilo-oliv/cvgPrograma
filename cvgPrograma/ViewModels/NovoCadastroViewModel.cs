@@ -78,7 +78,7 @@ namespace cvgPrograma.ViewModels
             }
         }
 
-        private string _connectionString = "Server=localhost;Database=casadovideogame;User=root;Password=Amorinha 24;";
+        private string _connectionString = "Server=localhost;Database=casadovideogame;User=root;Password=;";
         public ObservableCollection<Pagamento> MetodosPagamento()
         {
             MySqlConnection conexao = new MySqlConnection(_connectionString);
