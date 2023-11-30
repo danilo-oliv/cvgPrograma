@@ -79,8 +79,9 @@ namespace cvgPrograma.ViewModels
         public void UpdateVenda(object parameter)
         {
             Venda venda = new Venda();
-            if (parameter is int Venda_Id)
-                venda.UpdateVenda(nomeProd, quantProd, Venda_Id, totalVenda);
+            int Venda_Id = Convert.ToInt32(parameter);
+            string nome_produto = ProdSelecionado.ToString();
+            venda.UpdateVenda(nome_produto, quantProd, Venda_Id, totalVenda);
             AtualizarTabela();
         }
 
@@ -227,7 +228,7 @@ namespace cvgPrograma.ViewModels
         public string nomeProd
         {
             get { return _nomeProd; }
-            set { _nomeProd = value; OnPropertyChanged(nameof(nomeProd)); }
+            set { _nomeProd = ProdSelecionado.ToString(); OnPropertyChanged(nameof(nomeProd)); }
         }
 
         private decimal _precoProd;
