@@ -18,7 +18,7 @@ namespace cvgPrograma.ViewModels
             QuantidadesVendidas = new ChartValues<int> { };
             NomesVendidos = new List<string> { };
             ConsegueTudo();
-            Somas();
+            Somas();            
         }
 
 
@@ -66,7 +66,7 @@ namespace cvgPrograma.ViewModels
                 conexao.Close();
             }
         }
-
+      
         public double[] Somas()
         {
             MySqlConnection conexao = new MySqlConnection(_connectionString);
@@ -119,6 +119,7 @@ namespace cvgPrograma.ViewModels
 
 
 
-    }
+    
 
+    }
 }

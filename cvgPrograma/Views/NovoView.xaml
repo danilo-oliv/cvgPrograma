@@ -245,7 +245,7 @@
                                 VerticalAlignment="Bottom"
                                 Margin="10">
                                     <Button Width="126"
-                            Margin="10 0 10 0" 
+                            Margin="10 0 10 0" Command="{Binding DataContext.ImagemEscolha, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                             >Inserir Imagem:</Button>
                                     <Button Width="85"
                             Margin="10 0 10 0" 
@@ -256,7 +256,8 @@
                             <StackPanel x:Name="SEGUNDO_QUADRANTE"
                         Grid.Row="1"
                         Grid.Column="1">
-                                <Image Name="imgDynamic" 
+                                <Image Name="imgDynamic"
+                           Source="{Binding DataContext.txbxcaminhoDoArquivo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                            Margin="0 30" 
                            Stretch="Uniform"
                            Width="160"

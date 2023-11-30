@@ -5,6 +5,11 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cvgPrograma", "cvgPrograma\cvgPrograma.csproj", "{7CEB7A8C-747B-4722-8CCA-D1F0B7CDE589}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{8CE3C236-DD91-43DF-8AC2-D355E3082015}"
+	ProjectSection(SolutionItems) = preProject
+		cvgPrograma\Assets\icon.ico = cvgPrograma\Assets\icon.ico
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
