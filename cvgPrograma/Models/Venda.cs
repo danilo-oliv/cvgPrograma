@@ -245,7 +245,7 @@ namespace cvgPrograma.Models
                     comandoVenda.Parameters.AddWithValue("vendaid", idVenda);
                     comandoVenda.ExecuteNonQuery();
                 }
-
+                MessageBox.Show("Editado com sucesso");
             }
 
             catch (Exception ex)
