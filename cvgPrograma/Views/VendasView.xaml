@@ -41,7 +41,7 @@
                     <materialDesign:PackIcon FontSize="60"  Kind="Plus"/>
                 </Button>
 
-                <Button Command="{Binding AtualizarCollection}"
+                <Button Command="{Binding AtualizarVendas}"
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="10 30"
                    
@@ -60,12 +60,12 @@
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="Background" Value="BlueViolet" />
-                    <Setter Property="FontSize" Value="14" />
+                    <Setter Property="FontSize" Value="15" />
                     <Setter Property="Foreground" Value="White" />
                     <Setter Property="ContentTemplate">
                         <Setter.Value>
                             <DataTemplate>
-                                <TextBlock Text="{Binding}" Padding="10px" />
+                                <TextBlock Text="{Binding}" Padding="15px" />
                             </DataTemplate>
                         </Setter.Value>
                     </Setter>
@@ -90,38 +90,23 @@
                                     <Button Margin="5 0" Background="#006FFF" BorderThickness="0"  
                                         Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">Editar</Button>
                                     <materialDesign:DialogHost.DialogContent>
-                                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Width="500" Height="500">
+                                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Width="500" Height="350">
                                             <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">Fechar</Button>
                                             <TextBlock Text="{Binding VendaId}"/>
-                                            <ComboBox
-                                StaysOpenOnEdit="True"
-                                x:Name="OutlinedComboBox"
-                                Margin="0 10 10 10"
-                                Width="195"
-                                materialDesign:HintAssist.Hint="Produto"    
-                                Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                ItemsSource="{Binding ItensFiltrados, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                IsEditable="True"            
-                                Text="{Binding TermoDeBusca, UpdateSourceTrigger=PropertyChanged}">
-                                                <ComboBox.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <ComboBoxItem Content="{Binding NomeProduto}"/>
-                                                    </DataTemplate>
-                                                </ComboBox.ItemTemplate>
-                                            </ComboBox>
+                                            <ComboBox ItemsSource="{Binding DataContext.Produtos, RelativeSource={RelativeSource AncestorType=DataGrid}}" Grid.Row="0" Width="400" materialDesign:HintAssist.Hint="Produto" SelectedItem="{Binding DataContext.ProdSelecionado, RelativeSource={RelativeSource AncestorType=DataGrid}}" ></ComboBox>
                                             <TextBox                                
-                                Text="{Binding txtTotalVenda, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Text="{Binding DataContext.PrecoProdSelecionado, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                 Margin="0 10 10 10"
                                 Width="195"
-                                VerticalAlignment="Top"
-                                materialDesign:HintAssist.Hint="Total da venda:"
+                                VerticalAlignment="Top" IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Preço:"
                                 materialDesign:HintAssist.HintOpacity="0.9"
                                 AcceptsReturn="True"                       
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                 TextWrapping="Wrap"
                                 VerticalScrollBarVisibility="Auto" />
                                             <TextBox                               
-                                Text="{Binding txtQuantidadeVendida, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Text="{Binding DataContext.quantProd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                 Margin="0 10 10 10"
                                 Width="195"
                                 VerticalAlignment="Top"
@@ -132,20 +117,27 @@
                                 TextWrapping="Wrap"
                                 VerticalScrollBarVisibility="Auto" />
                                             <TextBox                                
-                                Text="{Binding txbxNomeProduto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Text="{Binding DataContext.totalVenda, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                 Margin="0 10 10 10"
                                 Width="195"
                                 VerticalAlignment="Top"
-                                materialDesign:HintAssist.Hint="Nome:"
+                                materialDesign:HintAssist.Hint="Total:"
                                 materialDesign:HintAssist.HintOpacity="0.9"
                                 AcceptsReturn="True"                       
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                 TextWrapping="Wrap"
                                 VerticalScrollBarVisibility="Auto" />
+                                            <Button Command="{Binding DataContext.UpdateCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding VendaId}"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                Margin="10 30"
+                   
+                Content="Salvar Alterações"
+                Width="150"
+        />
                                         </StackPanel>
                                     </materialDesign:DialogHost.DialogContent>
                                 </materialDesign:DialogHost>
-                                <Button Margin="5 0" Background="#C90020" BorderThickness="0">Deletar</Button>
+                                <Button Margin="5 0" Background="#C90020" BorderThickness="0" Command="{Binding DataContext.DeletCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding VendaId}">Deletar </Button>
                             </StackPanel>
 
                         </StackPanel>

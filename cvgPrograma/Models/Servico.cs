@@ -184,6 +184,34 @@ namespace cvgPrograma.Models
                 conexao.Close();
             }
         }
+
+        public void UpdateServico(string nome, string tel, string desc, decimal total, int idServ)
+        {
+            MySqlConnection conexao = new MySqlConnection(_connectionString);
+            try
+            {
+                conexao.Open();
+                string updateServ = "UPDATE servico SET NomeCliente = @nome, TelefoneCliente = @tel, DescServico = @desc, TotalServico = @total WHERE ServicoId = @servId;";
+                using (MySqlCommand comandoUpdate = new MySqlCommand(updateServ, conexao))
+                {
+                    comandoUpdate.Parameters.AddWithValue("@nome", nome);
+                    comandoUpdate.Parameters.AddWithValue("@tel", tel);
+                    comandoUpdate.Parameters.AddWithValue("@desc", desc);
+                    comandoUpdate.Parameters.AddWithValue("@total", total);
+                    comandoUpdate.Parameters.AddWithValue("@servId", idServ);
+                    comandoUpdate.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+
+        }
     }
 
 }

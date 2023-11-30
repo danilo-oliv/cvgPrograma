@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using LiveCharts;
 using LiveCharts.Wpf;
-using LiveChartsCore.Defaults;
+using LiveCharts.Defaults;
 using MySql.Data.MySqlClient;
 
 namespace cvgPrograma.ViewModels
@@ -98,8 +98,18 @@ namespace cvgPrograma.ViewModels
                         }
                     }
                 }
-                double[] array = { TotalVendas, TotalServico };
-                return array;
+                if(TotalVendas != null && TotalServico != null)
+                {
+                    double[] array = { TotalVendas, TotalServico};
+                    return array;
+                }
+                else
+                {
+                    double[] array = { 0, 0 };
+                    return array;
+                }
+
+
             }
             catch (Exception ex)
             {

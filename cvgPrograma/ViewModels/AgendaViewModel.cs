@@ -155,12 +155,14 @@ namespace cvgPrograma.ViewModels
         #endregion
 
         public ICommand DeletCommand { get; set; }
+        public ICommand UpdateCommand { get; set; } 
 
         public AgendaViewModel()
         {
             Servico Servico = new Servico();
             Servicos = Servico.ConsultarCard();
-            DeletCommand = new RelayCommand(DelProdHelper);
+            DeletCommand = new RelayCommand(DelServHelper);
+            UpdateCommand = new RelayCommand(UpdateHelper);
         }
         public void AtualizarMetodo()
         {
@@ -168,7 +170,7 @@ namespace cvgPrograma.ViewModels
             Servicos = Servico.ConsultarCard();
         }
 
-        public void DelProdHelper(object parameter )
+        public void DelServHelper(object parameter )
         {
             Servico servico = new Servico();
             if ( parameter is int Servico_Id) 
@@ -186,9 +188,52 @@ namespace cvgPrograma.ViewModels
             novo.Show();
         }
 
+        #region Editar Serviço - Boxes
+
+        private string _boxCliente;
+
+        public string boxCliente
+        {
+            get { return _boxCliente; }
+            set { _boxCliente = value; OnPropertyChanged(nameof(boxCliente)); }
+        }
+        private string _boxTelefone;
+
+        public string boxTelefone
+        {
+            get { return _boxTelefone; }
+            set { _boxTelefone = value; OnPropertyChanged(nameof(boxTelefone)); }
+        }
+
+        private string _boxDesc;
+
+        public string boxDesc
+        {
+            get { return _boxDesc; }
+            set { _boxDesc = value; OnPropertyChanged(nameof(boxDesc)); }
+        }
+
+        private decimal _boxValor;
+
+        public decimal boxValor
+        {
+            get { return _boxValor; }
+            set { _boxValor = value; OnPropertyChanged(nameof(boxValor)); }
+        }
 
 
 
+
+
+        #endregion
+
+        public void UpdateHelper(object parameter)
+        {
+            Servico servico = new Servico();
+            if (parameter is int Servico_ID)
+                servico.UpdateServico(boxCliente, boxTelefone, boxDesc, boxValor, Servico_ID);
+            AtualizarMetodo();
+        }
 
 
 
