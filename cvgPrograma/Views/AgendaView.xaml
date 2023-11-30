@@ -64,12 +64,15 @@
             </StackPanel>
 
                 <Grid Grid.Column="0" Grid.ColumnSpan="2">
-                    <Calendar Background="#AFFF" FontWeight="Black" FontStyle="Italic" Height="370" Margin="25, 50" HorizontalAlignment="Left"
+                    <Grid.Effect>
+                        <DropShadowEffect Color="#AAAA" Direction="320" ShadowDepth="8" BlurRadius="10"/>
+                    </Grid.Effect>
+                    <Calendar Background="#FFFF" FontWeight="Black" FontStyle="Italic" Height="370" Margin="80, 80" HorizontalAlignment="Left"
                  Name="calendar1" VerticalAlignment="Top" Width="295" Language="pt-BR">
                     </Calendar>
                 </Grid>
 
-                <ScrollViewer MaxHeight="625" VerticalScrollBarVisibility="Visible" CanContentScroll="True" PanningMode="VerticalFirst" Margin="70 50 70 150" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4">
+                <ScrollViewer MaxHeight="625" VerticalScrollBarVisibility="Visible" CanContentScroll="True" PanningMode="VerticalFirst" Margin="80 55 60 150" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4">
                 <ItemsControl ItemsSource="{Binding Servicos}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -84,7 +87,7 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Padding="10,5"                           
-                                            Background="{DynamicResource PrimaryHueMidBrush}"
+                                            Background="MediumSlateBlue"
                                             Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" 
                                             Width="375" Height="120"
                                             Visibility="Visible">
@@ -99,19 +102,23 @@
                                             </Grid.RowDefinitions>
                                             <TextBlock
                                                  Grid.Row="1"
-                                                 Margin="5,4,16,40"
+                                                 Margin="2,2,10,20"
                                                  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                                                  Text="{Binding NomeCliente}" Grid.RowSpan="2" />
+                                            <Separator
+                                                 Grid.Row="1"
+                                                Margin="0,20,0,0"
+                                                 Style="{StaticResource MaterialDesignLightSeparator}" />
                                             <TextBlock
                                                  Grid.Row="2"
-                                                 Margin="5,0,0,0"
+                                                 Margin="2,0,0,0"
                                                  HorizontalAlignment="Left"
                                                  VerticalAlignment="Center"
                                                  Style="{StaticResource MaterialDesignBody2TextBlock}"
                                                  Text="{Binding DescSevico}" />
                                             <StackPanel
                                                  Grid.Row="2"
-                                                 Margin="16,10,10,8"
+                                                 Margin="14,0,8,6"
                                                  HorizontalAlignment="Right"
                                                  Orientation="Horizontal">
                                                 
@@ -125,28 +132,29 @@
                                                     <TextBlock Text="{Binding TotalServico}" FontSize="14" HorizontalAlignment="Center"/>
                                                 </WrapPanel>
 
-                                                <StackPanel Margin="10">
-                                                    <Button x:Name="btnEditarCard" Background="{DynamicResource PrimaryHueDarkForegroundBrush}" Foreground="{DynamicResource PrimaryHueMidBrush}" Content="{materialDesign:PackIcon Kind=DeleteOutline}" Width="30" Height="30" Command="{Binding DataContext.DeletCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding ServicoId}"  Tag="{Binding ServicoId}" Cursor="Hand" Padding="4"/>
-                                                    <Button
-                                                     Width="30"
-                                                     Padding="8,0,8,0"
-                                                     materialDesign:RippleAssist.IsCentered="True"
-                                                        Background="{DynamicResource PrimaryHueDarkForegroundBrush}" Foreground="{DynamicResource PrimaryHueMidBrush}"
-                     RenderTransformOrigin="1.2,0.604" Height="29">
-                                                        <materialDesign:PackIcon
-                                                         Kind="ClipboardOutline" />
-                                                    </Button>
-                                                </StackPanel>
+                                                
                                             </StackPanel>
                                         </Grid>
                                     </materialDesign:Card>
-                                    
+                                    <StackPanel Margin="10,25,5,0">
+                                        <Button x:Name="btnEditarCard" Background="Black" Foreground="White" Content="{materialDesign:PackIcon Kind=DeleteOutline}" Width="50" Height="30" Command="{Binding DataContext.DeletCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding ServicoId}"  Tag="{Binding ServicoId}" Cursor="Hand" Padding="4"/>
+                                        <Button
+                                Width="50"
+                                Padding="2"
+                                            Margin="5,5,5,5"
+                                materialDesign:RippleAssist.IsCentered="True"
+                                   Background="Black" Foreground="White"
+RenderTransformOrigin="1.2,0.604" Height="29">
+                                            <materialDesign:PackIcon
+                                    Kind="ClipboardOutline" />
+                                        </Button>
+                                    </StackPanel>
                                 </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
-                </Grid>       
+          </Grid>       
             
         </StackPanel>
     </Grid>

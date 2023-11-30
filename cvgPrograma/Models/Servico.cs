@@ -157,7 +157,7 @@ namespace cvgPrograma.Models
             return codMetodo;
         }
 
-        public void DeletarProduto(long ServicoId)
+        public void DeletarServico(long ServicoId)
         {
             MySqlConnection conexao = new MySqlConnection(_connectionString);
 

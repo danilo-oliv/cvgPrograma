@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using LiveCharts;
 using LiveCharts.Wpf;
+using LiveChartsCore.Defaults;
 using MySql.Data.MySqlClient;
 
 namespace cvgPrograma.ViewModels
@@ -17,9 +18,8 @@ namespace cvgPrograma.ViewModels
             QuantidadesVendidas = new ChartValues<int> { };
             NomesVendidos = new List<string> { };
             ConsegueTudo();
-            ResultadoSomas();
+            Somas();            
         }
-
 
 
         public ChartValues<int> QuantidadesVendidas { get; set; }
@@ -66,50 +66,60 @@ namespace cvgPrograma.ViewModels
                 conexao.Close();
             }
         }
-
-
-        public int SomaServico { get; set; }
-        public int SomaVendas { get; set; }
-
-        public void ResultadoSomas()
+      
+        public double[] Somas()
         {
             MySqlConnection conexao = new MySqlConnection(_connectionString);
             MySqlDataReader dr;
             try
             {
                 conexao.Open();
+                string selectVenda = "SELECT sum(totalvenda) AS total_vendido_somado FROM venda;";
                 string selectServico = "SELECT SUM(totalservico) AS total_somado FROM servico;";
+                using (MySqlCommand comandoVenda = new MySqlCommand(selectVenda, conexao))
+                {
+                    using (dr = comandoVenda.ExecuteReader())
+                    {
+                        while(dr.Read())
+                        {
+                            double valorObtido = Convert.ToDouble(dr["total_vendido_somado"]);
+                            TotalVendas = valorObtido;
+                        }
+                    }
+                }
                 using (MySqlCommand comandoServico = new MySqlCommand(selectServico, conexao))
                 {
                     using (dr = comandoServico.ExecuteReader())
                     {
                         while (dr.Read())
                         {
-                            SomaServico = Convert.ToInt32(dr["total_somado"]);
-                        }
-
-                    }
-                }
-                string selectVenda = "SELECT sum(totalvenda) AS total_vendido_somado FROM venda;";
-                using (MySqlCommand comandoVenda = new MySqlCommand(selectVenda, conexao))
-                {
-                    using (dr = comandoVenda.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            SomaVendas = Convert.ToInt32(dr["total_vendido_somado"]);
+                            double valorObtidos = Convert.ToDouble(dr["total_somado"]);
+                            TotalServico = valorObtidos;
                         }
                     }
                 }
+                double[] array = { TotalVendas, TotalServico };
+                return array;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Erro: " + ex.Message);
+                return null;
             }
             finally
             {
                 conexao.Close();
             }
         }
+
+        public SeriesCollection ColecaoPiechart { get; set; }
+        public double TotalVendas { get; set; }
+        public double TotalServico { get; set; }
+
+
+
+
+    
+
     }
 }
